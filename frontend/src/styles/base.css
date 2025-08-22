@@ -1,0 +1,325 @@
+/**
+ * Base Styles - NSS IIT Delhi
+ * Global styles and resets
+ */
+
+/* =================================
+   RESET & NORMALIZE
+   ================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* =================================
+   TYPOGRAPHY
+   ================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.375rem;
+    }
+}
+
+p {
+    margin-bottom: var(--space-4);
+    line-height: 1.7;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--duration-150) var(--ease);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* =================================
+   LAYOUT UTILITIES
+   ================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-4);
+    }
+}
+
+.section {
+    padding: var(--space-20) 0;
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: var(--space-16) 0;
+    }
+}
+
+/* =================================
+   GRID SYSTEM
+   ================================= */
+.grid {
+    display: grid;
+    gap: var(--space-8);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive grid */
+@media (max-width: 1024px) {
+
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =================================
+   FLEXBOX UTILITIES
+   ================================= */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-4 {
+    gap: var(--space-4);
+}
+
+.gap-6 {
+    gap: var(--space-6);
+}
+
+/* =================================
+   COMPONENTS
+   ================================= */
+
+/* Cards */
+.card {
+    background: var(--gradient-surface);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-light);
+    transition: all var(--duration-200) var(--ease);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all var(--duration-200) var(--ease);
+    line-height: 1;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-green);
+}
+
+.btn-primary:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+    background: var(--surface-elevated);
+    box-shadow: var(--shadow);
+}
+
+/* Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-xl);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.badge-primary {
+    background: rgba(5, 150, 105, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.badge-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Hero section */
+.hero-section {
+    background: var(--gradient-hero);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Section variants */
+.section-alt {
+    background: var(--bg-secondary);
+}
+
+/* =================================
+   UTILITIES
+   ================================= */
+.text-center {
+    text-align: center;
+}
+
+.text-large {
+    font-size: 1.25rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-muted {
+    color: var(--text-tertiary);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .hidden-mobile {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .hidden-desktop {
+        display: none;
+    }
+}
