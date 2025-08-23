@@ -1,7 +1,79 @@
-/**
- * Base Styles - NSS IIT Delhi
- * Global styles and resets
- */
+:root {
+    /* Colors */
+    --primary: #059669;
+
+    /* Emerald green for primary actions */
+    --primary-dark: #065F46;
+
+    /* Darker green for hovers */
+    --success: #10B981;
+
+    /* Success states */
+    --warning: #F59E0B;
+
+    /* Warning states */
+    --text-primary: #1A202C;
+
+    /* Dark gray for primary text */
+    --text-secondary: #4A5568;
+
+    /* Medium gray for secondary text */
+    --text-tertiary: #718096;
+
+    /* Light gray for muted text */
+    --bg-primary: #F7FAFC;
+
+    /* Light gray background */
+    --bg-secondary: #EDF2F7;
+
+    /* Slightly darker background for sections */
+    --surface: #FFF;
+
+    /* White for cards and surfaces */
+    --surface-elevated: #F7FAFC;
+
+    /* Slightly raised surfaces */
+    --border: #E2E8F0;
+
+    /* Light border */
+    --border-light: #EDF2F7;
+
+    /* Lighter border */
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #059669, #10B981);
+    --gradient-surface: linear-gradient(135deg, #FFF, #F7FAFC);
+    --gradient-hero: linear-gradient(135deg, #D6FFE6, #E6FFFA);
+
+    /* Shadows */
+    --shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+    --shadow-lg: 0 4px 12px rgb(0 0 0 / 15%);
+    --shadow-green: 0 2px 8px rgb(5 150 105 / 20%);
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-16: 64px;
+    --space-20: 80px;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+
+    /* Transitions */
+    --duration-150: 150ms;
+    --duration-200: 200ms;
+    --ease: ease-in-out;
+
+    /* Fonts */
+    --font-sans: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
+}
 
 /* =================================
    RESET & NORMALIZE
@@ -59,8 +131,7 @@ h4 {
     font-size: 1.25rem;
 }
 
-/* Responsive typography */
-@media (max-width: 768px) {
+@media (width <=768px) {
     h1 {
         font-size: 2rem;
     }
@@ -89,6 +160,11 @@ a:hover {
     color: var(--primary-dark);
 }
 
+a:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
 /* =================================
    LAYOUT UTILITIES
    ================================= */
@@ -98,7 +174,7 @@ a:hover {
     padding: 0 var(--space-6);
 }
 
-@media (max-width: 768px) {
+@media (width <=768px) {
     .container {
         padding: 0 var(--space-4);
     }
@@ -108,7 +184,7 @@ a:hover {
     padding: var(--space-20) 0;
 }
 
-@media (max-width: 768px) {
+@media (width <=768px) {
     .section {
         padding: var(--space-16) 0;
     }
@@ -134,17 +210,14 @@ a:hover {
     grid-template-columns: repeat(4, 1fr);
 }
 
-/* Responsive grid */
-@media (max-width: 1024px) {
-
+@media (width <=1024px) {
     .grid-3,
     .grid-4 {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 640px) {
-
+@media (width <=640px) {
     .grid-2,
     .grid-3,
     .grid-4 {
@@ -230,6 +303,11 @@ a:hover {
     transform: translateY(-1px);
 }
 
+.btn-primary:focus {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
 .btn-secondary {
     background: var(--surface);
     color: var(--text-primary);
@@ -240,6 +318,11 @@ a:hover {
 .btn-secondary:hover {
     background: var(--surface-elevated);
     box-shadow: var(--shadow);
+}
+
+.btn-secondary:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* Badges */
@@ -254,29 +337,74 @@ a:hover {
 }
 
 .badge-primary {
-    background: rgba(5, 150, 105, 0.1);
+    background: rgb(5 150 105 / 10%);
     color: var(--primary);
-    border: 1px solid rgba(5, 150, 105, 0.2);
+    border: 1px solid rgb(5 150 105 / 20%);
 }
 
 .badge-success {
-    background: rgba(16, 185, 129, 0.1);
+    background: rgb(16 185 129 / 10%);
     color: var(--success);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    border: 1px solid rgb(16 185 129 / 20%);
 }
 
 .badge-warning {
-    background: rgba(245, 158, 11, 0.1);
+    background: rgb(245 158 11 / 10%);
     color: var(--warning);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    border: 1px solid rgb(245 158 11 / 20%);
 }
+
+/* Forms */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    background: var(--surface);
+    color: var(--text-primary);
+    transition: border-color var(--duration-150) var(--ease);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgb(5 150 105 / 10%);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
 
 /* Header */
 .header {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgb(255 255 255 / 95%);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-light);
 }
@@ -311,14 +439,13 @@ a:hover {
     color: var(--text-tertiary);
 }
 
-/* Responsive utilities */
-@media (max-width: 768px) {
+@media (width <=768px) {
     .hidden-mobile {
         display: none;
     }
 }
 
-@media (min-width: 769px) {
+@media (width >=769px) {
     .hidden-desktop {
         display: none;
     }

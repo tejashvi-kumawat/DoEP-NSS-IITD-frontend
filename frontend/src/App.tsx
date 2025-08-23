@@ -1,17 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// src/App.tsx
+import styles from './App.module.css';
+import AppRoutes from './routes/index';
+import Header from './components/Header/Header';
+import './styles/styles.css';
 
-function App() {
-  return (
-    <BrowserRouter
-      future={{
-        v7_startTransition: true, // Enables React.startTransition for smoother updates
-        v7_relativeSplatPath: true, // Prepares for v7 relative splat path changes
-      }}
-    >
-      <Routes>
-      </Routes>
-    </BrowserRouter>
-  );
-}
+const App: React.FC = () => (
+  <div className={styles.app}>
+    <Header />
+    <AppRoutes />
+  </div>
+);
 
 export default App;

@@ -7,19 +7,44 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Local environment files
 *.local
 .env
+.env.*.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+
+# Optional coverage reports (if using testing)
+coverage/
+*.lcov
+
+# Optional npm/yarn/pnpm package locks if you want
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Optional temporary files
+*.tmp
+*.temp

@@ -1,0 +1,4 @@
+/* src/components/Header.module.css */
+.header {
+    composes: header from '../../styles/styles.css';
+}

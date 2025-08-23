@@ -1,0 +1,22 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "property-no-unknown": [
+            true,
+            {
+                "ignoreProperties": [
+                    "composes"
+                ]
+            }
+        ],
+        "color-hex-length": "short",
+        "declaration-property-value-disallowed-list": {
+            "color": [
+                "/^#[0-9a-fA-F]+$/"
+            ],
+            "background": [
+                "/^#[0-9a-fA-F]+$/"
+            ]
+        }
+    }
+}

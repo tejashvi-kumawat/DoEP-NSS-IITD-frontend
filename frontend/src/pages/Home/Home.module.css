@@ -1,0 +1,4 @@
+.hero {
+    composes: hero-section from '../../styles/styles.css';
+    padding: var(--space-16);
+}
