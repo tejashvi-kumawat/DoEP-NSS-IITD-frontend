@@ -11,4 +11,4 @@ Frontend for digitizing NSS IITD educational projects, built with React, TypeScr
 
 ## Development Guide
 
-See [docs/README.md](docs/README.md) for styling and development instructions.
+See [docs/README.md](frontend/docs/README.md) for styling and development instructions.
