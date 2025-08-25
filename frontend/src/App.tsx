@@ -1,8 +1,8 @@
 import styles from './App.module.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Login from './Pages/Login';
-import Home from './Pages/Home';
+import Login from './Pages/Login/Login.tsx';
+import Home from './Pages/Home/Home.tsx';
 import './styles/styles.css';
 
 const App: React.FC = () => (
