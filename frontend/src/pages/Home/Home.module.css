@@ -7,42 +7,79 @@
   padding: var(--space-32);
   min-height: 100vh;
   background: linear-gradient(
-    to bottom right,
+    -45deg,
     var(--color-background-alt),
-    var(--color-background)
+    var(--color-background),
+    #e6f4ea,
+    #f0faf5
   );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  text-align: center;
+}
+
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .title {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: var(--space-8);
-  color: var(--color-text-primary); /* #1A202C */
+  color: var(--color-text-primary);
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
 }
 
 .subtitle {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
-  margin-bottom: var(--space-16);
-  color: var(--color-text-secondary); /* #4A5568 */
+  margin-bottom: var(--space-20);
+  color: var(--color-text-secondary);
   text-align: center;
-  max-width: 600px;
+  max-width: 700px;
+  line-height: 1.6;
+  animation: fadeInUp 1.4s ease-out forwards;
+  opacity: 0;
+}
+
+/* Fade + slide-up effect */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .cta {
   composes: btn-primary from '../../styles/styles.css';
-  padding: var(--space-8) var(--space-16);
+  padding: var(--space-10) var(--space-20);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  background-color: var(--color-primary); /* #059669 */
+  background-color: var(--color-primary);
   color: #fff;
-  transition: background-color 0.2s ease;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 128, 96, 0.2);
 }
 
 .cta:hover {
-  background-color: var(--color-primary-dark); /* #065F46 */
+  background-color: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 95, 70, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.2rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+    padding: 0 var(--space-8);
+  }
 }
