@@ -1,6 +1,6 @@
 import styles from './Home.module.css';
 
-const Home: React.FC = () => (
+const Home = () => (
     <section className={`${styles.hero} hero-section`}>
         <div className="container text-center">
             <h1>Welcome to NSS IITD</h1>

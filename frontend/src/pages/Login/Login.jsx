@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Login.module.css";
 
-interface AuthProps {
-  onLogin?: (email: string, password: string) => void;
-  onRegister?: (name: string, email: string, password: string) => void;
-  onForgotPassword?: (email: string) => void;
-}
-
-const Login: React.FC<AuthProps> = ({
+const Login = ({
   onLogin,
   onRegister,
   onForgotPassword,
@@ -20,10 +14,10 @@ const Login: React.FC<AuthProps> = ({
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -32,7 +26,7 @@ const Login: React.FC<AuthProps> = ({
   };
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors = {};
 
     if (!formData.email) {
       newErrors.email = "Email is required";
@@ -61,7 +55,7 @@ const Login: React.FC<AuthProps> = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
@@ -141,15 +135,15 @@ const Login: React.FC<AuthProps> = ({
               {showForgotPassword
                 ? "Reset Password"
                 : isLogin
-                ? "Welcome Back"
-                : "Create Account"}
+                  ? "Welcome Back"
+                  : "Create Account"}
             </h2>
             <p>
               {showForgotPassword
                 ? "Enter your email to receive reset instructions"
                 : isLogin
-                ? "Sign in to your account"
-                : "Join NSS IITD to manage educational projects"}
+                  ? "Sign in to your account"
+                  : "Join NSS IITD to manage educational projects"}
             </p>
           </div>
 
@@ -165,9 +159,8 @@ const Login: React.FC<AuthProps> = ({
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`${styles.formInput} ${
-                  errors.name ? styles.error : ""
-                }`}
+                className={`${styles.formInput} ${errors.name ? styles.error : ""
+                  }`}
                 placeholder="Enter your full name"
               />
               {errors.name && (
@@ -187,9 +180,8 @@ const Login: React.FC<AuthProps> = ({
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className={`${styles.formInput} ${
-                errors.email ? styles.error : ""
-              }`}
+              className={`${styles.formInput} ${errors.email ? styles.error : ""
+                }`}
               placeholder="Enter your email"
             />
             {errors.email && (
@@ -210,9 +202,8 @@ const Login: React.FC<AuthProps> = ({
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className={`${styles.formInput} ${
-                    errors.password ? styles.error : ""
-                  }`}
+                  className={`${styles.formInput} ${errors.password ? styles.error : ""
+                    }`}
                   placeholder="Enter your password"
                 />
                 {errors.password && (
@@ -232,9 +223,8 @@ const Login: React.FC<AuthProps> = ({
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className={`${styles.formInput} ${
-                      errors.confirmPassword ? styles.error : ""
-                    }`}
+                    className={`${styles.formInput} ${errors.confirmPassword ? styles.error : ""
+                      }`}
                     placeholder="Confirm your password"
                   />
                   {errors.confirmPassword && (

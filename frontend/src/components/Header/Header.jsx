@@ -1,6 +1,6 @@
 import styles from "./Header.module.css";
 
-const Header: React.FC = () => (
+const Header = () => (
   <header className={`${styles.header} header`}>
     <div className="container flex justify-between items-center">
       <h1>NSS IITD</h1>

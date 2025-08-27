@@ -15,7 +15,7 @@ If you are developing a production application, we recommend updating the config
 export default tseslint.config([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,jsx}'],
     extends: [
       // Other configs...
 
@@ -49,7 +49,7 @@ import reactDom from 'eslint-plugin-react-dom'
 export default tseslint.config([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,jsx}'],
     extends: [
       // Other configs...
       // Enable lint rules for React

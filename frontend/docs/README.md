@@ -38,18 +38,18 @@ frontend/
 ├── src/
 │   ├── assets/
 │   ├── components/
-│   │   ├── Button.tsx
+│   │   ├── Button.jsx
 │   │   ├── Button.module.css
-│   │   ├── ProjectCard.tsx
+│   │   ├── ProjectCard.jsx
 │   │   ├── ProjectCard.module.css
-│   │   ├── Header.tsx
+│   │   ├── Header.jsx
 │   │   ├── Header.module.css
 │   ├── pages/
-│   │   ├── Home.tsx
+│   │   ├── Home.jsx
 │   │   ├── Home.module.css
-│   │   ├── Login.tsx
+│   │   ├── Login.jsx
 │   │   ├── Login.module.css
-│   │   ├── Projects.tsx
+│   │   ├── Projects.jsx
 │   │   ├── Projects.module.css
 │   ├── api/
 │   │   ├── fetchProjects.ts
@@ -62,9 +62,9 @@ frontend/
 │   ├── context/
 │   ├── routes/
 │   │   └── index.ts
-│   ├── App.tsx
+│   ├── App.jsx
 │   ├── App.module.css
-│   ├── main.tsx
+│   ├── main.jsx
 │   └── index.css
 ├── public/
 ├── vite.config.ts
@@ -145,8 +145,8 @@ Use this scale:
 
  **Example** :
 
-```tsx
-// src/components/Button.tsx
+```jsx
+// src/components/Button.jsx
 import styles from './Button.module.css';
 
 interface ButtonProps {
@@ -179,8 +179,8 @@ export default Button;
 
  **Example** :
 
-```tsx
-// src/components/ProjectCard.tsx
+```jsx
+// src/components/ProjectCard.jsx
 import styles from './ProjectCard.module.css';
 import { Project } from '../types/Project';
 
@@ -212,8 +212,8 @@ export default ProjectCard;
 
  **Example** :
 
-```tsx
-// src/components/ProjectForm.tsx
+```jsx
+// src/components/ProjectForm.jsx
 import styles from './ProjectForm.module.css';
 
 interface ProjectFormProps {
@@ -249,8 +249,8 @@ export default ProjectForm;
 
  **Example** :
 
-```tsx
-// src/components/Header.tsx
+```jsx
+// src/components/Header.jsx
 import styles from './Header.module.css';
 
 const Header: React.FC = () => (
@@ -289,7 +289,7 @@ export default Header;
 1. **Routing** :
 
 * Use `src/routes/index.ts`:
-  ```tsx
+  ```jsx
   import { BrowserRouter, Routes, Route } from 'react-router-dom';
   import Home from '../pages/Home';
   import Projects from '../pages/Projects';
@@ -309,12 +309,12 @@ export default Header;
 
 1. **Components** :
 
-* Create `.tsx` and `.module.css` files in `src/components/`.
+* Create `.jsx` and `.module.css` files in `src/components/`.
 * Use TypeScript interfaces.
 
 1. **Pages** :
 
-* Create `.tsx` and `.module.css` files in `src/pages/`.
+* Create `.jsx` and `.module.css` files in `src/pages/`.
 
 ## CSS Modules Usage
 
@@ -329,7 +329,7 @@ export default Header;
   }
   ```
 * Import:
-  ```tsx
+  ```jsx
   import styles from './Home.module.css';
   ```
 * **No Inline Styles** : Avoid `style={{}}`.
@@ -431,7 +431,7 @@ To support CSS modules and avoid warnings for `composes`:
 
 * Install: `npm install --save-dev @testing-library/react @testing-library/jest-dom vitest`
 * Example:
-  ```tsx
+  ```jsx
   import { render, screen } from '@testing-library/react';
   import Button from '../components/Button';
   test('renders primary button', () => {
