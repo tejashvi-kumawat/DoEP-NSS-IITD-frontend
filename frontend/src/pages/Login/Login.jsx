@@ -147,7 +147,7 @@ const Login = ({
             </p>
           </div>
 
-          {/* Name field for register */}
+          {/* Name fild for register */}
           {!isLogin && !showForgotPassword && (
             <div className={styles.formGroup}>
               <label htmlFor="name" className={styles.formLabel}>
