@@ -1,13 +1,1744 @@
-import styles from './Home.module.css';
-
-const Home = () => (
-    <section className={`${styles.hero} hero-section`}>
-        <div className="container text-center">
-            <h1>Welcome to NSS IITD</h1>
-            <p className="text-muted">Digitizing educational projects.</p>
-            <a href="/projects" className="btn btn-primary">Explore Projects</a>
+<>
+  <style data-fullcalendar="" dangerouslySetInnerHTML={{ __html: "" }} />
+  <meta charSet="UTF-8" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taskade App</title>
+  <style
+    type="text/css"
+    data-vite-dev-id="/home/appdev/preview/src/index.css"
+    dangerouslySetInnerHTML={{
+      __html:
+        "*, ::before, ::after {\n  --tw-border-spacing-x: 0;\n  --tw-border-spacing-y: 0;\n  --tw-translate-x: 0;\n  --tw-translate-y: 0;\n  --tw-rotate: 0;\n  --tw-skew-x: 0;\n  --tw-skew-y: 0;\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  --tw-pan-x:  ;\n  --tw-pan-y:  ;\n  --tw-pinch-zoom:  ;\n  --tw-scroll-snap-strictness: proximity;\n  --tw-gradient-from-position:  ;\n  --tw-gradient-via-position:  ;\n  --tw-gradient-to-position:  ;\n  --tw-ordinal:  ;\n  --tw-slashed-zero:  ;\n  --tw-numeric-figure:  ;\n  --tw-numeric-spacing:  ;\n  --tw-numeric-fraction:  ;\n  --tw-ring-inset:  ;\n  --tw-ring-offset-width: 0px;\n  --tw-ring-offset-color: #fff;\n  --tw-ring-color: rgb(59 130 246 / 0.5);\n  --tw-ring-offset-shadow: 0 0 #0000;\n  --tw-ring-shadow: 0 0 #0000;\n  --tw-shadow: 0 0 #0000;\n  --tw-shadow-colored: 0 0 #0000;\n  --tw-blur:  ;\n  --tw-brightness:  ;\n  --tw-contrast:  ;\n  --tw-grayscale:  ;\n  --tw-hue-rotate:  ;\n  --tw-invert:  ;\n  --tw-saturate:  ;\n  --tw-sepia:  ;\n  --tw-drop-shadow:  ;\n  --tw-backdrop-blur:  ;\n  --tw-backdrop-brightness:  ;\n  --tw-backdrop-contrast:  ;\n  --tw-backdrop-grayscale:  ;\n  --tw-backdrop-hue-rotate:  ;\n  --tw-backdrop-invert:  ;\n  --tw-backdrop-opacity:  ;\n  --tw-backdrop-saturate:  ;\n  --tw-backdrop-sepia:  ;\n  --tw-contain-size:  ;\n  --tw-contain-layout:  ;\n  --tw-contain-paint:  ;\n  --tw-contain-style:  ;\n}\n\n::backdrop {\n  --tw-border-spacing-x: 0;\n  --tw-border-spacing-y: 0;\n  --tw-translate-x: 0;\n  --tw-translate-y: 0;\n  --tw-rotate: 0;\n  --tw-skew-x: 0;\n  --tw-skew-y: 0;\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  --tw-pan-x:  ;\n  --tw-pan-y:  ;\n  --tw-pinch-zoom:  ;\n  --tw-scroll-snap-strictness: proximity;\n  --tw-gradient-from-position:  ;\n  --tw-gradient-via-position:  ;\n  --tw-gradient-to-position:  ;\n  --tw-ordinal:  ;\n  --tw-slashed-zero:  ;\n  --tw-numeric-figure:  ;\n  --tw-numeric-spacing:  ;\n  --tw-numeric-fraction:  ;\n  --tw-ring-inset:  ;\n  --tw-ring-offset-width: 0px;\n  --tw-ring-offset-color: #fff;\n  --tw-ring-color: rgb(59 130 246 / 0.5);\n  --tw-ring-offset-shadow: 0 0 #0000;\n  --tw-ring-shadow: 0 0 #0000;\n  --tw-shadow: 0 0 #0000;\n  --tw-shadow-colored: 0 0 #0000;\n  --tw-blur:  ;\n  --tw-brightness:  ;\n  --tw-contrast:  ;\n  --tw-grayscale:  ;\n  --tw-hue-rotate:  ;\n  --tw-invert:  ;\n  --tw-saturate:  ;\n  --tw-sepia:  ;\n  --tw-drop-shadow:  ;\n  --tw-backdrop-blur:  ;\n  --tw-backdrop-brightness:  ;\n  --tw-backdrop-contrast:  ;\n  --tw-backdrop-grayscale:  ;\n  --tw-backdrop-hue-rotate:  ;\n  --tw-backdrop-invert:  ;\n  --tw-backdrop-opacity:  ;\n  --tw-backdrop-saturate:  ;\n  --tw-backdrop-sepia:  ;\n  --tw-contain-size:  ;\n  --tw-contain-layout:  ;\n  --tw-contain-paint:  ;\n  --tw-contain-style:  ;\n}/*\n! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com\n*//*\n1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)\n2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)\n*/\n\n*,\n::before,\n::after {\n  box-sizing: border-box; /* 1 */\n  border-width: 0; /* 2 */\n  border-style: solid; /* 2 */\n  border-color: #e5e7eb; /* 2 */\n}\n\n::before,\n::after {\n  --tw-content: '';\n}\n\n/*\n1. Use a consistent sensible line-height in all browsers.\n2. Prevent adjustments of font size after orientation changes in iOS.\n3. Use a more readable tab size.\n4. Use the user's configured `sans` font-family by default.\n5. Use the user's configured `sans` font-feature-settings by default.\n6. Use the user's configured `sans` font-variation-settings by default.\n7. Disable tap highlights on iOS\n*/\n\nhtml,\n:host {\n  line-height: 1.5; /* 1 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n  -moz-tab-size: 4; /* 3 */\n  -o-tab-size: 4;\n     tab-size: 4; /* 3 */\n  font-family: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"; /* 4 */\n  font-feature-settings: normal; /* 5 */\n  font-variation-settings: normal; /* 6 */\n  -webkit-tap-highlight-color: transparent; /* 7 */\n}\n\n/*\n1. Remove the margin in all browsers.\n2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.\n*/\n\nbody {\n  margin: 0; /* 1 */\n  line-height: inherit; /* 2 */\n}\n\n/*\n1. Add the correct height in Firefox.\n2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)\n3. Ensure horizontal rules are visible by default.\n*/\n\nhr {\n  height: 0; /* 1 */\n  color: inherit; /* 2 */\n  border-top-width: 1px; /* 3 */\n}\n\n/*\nAdd the correct text decoration in Chrome, Edge, and Safari.\n*/\n\nabbr:where([title]) {\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted;\n}\n\n/*\nRemove the default font size and weight for headings.\n*/\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: inherit;\n}\n\n/*\nReset links to optimize for opt-in styling instead of opt-out.\n*/\n\na {\n  color: inherit;\n  text-decoration: inherit;\n}\n\n/*\nAdd the correct font weight in Edge and Safari.\n*/\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/*\n1. Use the user's configured `mono` font-family by default.\n2. Use the user's configured `mono` font-feature-settings by default.\n3. Use the user's configured `mono` font-variation-settings by default.\n4. Correct the odd `em` font sizing in all browsers.\n*/\n\ncode,\nkbd,\nsamp,\npre {\n  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace; /* 1 */\n  font-feature-settings: normal; /* 2 */\n  font-variation-settings: normal; /* 3 */\n  font-size: 1em; /* 4 */\n}\n\n/*\nAdd the correct font size in all browsers.\n*/\n\nsmall {\n  font-size: 80%;\n}\n\n/*\nPrevent `sub` and `sup` elements from affecting the line height in all browsers.\n*/\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/*\n1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)\n2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)\n3. Remove gaps between table borders by default.\n*/\n\ntable {\n  text-indent: 0; /* 1 */\n  border-color: inherit; /* 2 */\n  border-collapse: collapse; /* 3 */\n}\n\n/*\n1. Change the font styles in all browsers.\n2. Remove the margin in Firefox and Safari.\n3. Remove default padding in all browsers.\n*/\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit; /* 1 */\n  font-feature-settings: inherit; /* 1 */\n  font-variation-settings: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  font-weight: inherit; /* 1 */\n  line-height: inherit; /* 1 */\n  letter-spacing: inherit; /* 1 */\n  color: inherit; /* 1 */\n  margin: 0; /* 2 */\n  padding: 0; /* 3 */\n}\n\n/*\nRemove the inheritance of text transform in Edge and Firefox.\n*/\n\nbutton,\nselect {\n  text-transform: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Remove default button styles.\n*/\n\nbutton,\ninput:where([type='button']),\ninput:where([type='reset']),\ninput:where([type='submit']) {\n  -webkit-appearance: button; /* 1 */\n  background-color: transparent; /* 2 */\n  background-image: none; /* 2 */\n}\n\n/*\nUse the modern Firefox focus style for all focusable elements.\n*/\n\n:-moz-focusring {\n  outline: auto;\n}\n\n/*\nRemove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)\n*/\n\n:-moz-ui-invalid {\n  box-shadow: none;\n}\n\n/*\nAdd the correct vertical alignment in Chrome and Firefox.\n*/\n\nprogress {\n  vertical-align: baseline;\n}\n\n/*\nCorrect the cursor style of increment and decrement buttons in Safari.\n*/\n\n::-webkit-inner-spin-button,\n::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/*\n1. Correct the odd appearance in Chrome and Safari.\n2. Correct the outline style in Safari.\n*/\n\n[type='search'] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/*\nRemove the inner padding in Chrome and Safari on macOS.\n*/\n\n::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Change font properties to `inherit` in Safari.\n*/\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/*\nAdd the correct display in Chrome and Safari.\n*/\n\nsummary {\n  display: list-item;\n}\n\n/*\nRemoves the default spacing and border for appropriate elements.\n*/\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nhr,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nlegend {\n  padding: 0;\n}\n\nol,\nul,\nmenu {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n/*\nReset default styling for dialogs.\n*/\ndialog {\n  padding: 0;\n}\n\n/*\nPrevent resizing textareas horizontally by default.\n*/\n\ntextarea {\n  resize: vertical;\n}\n\n/*\n1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)\n2. Set the default placeholder color to the user's configured gray 400 color.\n*/\n\ninput::-moz-placeholder, textarea::-moz-placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\n/*\nSet the default cursor for buttons.\n*/\n\nbutton,\n[role=\"button\"] {\n  cursor: pointer;\n}\n\n/*\nMake sure disabled buttons don't get the pointer cursor.\n*/\n:disabled {\n  cursor: default;\n}\n\n/*\n1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)\n2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)\n   This can trigger a poorly considered lint error in some tools but is included by design.\n*/\n\nimg,\nsvg,\nvideo,\ncanvas,\naudio,\niframe,\nembed,\nobject {\n  display: block; /* 1 */\n  vertical-align: middle; /* 2 */\n}\n\n/*\nConstrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)\n*/\n\nimg,\nvideo {\n  max-width: 100%;\n  height: auto;\n}\n\n/* Make elements with the HTML hidden attribute stay hidden by default */\n[hidden]:where(:not([hidden=\"until-found\"])) {\n  display: none;\n}\n.pointer-events-none {\n  pointer-events: none;\n}\n.fixed {\n  position: fixed;\n}\n.absolute {\n  position: absolute;\n}\n.relative {\n  position: relative;\n}\n.inset-0 {\n  inset: 0px;\n}\n.inset-4 {\n  inset: 1rem;\n}\n.-bottom-8 {\n  bottom: -2rem;\n}\n.-left-8 {\n  left: -2rem;\n}\n.-right-12 {\n  right: -3rem;\n}\n.-right-8 {\n  right: -2rem;\n}\n.-top-8 {\n  top: -2rem;\n}\n.bottom-0 {\n  bottom: 0px;\n}\n.bottom-1\\/4 {\n  bottom: 25%;\n}\n.bottom-10 {\n  bottom: 2.5rem;\n}\n.bottom-20 {\n  bottom: 5rem;\n}\n.bottom-4 {\n  bottom: 1rem;\n}\n.bottom-40 {\n  bottom: 10rem;\n}\n.bottom-8 {\n  bottom: 2rem;\n}\n.left-0 {\n  left: 0px;\n}\n.left-1\\/2 {\n  left: 50%;\n}\n.left-1\\/4 {\n  left: 25%;\n}\n.left-10 {\n  left: 2.5rem;\n}\n.left-20 {\n  left: 5rem;\n}\n.left-4 {\n  left: 1rem;\n}\n.right-0 {\n  right: 0px;\n}\n.right-1\\/4 {\n  right: 25%;\n}\n.right-10 {\n  right: 2.5rem;\n}\n.right-20 {\n  right: 5rem;\n}\n.right-4 {\n  right: 1rem;\n}\n.top-0 {\n  top: 0px;\n}\n.top-1\\/2 {\n  top: 50%;\n}\n.top-1\\/4 {\n  top: 25%;\n}\n.top-10 {\n  top: 2.5rem;\n}\n.top-20 {\n  top: 5rem;\n}\n.top-4 {\n  top: 1rem;\n}\n.top-40 {\n  top: 10rem;\n}\n.-z-10 {\n  z-index: -10;\n}\n.z-10 {\n  z-index: 10;\n}\n.z-50 {\n  z-index: 50;\n}\n.mx-auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n.mb-1 {\n  margin-bottom: 0.25rem;\n}\n.mb-12 {\n  margin-bottom: 3rem;\n}\n.mb-16 {\n  margin-bottom: 4rem;\n}\n.mb-2 {\n  margin-bottom: 0.5rem;\n}\n.mb-20 {\n  margin-bottom: 5rem;\n}\n.mb-3 {\n  margin-bottom: 0.75rem;\n}\n.mb-4 {\n  margin-bottom: 1rem;\n}\n.mb-6 {\n  margin-bottom: 1.5rem;\n}\n.mb-8 {\n  margin-bottom: 2rem;\n}\n.mt-1 {\n  margin-top: 0.25rem;\n}\n.mt-12 {\n  margin-top: 3rem;\n}\n.mt-16 {\n  margin-top: 4rem;\n}\n.mt-2 {\n  margin-top: 0.5rem;\n}\n.mt-4 {\n  margin-top: 1rem;\n}\n.mt-8 {\n  margin-top: 2rem;\n}\n.line-clamp-2 {\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n}\n.block {\n  display: block;\n}\n.flex {\n  display: flex;\n}\n.inline-flex {\n  display: inline-flex;\n}\n.grid {\n  display: grid;\n}\n.hidden {\n  display: none;\n}\n.h-1 {\n  height: 0.25rem;\n}\n.h-10 {\n  height: 2.5rem;\n}\n.h-12 {\n  height: 3rem;\n}\n.h-16 {\n  height: 4rem;\n}\n.h-20 {\n  height: 5rem;\n}\n.h-24 {\n  height: 6rem;\n}\n.h-3 {\n  height: 0.75rem;\n}\n.h-32 {\n  height: 8rem;\n}\n.h-4 {\n  height: 1rem;\n}\n.h-40 {\n  height: 10rem;\n}\n.h-48 {\n  height: 12rem;\n}\n.h-5 {\n  height: 1.25rem;\n}\n.h-6 {\n  height: 1.5rem;\n}\n.h-7 {\n  height: 1.75rem;\n}\n.h-8 {\n  height: 2rem;\n}\n.h-80 {\n  height: 20rem;\n}\n.h-screen {\n  height: 100vh;\n}\n.min-h-screen {\n  min-height: 100vh;\n}\n.w-1 {\n  width: 0.25rem;\n}\n.w-10 {\n  width: 2.5rem;\n}\n.w-12 {\n  width: 3rem;\n}\n.w-16 {\n  width: 4rem;\n}\n.w-20 {\n  width: 5rem;\n}\n.w-24 {\n  width: 6rem;\n}\n.w-32 {\n  width: 8rem;\n}\n.w-4 {\n  width: 1rem;\n}\n.w-40 {\n  width: 10rem;\n}\n.w-5 {\n  width: 1.25rem;\n}\n.w-6 {\n  width: 1.5rem;\n}\n.w-7 {\n  width: 1.75rem;\n}\n.w-8 {\n  width: 2rem;\n}\n.w-80 {\n  width: 20rem;\n}\n.w-full {\n  width: 100%;\n}\n.w-screen {\n  width: 100vw;\n}\n.max-w-2xl {\n  max-width: 42rem;\n}\n.max-w-3xl {\n  max-width: 48rem;\n}\n.max-w-4xl {\n  max-width: 56rem;\n}\n.max-w-7xl {\n  max-width: 80rem;\n}\n.max-w-md {\n  max-width: 28rem;\n}\n.max-w-xl {\n  max-width: 36rem;\n}\n.flex-1 {\n  flex: 1 1 0%;\n}\n.grow {\n  flex-grow: 1;\n}\n.-translate-x-1\\/2 {\n  --tw-translate-x: -50%;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.rotate-3 {\n  --tw-rotate: 3deg;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.scale-90 {\n  --tw-scale-x: .9;\n  --tw-scale-y: .9;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.transform {\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n@keyframes bounce {\n\n  0%, 100% {\n    transform: translateY(-25%);\n    animation-timing-function: cubic-bezier(0.8,0,1,1);\n  }\n\n  50% {\n    transform: none;\n    animation-timing-function: cubic-bezier(0,0,0.2,1);\n  }\n}\n.animate-bounce {\n  animation: bounce 1s infinite;\n}\n@keyframes pulse {\n\n  50% {\n    opacity: .5;\n  }\n}\n.animate-pulse {\n  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;\n}\n.cursor-pointer {\n  cursor: pointer;\n}\n.resize-none {\n  resize: none;\n}\n.grid-cols-1 {\n  grid-template-columns: repeat(1, minmax(0, 1fr));\n}\n.grid-cols-2 {\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n.grid-cols-3 {\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n}\n.flex-col {\n  flex-direction: column;\n}\n.items-start {\n  align-items: flex-start;\n}\n.items-center {\n  align-items: center;\n}\n.justify-center {\n  justify-content: center;\n}\n.justify-between {\n  justify-content: space-between;\n}\n.gap-12 {\n  gap: 3rem;\n}\n.gap-16 {\n  gap: 4rem;\n}\n.gap-3 {\n  gap: 0.75rem;\n}\n.gap-4 {\n  gap: 1rem;\n}\n.gap-6 {\n  gap: 1.5rem;\n}\n.gap-8 {\n  gap: 2rem;\n}\n.space-x-2 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(0.5rem * var(--tw-space-x-reverse));\n  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-3 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(0.75rem * var(--tw-space-x-reverse));\n  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-4 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(1rem * var(--tw-space-x-reverse));\n  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-6 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(1.5rem * var(--tw-space-x-reverse));\n  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-8 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(2rem * var(--tw-space-x-reverse));\n  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-y-2 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));\n}\n.space-y-3 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));\n}\n.space-y-4 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(1rem * var(--tw-space-y-reverse));\n}\n.space-y-6 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));\n}\n.space-y-8 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(2rem * var(--tw-space-y-reverse));\n}\n.self-start {\n  align-self: flex-start;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.rounded-2xl {\n  border-radius: 1rem;\n}\n.rounded-3xl {\n  border-radius: 1.5rem;\n}\n.rounded-full {\n  border-radius: 9999px;\n}\n.rounded-md {\n  border-radius: 0.375rem;\n}\n.rounded-xl {\n  border-radius: 0.75rem;\n}\n.border {\n  border-width: 1px;\n}\n.border-2 {\n  border-width: 2px;\n}\n.border-b {\n  border-bottom-width: 1px;\n}\n.border-l-4 {\n  border-left-width: 4px;\n}\n.border-t {\n  border-top-width: 1px;\n}\n.border-blue-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));\n}\n.border-gray-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));\n}\n.border-green-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));\n}\n.border-red-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));\n}\n.border-white {\n  --tw-border-opacity: 1;\n  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));\n}\n.border-white\\/20 {\n  border-color: rgb(255 255 255 / 0.2);\n}\n.bg-black\\/20 {\n  background-color: rgb(0 0 0 / 0.2);\n}\n.bg-blue-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));\n}\n.bg-blue-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));\n}\n.bg-gray-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));\n}\n.bg-green-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));\n}\n.bg-green-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));\n}\n.bg-purple-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1));\n}\n.bg-purple-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(168 85 247 / var(--tw-bg-opacity, 1));\n}\n.bg-red-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));\n}\n.bg-red-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));\n}\n.bg-red-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));\n}\n.bg-white {\n  --tw-bg-opacity: 1;\n  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));\n}\n.bg-white\\/10 {\n  background-color: rgb(255 255 255 / 0.1);\n}\n.bg-white\\/20 {\n  background-color: rgb(255 255 255 / 0.2);\n}\n.bg-white\\/60 {\n  background-color: rgb(255 255 255 / 0.6);\n}\n.bg-gradient-to-br {\n  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));\n}\n.bg-gradient-to-r {\n  background-image: linear-gradient(to right, var(--tw-gradient-stops));\n}\n.from-blue-400 {\n  --tw-gradient-from: #60a5fa var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(96 165 250 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-blue-500 {\n  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-gray-400 {\n  --tw-gradient-from: #9ca3af var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(156 163 175 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-green-400 {\n  --tw-gradient-from: #4ade80 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(74 222 128 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-green-500 {\n  --tw-gradient-from: #22c55e var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(34 197 94 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-purple-500 {\n  --tw-gradient-from: #a855f7 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(168 85 247 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-red-400 {\n  --tw-gradient-from: #f87171 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(248 113 113 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-red-500 {\n  --tw-gradient-from: #ef4444 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(239 68 68 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.to-blue-600 {\n  --tw-gradient-to: #2563eb var(--tw-gradient-to-position);\n}\n.to-gray-600 {\n  --tw-gradient-to: #4b5563 var(--tw-gradient-to-position);\n}\n.to-green-600 {\n  --tw-gradient-to: #16a34a var(--tw-gradient-to-position);\n}\n.to-purple-600 {\n  --tw-gradient-to: #9333ea var(--tw-gradient-to-position);\n}\n.to-red-600 {\n  --tw-gradient-to: #dc2626 var(--tw-gradient-to-position);\n}\n.p-2 {\n  padding: 0.5rem;\n}\n.p-6 {\n  padding: 1.5rem;\n}\n.p-8 {\n  padding: 2rem;\n}\n.px-2 {\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n}\n.px-3 {\n  padding-left: 0.75rem;\n  padding-right: 0.75rem;\n}\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n.px-8 {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n.py-1 {\n  padding-top: 0.25rem;\n  padding-bottom: 0.25rem;\n}\n.py-16 {\n  padding-top: 4rem;\n  padding-bottom: 4rem;\n}\n.py-2 {\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n.py-20 {\n  padding-top: 5rem;\n  padding-bottom: 5rem;\n}\n.py-3 {\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n}\n.py-4 {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n.py-6 {\n  padding-top: 1.5rem;\n  padding-bottom: 1.5rem;\n}\n.py-8 {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.pt-16 {\n  padding-top: 4rem;\n}\n.text-center {\n  text-align: center;\n}\n.text-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n}\n.text-3xl {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n}\n.text-4xl {\n  font-size: 2.25rem;\n  line-height: 2.5rem;\n}\n.text-5xl {\n  font-size: 3rem;\n  line-height: 1;\n}\n.text-lg {\n  font-size: 1.125rem;\n  line-height: 1.75rem;\n}\n.text-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n}\n.text-xl {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n}\n.text-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n}\n.font-bold {\n  font-weight: 700;\n}\n.font-medium {\n  font-weight: 500;\n}\n.font-semibold {\n  font-weight: 600;\n}\n.italic {\n  font-style: italic;\n}\n.leading-relaxed {\n  line-height: 1.625;\n}\n.leading-tight {\n  line-height: 1.25;\n}\n.text-\\[\\#777\\] {\n  --tw-text-opacity: 1;\n  color: rgb(119 119 119 / var(--tw-text-opacity, 1));\n}\n.text-blue-600 {\n  --tw-text-opacity: 1;\n  color: rgb(37 99 235 / var(--tw-text-opacity, 1));\n}\n.text-blue-700 {\n  --tw-text-opacity: 1;\n  color: rgb(29 78 216 / var(--tw-text-opacity, 1));\n}\n.text-gray-700 {\n  --tw-text-opacity: 1;\n  color: rgb(55 65 81 / var(--tw-text-opacity, 1));\n}\n.text-green-600 {\n  --tw-text-opacity: 1;\n  color: rgb(22 163 74 / var(--tw-text-opacity, 1));\n}\n.text-green-700 {\n  --tw-text-opacity: 1;\n  color: rgb(21 128 61 / var(--tw-text-opacity, 1));\n}\n.text-purple-600 {\n  --tw-text-opacity: 1;\n  color: rgb(147 51 234 / var(--tw-text-opacity, 1));\n}\n.text-red-600 {\n  --tw-text-opacity: 1;\n  color: rgb(220 38 38 / var(--tw-text-opacity, 1));\n}\n.text-red-700 {\n  --tw-text-opacity: 1;\n  color: rgb(185 28 28 / var(--tw-text-opacity, 1));\n}\n.text-white {\n  --tw-text-opacity: 1;\n  color: rgb(255 255 255 / var(--tw-text-opacity, 1));\n}\n.text-white\\/60 {\n  color: rgb(255 255 255 / 0.6);\n}\n.text-white\\/80 {\n  color: rgb(255 255 255 / 0.8);\n}\n.placeholder-white\\/60::-moz-placeholder {\n  color: rgb(255 255 255 / 0.6);\n}\n.placeholder-white\\/60::placeholder {\n  color: rgb(255 255 255 / 0.6);\n}\n.opacity-0 {\n  opacity: 0;\n}\n.opacity-10 {\n  opacity: 0.1;\n}\n.opacity-5 {\n  opacity: 0.05;\n}\n.opacity-50 {\n  opacity: 0.5;\n}\n.opacity-80 {\n  opacity: 0.8;\n}\n.opacity-90 {\n  opacity: 0.9;\n}\n.shadow-2xl {\n  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);\n  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.shadow-lg {\n  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.shadow-sm {\n  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);\n  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.blur-xl {\n  --tw-blur: blur(24px);\n  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);\n}\n.filter {\n  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);\n}\n.backdrop-blur-md {\n  --tw-backdrop-blur: blur(12px);\n  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);\n}\n.backdrop-blur-sm {\n  --tw-backdrop-blur: blur(4px);\n  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);\n}\n.transition-all {\n  transition-property: all;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.transition-colors {\n  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.transition-opacity {\n  transition-property: opacity;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.transition-transform {\n  transition-property: transform;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.duration-200 {\n  transition-duration: 200ms;\n}\n.duration-300 {\n  transition-duration: 300ms;\n}\n.duration-500 {\n  transition-duration: 500ms;\n}\n.\\[mask-image\\:radial-gradient\\(ellipse_at_center\\2c transparent_20\\%\\2c black\\)\\] {\n  -webkit-mask-image: radial-gradient(ellipse at center,transparent 20%,black);\n          mask-image: radial-gradient(ellipse at center,transparent 20%,black);\n}\n.hover\\:-translate-y-1:hover {\n  --tw-translate-y: -0.25rem;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.hover\\:-translate-y-2:hover {\n  --tw-translate-y: -0.5rem;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.hover\\:-translate-y-4:hover {\n  --tw-translate-y: -1rem;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.hover\\:rotate-0:hover {\n  --tw-rotate: 0deg;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.hover\\:scale-105:hover {\n  --tw-scale-x: 1.05;\n  --tw-scale-y: 1.05;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.hover\\:scale-110:hover {\n  --tw-scale-x: 1.1;\n  --tw-scale-y: 1.1;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.hover\\:bg-white:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));\n}\n.hover\\:bg-white\\/20:hover {\n  background-color: rgb(255 255 255 / 0.2);\n}\n.hover\\:bg-white\\/90:hover {\n  background-color: rgb(255 255 255 / 0.9);\n}\n.hover\\:text-blue-400:hover {\n  --tw-text-opacity: 1;\n  color: rgb(96 165 250 / var(--tw-text-opacity, 1));\n}\n.hover\\:text-blue-600:hover {\n  --tw-text-opacity: 1;\n  color: rgb(37 99 235 / var(--tw-text-opacity, 1));\n}\n.hover\\:text-blue-700:hover {\n  --tw-text-opacity: 1;\n  color: rgb(29 78 216 / var(--tw-text-opacity, 1));\n}\n.hover\\:text-pink-500:hover {\n  --tw-text-opacity: 1;\n  color: rgb(236 72 153 / var(--tw-text-opacity, 1));\n}\n.hover\\:text-white:hover {\n  --tw-text-opacity: 1;\n  color: rgb(255 255 255 / var(--tw-text-opacity, 1));\n}\n.hover\\:shadow-2xl:hover {\n  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);\n  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.hover\\:shadow-lg:hover {\n  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.hover\\:shadow-xl:hover {\n  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.focus\\:border-transparent:focus {\n  border-color: transparent;\n}\n.focus\\:outline-none:focus {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\n.focus\\:ring-2:focus {\n  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);\n  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);\n  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);\n}\n.focus\\:ring-white:focus {\n  --tw-ring-opacity: 1;\n  --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity, 1));\n}\n.focus\\:ring-white\\/30:focus {\n  --tw-ring-color: rgb(255 255 255 / 0.3);\n}\n.group:hover .group-hover\\:translate-x-1 {\n  --tw-translate-x: 0.25rem;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.group:hover .group-hover\\:translate-x-2 {\n  --tw-translate-x: 0.5rem;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.group:hover .group-hover\\:scale-110 {\n  --tw-scale-x: 1.1;\n  --tw-scale-y: 1.1;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.group:hover .group-hover\\:bg-white {\n  --tw-bg-opacity: 1;\n  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));\n}\n.group:hover .group-hover\\:text-white {\n  --tw-text-opacity: 1;\n  color: rgb(255 255 255 / var(--tw-text-opacity, 1));\n}\n.group:hover .group-hover\\:opacity-100 {\n  opacity: 1;\n}\n.group:hover .group-hover\\:opacity-5 {\n  opacity: 0.05;\n}\n@media (min-width: 640px) {\n\n  .sm\\:mx-0 {\n    margin-left: 0px;\n    margin-right: 0px;\n  }\n\n  .sm\\:flex-row {\n    flex-direction: row;\n  }\n\n  .sm\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n}\n@media (min-width: 768px) {\n\n  .md\\:block {\n    display: block;\n  }\n\n  .md\\:flex {\n    display: flex;\n  }\n\n  .md\\:hidden {\n    display: none;\n  }\n\n  .md\\:grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n\n  .md\\:grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n\n  .md\\:flex-row {\n    flex-direction: row;\n  }\n\n  .md\\:space-y-0 > :not([hidden]) ~ :not([hidden]) {\n    --tw-space-y-reverse: 0;\n    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));\n    margin-bottom: calc(0px * var(--tw-space-y-reverse));\n  }\n\n  .md\\:p-12 {\n    padding: 3rem;\n  }\n\n  .md\\:text-3xl {\n    font-size: 1.875rem;\n    line-height: 2.25rem;\n  }\n\n  .md\\:text-4xl {\n    font-size: 2.25rem;\n    line-height: 2.5rem;\n  }\n\n  .md\\:text-5xl {\n    font-size: 3rem;\n    line-height: 1;\n  }\n\n  .md\\:text-7xl {\n    font-size: 4.5rem;\n    line-height: 1;\n  }\n\n  .md\\:text-xl {\n    font-size: 1.25rem;\n    line-height: 1.75rem;\n  }\n}\n@media (min-width: 1024px) {\n\n  .lg\\:col-span-1 {\n    grid-column: span 1 / span 1;\n  }\n\n  .lg\\:h-96 {\n    height: 24rem;\n  }\n\n  .lg\\:w-96 {\n    width: 24rem;\n  }\n\n  .lg\\:grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n\n  .lg\\:grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n\n  .lg\\:grid-cols-4 {\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n  }\n\n  .lg\\:justify-start {\n    justify-content: flex-start;\n  }\n\n  .lg\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .lg\\:text-left {\n    text-align: left;\n  }\n\n  .lg\\:text-3xl {\n    font-size: 1.875rem;\n    line-height: 2.25rem;\n  }\n\n  .lg\\:text-4xl {\n    font-size: 2.25rem;\n    line-height: 2.5rem;\n  }\n\n  .lg\\:text-5xl {\n    font-size: 3rem;\n    line-height: 1;\n  }\n\n  .lg\\:text-7xl {\n    font-size: 4.5rem;\n    line-height: 1;\n  }\n}\n"
+    }}
+  />
+  <style
+    type="text/css"
+    data-vite-dev-id="/home/appdev/preview/src/styles/styles.css"
+    dangerouslySetInnerHTML={{
+      __html:
+        "/* NSS IITD Color Scheme */\n:root {\n  /* Primary Colors */\n  --primary: #059669;\n  --primary-dark: #065F46;\n  \n  /* Status Colors */\n  --success: #10B981;\n  --warning: #F59E0B;\n  \n  /* Text Colors */\n  --text-primary: #1A202C;\n  --text-secondary: #4A5568;\n  --text-tertiary: #718096;\n  \n  /* Background Colors */\n  --background: #F7FAFC;\n  --background-alt: #EDF2F7;\n  --surface: #FFFFFF;\n  --surface-elevated: #F7FAFC;\n  \n  /* Border Colors */\n  --border: #E2E8F0;\n  --border-light: #EDF2F7;\n}\n\n/* Custom utility classes */\n.text-primary { color: var(--text-primary); }\n.text-secondary { color: var(--text-secondary); }\n.text-tertiary { color: var(--text-tertiary); }\n\n.bg-primary { background-color: var(--primary); }\n.bg-primary-dark { background-color: var(--primary-dark); }\n.bg-success { background-color: var(--success); }\n.bg-warning { background-color: var(--warning); }\n.bg-background { background-color: var(--background); }\n.bg-background-alt { background-color: var(--background-alt); }\n.bg-surface { background-color: var(--surface); }\n.bg-surface-elevated { background-color: var(--surface-elevated); }\n\n.border-default { border-color: var(--border); }\n.border-light { border-color: var(--border-light); }\n\n.hover\\:bg-primary-dark:hover { background-color: var(--primary-dark); }\n.hover\\:bg-surface-elevated:hover { background-color: var(--surface-elevated); }\n\n/* Custom animations */\n@keyframes float {\n  0%, 100% { transform: translateY(0px); }\n  50% { transform: translateY(-20px); }\n}\n\n@keyframes pulse-glow {\n  0%, 100% { box-shadow: 0 0 20px rgba(5, 150, 105, 0.3); }\n  50% { box-shadow: 0 0 40px rgba(5, 150, 105, 0.6); }\n}\n\n@keyframes slide-in-left {\n  0% { transform: translateX(-100px); opacity: 0; }\n  100% { transform: translateX(0); opacity: 1; }\n}\n\n@keyframes slide-in-right {\n  0% { transform: translateX(100px); opacity: 0; }\n  100% { transform: translateX(0); opacity: 1; }\n}\n\n@keyframes fade-in-up {\n  0% { transform: translateY(30px); opacity: 0; }\n  100% { transform: translateY(0); opacity: 1; }\n}\n\n.animate-float { animation: float 6s ease-in-out infinite; }\n.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }\n.animate-slide-in-left { animation: slide-in-left 0.8s ease-out forwards; }\n.animate-slide-in-right { animation: slide-in-right 0.8s ease-out forwards; }\n.animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }\n\n/* Gradient backgrounds */\n.bg-gradient-primary {\n  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);\n}\n\n.bg-gradient-hero {\n  background: linear-gradient(135deg, var(--background) 0%, var(--background-alt) 50%, var(--surface) 100%);\n}"
+    }}
+  />
+  <link
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/inject.css"
+    rel="stylesheet"
+    type="text/css"
+    data-apio="true"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_chrome-extension_inject_global_module_scss.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_common_components_ui_Form_module_scss-assets_common_components_ui_Tabs_module_scss-ass-78ad69.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_common_components_ui_rich-text-editor_toolbar_UserSnippetsButton_module_scss-assets_ap-bf6a45.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_components_dialogs_LinkEmailAccountDialogMain_tsx-assets_app_components_emailer-me-3c3c76.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/nm_moment_locale_sync_recursive_-assets_app_actions_emailAccountActions_tsx-assets_-8edcb3.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_components_cards_CardExplorerOrganizationNewsArticleCard_module_scss-assets_app_co-a3a5bf.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_components_ai-email-assist_OneOffEmail_AIAssistantPanel_AIAssistantPanel_tsx-asset-5bdab0.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_chrome-extension_v2_common_components_conversations_ConversationList_module_scss-asset-12ad58.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_chrome-extension_v2_common_components_conversations_ConversationList_tsx-assets_chrome-2b334f.css"
+  />
+  <link
+    data-apio="true"
+    rel="stylesheet"
+    type="text/css"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_chrome-extension_inject_core_components_OpenPopupButton_tsx-assets_chrome-extension_in-bb60f5.css"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/vendors-node_modules_xstate_react_es_useMachine_js-node_modules_xstate_es_Machine_js-node_mod-a44bb4.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/vendors-node_modules_re-resizable_lib_index_js-node_modules_react-content-loader_dist_react-c-9020e7.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/vendors-node_modules_react-in-viewport_dist_es_index_js-node_modules_ariakit_react_node_modul-5b91be.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_intent-data_IntentDataBarsContainer_tsx-assets_app_components_organizat-e7bd94.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_containers_accounts_AccountShowActions_tsx-assets_common_components_sidebar_Sideba-e8fc59.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_personas_ManagePersonasDialog_tsx-assets_common_images_managePersona_svg.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="style"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_components_cards_CardExplorerGeneralInformationCard_tsx-assets_app_components_card-f7bd00.css"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_cards_CardExplorerGeneralInformationCard_tsx-assets_app_components_card-f7bd00.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_cards_CardExplorerSearchSignalsCard_tsx-assets_app_containers_mixed-com-727ae1.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_ai-setup-wizard_AISetupWizardModal_tsx.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_common_components_mixed-companies_MixedCompanySidebarHeader_tsx.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_signals_utils_ts-assets_app_containers_contacts_EnrichContactDirectDial-0bfb86.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="style"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_containers_prospect_ContactSidebarRenderer_tsx-assets_app_components_ai-setup-wiza-1b3b23.css"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_containers_prospect_ContactSidebarRenderer_tsx-assets_app_components_ai-setup-wiza-1b3b23.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_accounts_MixedCompanySidebarDisplay_tsx.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="style"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_actions_signalActions_ts-assets_app_components_personas_PersonaFinderPreview_tsx-a-a50648.css"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_actions_signalActions_ts-assets_app_components_personas_PersonaFinderPreview_tsx-a-a50648.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="style"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/nm_assets_common_components_contacts_PhoneNumberBadge_module_scss-react-content-loa-56cde7.css"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_common_components_contacts_PhoneNumberBadge_module_scss-node_modules_react-content-loa-56cde7.chunk.js"
+  />
+  <link
+    rel="prefetch"
+    as="style"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_components_ai-setup-wizard_AISetupWizardModal_module_scss-assets_app_components_ai-f27c7c.css"
+  />
+  <link
+    rel="prefetch"
+    as="style"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/css/a_app_components_finders_sieves_FinderPersonaSieve_tsx-assets_app_components_ai-setup-wi-98fda0.css"
+  />
+  <link
+    rel="prefetch"
+    as="script"
+    href="chrome-extension://alhgpfoeiimagjlnfekdhkjlkiomcapa/js/assets_app_components_finders_sieves_FinderPersonaSieve_tsx-assets_app_components_ai-setup-wi-98fda0.chunk.js"
+  />
+  <div className="zp-open-popup-button">
+    <div className="x_R61yl zp-10-1-5-zp-fixed">
+      <img
+        alt="Apollo.io"
+        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxLjQ2NTUgNS4wNzE0N0wyMS40NzAzIDE1Ljk4NjNDMjEuNDcxIDE3LjcxMDYgMTkuNjM2NCAxOC44MTYyIDE4LjExMjEgMTguMDFMNy4xNjk4IDEyLjIyMjZDOC4wMDQzMyAxMC44NDkyIDkuMDUzNzcgOS42MjEwOSAxMC4yNzA0IDguNTgzMzJMMTguODUyNCAxNi41MTQ4QzE5LjMwNzEgMTYuOTM1IDIwLjAyNCAxNi40Nzk0IDE5LjgzNjcgMTUuODg5NEwxNi41MDg1IDUuNDA5MDJDMTcuNjI4OCA1LjE0MjEgMTguNzk3MiA1IDE5Ljk5ODkgNUMyMC40OTM5IDUgMjAuOTgyOSA1LjAyNDYgMjEuNDY1NSA1LjA3MTQ3WiIgZmlsbD0iI0VCRjIxMiIvPgo8cGF0aCBkPSJNMTguNDk2MyAzNC45MjUyTDE4LjQ5MTUgMjQuMDY1NEMxOC40OTA4IDIyLjM0MSAyMC4zMjU0IDIxLjIzNTUgMjEuODQ5NyAyMi4wNDE3TDMyLjc5NiAyNy44MzEyQzMxLjk1NTggMjkuMjAxIDMwLjkwMTYgMzAuNDI1MSAyOS42ODAxIDMxLjQ1ODFMMjEuMTA5NCAyMy41MzY5QzIwLjY1NDcgMjMuMTE2NyAxOS45Mzc4IDIzLjU3MjMgMjAuMTI1MSAyNC4xNjIzTDIzLjQ0MDcgMzQuNjAzMUMyMi4zMzYxIDM0Ljg2MjQgMjEuMTg0NCAzNSAyMC4wMDA1IDM1QzE5LjQ5MjkgMzUgMTguOTkwOSAzNC45NzQ2IDE4LjQ5NjMgMzQuOTI1MloiIGZpbGw9IiNFQkYyMTIiLz4KPHBhdGggZD0iTTIzLjQ5MTggMTguODk4MUwzMS40Mzk3IDEwLjI5OTFDMzAuNDAyNyA5LjA3NzY3IDI5LjE3NDQgOC4wMjM5NSAyNy44IDcuMTg1NjNMMjEuOTk2NCAxOC4xNTc4QzIxLjE5MDEgMTkuNjgyIDIyLjI5NTkgMjEuNTE2NyAyNC4wMjAzIDIxLjUxNTlMMzQuOTI0NSAyMS41MTExQzM0Ljk3NDIgMjEuMDE0MSAzNSAyMC41MTAxIDM1IDIwQzM1IDE4LjgxMzggMzQuODYxNyAxNy42NiAzNC42MDE0IDE2LjU1MzNMMjQuMTE3MiAxOS44ODIzQzIzLjUyNzIgMjAuMDY5NiAyMy4wNzE2IDE5LjM1MjggMjMuNDkxOCAxOC44OTgxWiIgZmlsbD0iI0VCRjIxMiIvPgo8cGF0aCBkPSJNNS4wNzA4MSAxOC41NDA2TDE1Ljk0MiAxOC41MzU4QzE3LjY2NjYgMTguNTM1MSAxOC43NzIyIDIwLjM2OTYgMTcuOTY1OSAyMS44OTM5TDEyLjE5MjIgMzIuODA5NUMxMC44MjMxIDMxLjk3MzIgOS41OTg5OCAzMC45MjMzIDguNTY1MTcgMjkuNzA2N0wxNi40NzA3IDIxLjE1MzZDMTYuODkwOSAyMC42OTg5IDE2LjQzNTEgMTkuOTgyIDE1Ljg0NTEgMjAuMTY5NEw1LjQwNzU0IDIzLjQ4MzZDNS4xNDE2MSAyMi4zNjU3IDUgMjEuMTk5NSA1IDIwQzUgMTkuNTA3NSA1LjAyNDQzIDE5LjAyMDcgNS4wNzA4MSAxOC41NDA2WiIgZmlsbD0iI0VCRjIxMiIvPgo8L3N2Zz4K"
+        className="x_kJtSQ"
+      />
+    </div>
+  </div>
+  <div id="root">
+    <div className="min-h-screen bg-background">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-md border-b border-default">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center animate-pulse-glow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-heart w-6 h-6 text-white"
+                  aria-hidden="true"
+                >
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-primary">NSS IITD</h1>
+                <p className="text-xs text-tertiary">Not Me But You</p>
+              </div>
+            </div>
+            <nav className="hidden md:flex space-x-8">
+              <a
+                href="#home"
+                className="flex items-center space-x-2 text-secondary hover:text-primary transition-colors duration-200 group"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-heart w-4 h-4 group-hover:scale-110 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
+                <span>Home</span>
+              </a>
+              <a
+                href="#about"
+                className="flex items-center space-x-2 text-secondary hover:text-primary transition-colors duration-200 group"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-users w-4 h-4 group-hover:scale-110 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <circle cx={9} cy={7} r={4} />
+                </svg>
+                <span>About</span>
+              </a>
+              <a
+                href="#events"
+                className="flex items-center space-x-2 text-secondary hover:text-primary transition-colors duration-200 group"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-calendar w-4 h-4 group-hover:scale-110 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="M8 2v4" />
+                  <path d="M16 2v4" />
+                  <rect width={18} height={18} x={3} y={4} rx={2} />
+                  <path d="M3 10h18" />
+                </svg>
+                <span>Events</span>
+              </a>
+              <a
+                href="#achievements"
+                className="flex items-center space-x-2 text-secondary hover:text-primary transition-colors duration-200 group"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-award w-4 h-4 group-hover:scale-110 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+                  <circle cx={12} cy={8} r={6} />
+                </svg>
+                <span>Achievements</span>
+              </a>
+            </nav>
+            <div className="hidden md:block">
+              <button className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 hover:shadow-lg">
+                Join Us
+              </button>
+            </div>
+            <button className="md:hidden p-2 rounded-md text-secondary hover:text-primary hover:bg-background-alt transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-menu w-6 h-6"
+                aria-hidden="true"
+              >
+                <path d="M4 12h16" />
+                <path d="M4 18h16" />
+                <path d="M4 6h16" />
+              </svg>
+            </button>
+          </div>
         </div>
-    </section>
-);
-
-export default Home;
+      </header>
+      <main>
+        <section
+          id="home"
+          className="min-h-screen bg-gradient-hero relative overflow-hidden pt-16"
+        >
+          <div className="absolute inset-0 opacity-5">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 25% 25%, rgb(5, 150, 105) 2px, transparent 2px), radial-gradient(circle at 75% 75%, rgb(5, 150, 105) 1px, transparent 1px)",
+                backgroundSize: "50px 50px"
+              }}
+            />
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
+              <div className="space-y-8 animate-slide-in-left">
+                <div className="inline-flex items-center space-x-2 bg-surface px-4 py-2 rounded-full border border-default shadow-sm">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-sparkles w-4 h-4 text-primary"
+                    aria-hidden="true"
+                  >
+                    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                    <path d="M20 3v4" />
+                    <path d="M22 5h-4" />
+                    <path d="M4 17v2" />
+                    <path d="M5 18H3" />
+                  </svg>
+                  <span className="text-sm font-medium text-secondary">
+                    Serving Since 1969
+                  </span>
+                </div>
+                <div className="space-y-4">
+                  <h1 className="text-5xl lg:text-7xl font-bold text-primary leading-tight">
+                    NSS<span className="block text-primary-dark">IITD</span>
+                  </h1>
+                  <p className="text-2xl lg:text-3xl font-semibold text-secondary">
+                    Not Me But You
+                  </p>
+                </div>
+                <p className="text-lg text-tertiary leading-relaxed max-w-xl">
+                  National Service Scheme at IIT Delhi - Empowering students to
+                  serve society through meaningful community engagement, social
+                  awareness, and sustainable development initiatives.
+                </p>
+                <div className="grid grid-cols-3 gap-6 py-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary">500+</div>
+                    <div className="text-sm text-tertiary">
+                      Active Volunteers
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary">50+</div>
+                    <div className="text-sm text-tertiary">
+                      Projects Completed
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary">10K+</div>
+                    <div className="text-sm text-tertiary">Lives Impacted</div>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button className="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2 group">
+                    <span>Get Involved</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-arrow-right w-5 h-5 group-hover:translate-x-1 transition-transform"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </button>
+                  <button className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+              <div className="relative animate-slide-in-right">
+                <div className="relative">
+                  <div className="w-80 h-80 lg:w-96 lg:h-96 mx-auto relative">
+                    <div className="absolute inset-0 bg-gradient-primary rounded-full animate-pulse-glow" />
+                    <div className="absolute inset-4 bg-surface rounded-full flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-24 h-24 text-primary animate-float"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    className="absolute -top-8 -left-8 w-16 h-16 bg-success rounded-full flex items-center justify-center animate-float shadow-lg"
+                    style={{ animationDelay: "0.5s" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-users w-8 h-8 text-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <circle cx={9} cy={7} r={4} />
+                    </svg>
+                  </div>
+                  <div
+                    className="absolute -bottom-8 -right-8 w-20 h-20 bg-warning rounded-full flex items-center justify-center animate-float shadow-lg"
+                    style={{ animationDelay: "1s" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-sparkles w-10 h-10 text-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                      <path d="M20 3v4" />
+                      <path d="M22 5h-4" />
+                      <path d="M4 17v2" />
+                      <path d="M5 18H3" />
+                    </svg>
+                  </div>
+                  <div
+                    className="absolute top-1/2 -right-12 w-12 h-12 bg-primary-dark rounded-full flex items-center justify-center animate-float shadow-lg"
+                    style={{ animationDelay: "1.5s" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-heart w-6 h-6 text-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="absolute -z-10 top-1/4 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-xl" />
+                <div className="absolute -z-10 bottom-1/4 right-1/4 w-40 h-40 bg-success/10 rounded-full blur-xl" />
+              </div>
+            </div>
+          </div>
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
+            </div>
+          </div>
+        </section>
+        <section id="about" className="py-20 bg-surface">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 animate-fade-in-up">
+              <div className="inline-flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-target w-4 h-4 text-primary"
+                  aria-hidden="true"
+                >
+                  <circle cx={12} cy={12} r={10} />
+                  <circle cx={12} cy={12} r={6} />
+                  <circle cx={12} cy={12} r={2} />
+                </svg>
+                <span className="text-sm font-medium text-primary">
+                  About NSS IITD
+                </span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6">
+                Empowering Change Through Service
+              </h2>
+              <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+                The National Service Scheme at IIT Delhi has been fostering
+                social responsibility and community engagement among students
+                for over five decades.
+              </p>
+            </div>
+            <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+              <div className="space-y-8 animate-slide-in-left">
+                <div className="space-y-6">
+                  <h3 className="text-3xl font-bold text-primary">
+                    Our Mission
+                  </h3>
+                  <p className="text-lg text-secondary leading-relaxed">
+                    To develop the personality and character of students through
+                    voluntary community service. We believe in the philosophy of
+                    "Not Me But You" - putting service before self and working
+                    towards the betterment of society.
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  <h3 className="text-3xl font-bold text-primary">
+                    Our Vision
+                  </h3>
+                  <p className="text-lg text-secondary leading-relaxed">
+                    To create socially conscious citizens who actively
+                    contribute to nation-building through sustainable
+                    development initiatives, community engagement, and social
+                    awareness programs.
+                  </p>
+                </div>
+                <div className="bg-background-alt p-6 rounded-2xl border-l-4 border-primary">
+                  <blockquote className="text-lg italic text-secondary">
+                    "The best way to find yourself is to lose yourself in the
+                    service of others."
+                  </blockquote>
+                  <cite className="text-sm text-tertiary mt-2 block">
+                    - Mahatma Gandhi
+                  </cite>
+                </div>
+              </div>
+              <div className="relative animate-slide-in-right">
+                <div className="grid grid-cols-2 gap-6">
+                  <div
+                    className="bg-gradient-primary p-6 rounded-2xl text-center text-white transform hover:scale-105 transition-all duration-200 hover:shadow-xl"
+                    style={{ animationDelay: "0s" }}
+                  >
+                    <div className="text-3xl lg:text-4xl font-bold mb-2">
+                      54+
+                    </div>
+                    <div className="text-sm opacity-90">Years of Service</div>
+                  </div>
+                  <div
+                    className="bg-gradient-primary p-6 rounded-2xl text-center text-white transform hover:scale-105 transition-all duration-200 hover:shadow-xl"
+                    style={{ animationDelay: "0.1s" }}
+                  >
+                    <div className="text-3xl lg:text-4xl font-bold mb-2">
+                      500+
+                    </div>
+                    <div className="text-sm opacity-90">Active Volunteers</div>
+                  </div>
+                  <div
+                    className="bg-gradient-primary p-6 rounded-2xl text-center text-white transform hover:scale-105 transition-all duration-200 hover:shadow-xl"
+                    style={{ animationDelay: "0.2s" }}
+                  >
+                    <div className="text-3xl lg:text-4xl font-bold mb-2">
+                      100+
+                    </div>
+                    <div className="text-sm opacity-90">Projects Completed</div>
+                  </div>
+                  <div
+                    className="bg-gradient-primary p-6 rounded-2xl text-center text-white transform hover:scale-105 transition-all duration-200 hover:shadow-xl"
+                    style={{ animationDelay: "0.3s" }}
+                  >
+                    <div className="text-3xl lg:text-4xl font-bold mb-2">
+                      25K+
+                    </div>
+                    <div className="text-sm opacity-90">Lives Touched</div>
+                  </div>
+                </div>
+                <div className="absolute -top-8 -right-8 w-16 h-16 bg-success/20 rounded-full animate-float" />
+                <div
+                  className="absolute -bottom-8 -left-8 w-12 h-12 bg-warning/20 rounded-full animate-float"
+                  style={{ animationDelay: "1s" }}
+                />
+              </div>
+            </div>
+            <div className="animate-fade-in-up">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-primary mb-4">
+                  Our Core Values
+                </h3>
+                <p className="text-lg text-secondary">
+                  The principles that guide our every action
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div
+                  className="bg-surface-elevated p-6 rounded-2xl text-center hover:bg-surface hover:shadow-lg transition-all duration-200 transform hover:-translate-y-2 border border-light"
+                  style={{ animationDelay: "0s" }}
+                >
+                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-heart w-8 h-8 text-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-semibold text-primary mb-3">
+                    Service
+                  </h4>
+                  <p className="text-secondary">
+                    Dedicated to serving society with compassion and commitment
+                  </p>
+                </div>
+                <div
+                  className="bg-surface-elevated p-6 rounded-2xl text-center hover:bg-surface hover:shadow-lg transition-all duration-200 transform hover:-translate-y-2 border border-light"
+                  style={{ animationDelay: "0.1s" }}
+                >
+                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-users w-8 h-8 text-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <circle cx={9} cy={7} r={4} />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-semibold text-primary mb-3">
+                    Community
+                  </h4>
+                  <p className="text-secondary">
+                    Building stronger communities through collective action
+                  </p>
+                </div>
+                <div
+                  className="bg-surface-elevated p-6 rounded-2xl text-center hover:bg-surface hover:shadow-lg transition-all duration-200 transform hover:-translate-y-2 border border-light"
+                  style={{ animationDelay: "0.2s" }}
+                >
+                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-globe w-8 h-8 text-white"
+                      aria-hidden="true"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                      <path d="M2 12h20" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-semibold text-primary mb-3">
+                    Sustainability
+                  </h4>
+                  <p className="text-secondary">
+                    Promoting sustainable development and environmental
+                    consciousness
+                  </p>
+                </div>
+                <div
+                  className="bg-surface-elevated p-6 rounded-2xl text-center hover:bg-surface hover:shadow-lg transition-all duration-200 transform hover:-translate-y-2 border border-light"
+                  style={{ animationDelay: "0.3s" }}
+                >
+                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-lightbulb w-8 h-8 text-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                      <path d="M9 18h6" />
+                      <path d="M10 22h4" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-semibold text-primary mb-3">
+                    Innovation
+                  </h4>
+                  <p className="text-secondary">
+                    Innovative approaches to solve social challenges
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="text-center mt-16 animate-fade-in-up">
+              <div className="bg-gradient-primary p-8 rounded-3xl text-white">
+                <h3 className="text-3xl font-bold mb-4">
+                  Ready to Make a Difference?
+                </h3>
+                <p className="text-xl mb-6 opacity-90">
+                  Join our community of changemakers and be part of something
+                  bigger than yourself.
+                </p>
+                <button className="bg-white text-primary hover:bg-background-alt px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-xl">
+                  Become a Volunteer
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="events" className="py-20 bg-background-alt">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 animate-fade-in-up">
+              <div className="inline-flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-calendar w-4 h-4 text-primary"
+                  aria-hidden="true"
+                >
+                  <path d="M8 2v4" />
+                  <path d="M16 2v4" />
+                  <rect width={18} height={18} x={3} y={4} rx={2} />
+                  <path d="M3 10h18" />
+                </svg>
+                <span className="text-sm font-medium text-primary">
+                  Events &amp; Activities
+                </span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6">
+                Join Our Initiatives
+              </h2>
+              <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+                Be part of meaningful activities that create positive impact in
+                our community. Every event is an opportunity to serve and grow
+                together.
+              </p>
+            </div>
+            <div className="mb-20">
+              <h3 className="text-3xl font-bold text-primary mb-8 animate-slide-in-left">
+                Upcoming Events
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                  className="bg-surface rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up"
+                  style={{ animationDelay: "0s" }}
+                >
+                  <div className="h-48 bg-gradient-to-br from-red-400 to-red-600 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 rounded-full text-xs font-medium border bg-red-100 text-red-700 border-red-200">
+                        Health
+                      </span>
+                    </div>
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <div className="text-2xl font-bold">15</div>
+                      <div className="text-sm opacity-90">Feb</div>
+                    </div>
+                    <div className="absolute bottom-4 right-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-8 h-8 text-white/80 animate-float"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-bold text-primary mb-3">
+                      Community Health Camp
+                    </h4>
+                    <p className="text-secondary mb-4 line-clamp-2">
+                      Free health checkups and medical consultations for the
+                      underprivileged community.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-clock w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 6v6l4 2" />
+                          <circle cx={12} cy={12} r={10} />
+                        </svg>
+                        <span>9:00 AM - 4:00 PM</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-map-pin w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                          <circle cx={12} cy={10} r={3} />
+                        </svg>
+                        <span>Kusumpur Pahari</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-users w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                          <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                          <circle cx={9} cy={7} r={4} />
+                        </svg>
+                        <span>45 volunteers registered</span>
+                      </div>
+                    </div>
+                    <button className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2 group">
+                      <span>Register Now</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bg-surface rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up"
+                  style={{ animationDelay: "0.1s" }}
+                >
+                  <div className="h-48 bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 rounded-full text-xs font-medium border bg-blue-100 text-blue-700 border-blue-200">
+                        Education
+                      </span>
+                    </div>
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <div className="text-2xl font-bold">20</div>
+                      <div className="text-sm opacity-90">Feb</div>
+                    </div>
+                    <div className="absolute bottom-4 right-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-8 h-8 text-white/80 animate-float"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-bold text-primary mb-3">
+                      Digital Literacy Workshop
+                    </h4>
+                    <p className="text-secondary mb-4 line-clamp-2">
+                      Teaching basic computer skills and digital awareness to
+                      school children.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-clock w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 6v6l4 2" />
+                          <circle cx={12} cy={12} r={10} />
+                        </svg>
+                        <span>2:00 PM - 5:00 PM</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-map-pin w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                          <circle cx={12} cy={10} r={3} />
+                        </svg>
+                        <span>Government School, Munirka</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-users w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                          <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                          <circle cx={9} cy={7} r={4} />
+                        </svg>
+                        <span>30 volunteers registered</span>
+                      </div>
+                    </div>
+                    <button className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2 group">
+                      <span>Register Now</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="bg-surface rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up"
+                  style={{ animationDelay: "0.2s" }}
+                >
+                  <div className="h-48 bg-gradient-to-br from-green-400 to-green-600 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 rounded-full text-xs font-medium border bg-green-100 text-green-700 border-green-200">
+                        Environment
+                      </span>
+                    </div>
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <div className="text-2xl font-bold">25</div>
+                      <div className="text-sm opacity-90">Feb</div>
+                    </div>
+                    <div className="absolute bottom-4 right-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-8 h-8 text-white/80 animate-float"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-bold text-primary mb-3">
+                      Tree Plantation Drive
+                    </h4>
+                    <p className="text-secondary mb-4 line-clamp-2">
+                      Environmental conservation initiative to plant 500+
+                      saplings.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-clock w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 6v6l4 2" />
+                          <circle cx={12} cy={12} r={10} />
+                        </svg>
+                        <span>7:00 AM - 11:00 AM</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-map-pin w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                          <circle cx={12} cy={10} r={3} />
+                        </svg>
+                        <span>Ridge Area, Delhi</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-tertiary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-users w-4 h-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                          <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                          <circle cx={9} cy={7} r={4} />
+                        </svg>
+                        <span>60 volunteers registered</span>
+                      </div>
+                    </div>
+                    <button className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2 group">
+                      <span>Register Now</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="animate-fade-in-up">
+              <h3 className="text-3xl font-bold text-primary mb-8 animate-slide-in-left">
+                Recent Impact
+              </h3>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div
+                  className="bg-surface p-6 rounded-2xl border border-light hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
+                  style={{ animationDelay: "0s" }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h4 className="text-lg font-semibold text-primary mb-1">
+                        Blood Donation Camp
+                      </h4>
+                      <p className="text-sm text-tertiary">January 2024</p>
+                    </div>
+                    <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-6 h-6 text-white"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-secondary">Impact:</span>
+                      <span className="text-sm font-semibold text-success">
+                        150 units collected
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-secondary">
+                        Volunteers:
+                      </span>
+                      <span className="text-sm font-semibold text-primary">
+                        200
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="bg-surface p-6 rounded-2xl border border-light hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
+                  style={{ animationDelay: "0.1s" }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h4 className="text-lg font-semibold text-primary mb-1">
+                        Swachh Bharat Mission
+                      </h4>
+                      <p className="text-sm text-tertiary">December 2023</p>
+                    </div>
+                    <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-6 h-6 text-white"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-secondary">Impact:</span>
+                      <span className="text-sm font-semibold text-success">
+                        5 villages cleaned
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-secondary">
+                        Volunteers:
+                      </span>
+                      <span className="text-sm font-semibold text-primary">
+                        120
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="bg-surface p-6 rounded-2xl border border-light hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
+                  style={{ animationDelay: "0.2s" }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h4 className="text-lg font-semibold text-primary mb-1">
+                        Education for All
+                      </h4>
+                      <p className="text-sm text-tertiary">November 2023</p>
+                    </div>
+                    <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-heart w-6 h-6 text-white"
+                        aria-hidden="true"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-secondary">Impact:</span>
+                      <span className="text-sm font-semibold text-success">
+                        300 children taught
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-secondary">
+                        Volunteers:
+                      </span>
+                      <span className="text-sm font-semibold text-primary">
+                        80
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-center mt-16 animate-fade-in-up">
+              <div className="bg-gradient-primary p-8 rounded-3xl text-white">
+                <h3 className="text-3xl font-bold mb-4">
+                  Want to Organize an Event?
+                </h3>
+                <p className="text-xl mb-6 opacity-90">
+                  Have an idea for a community service project? We'd love to
+                  hear from you!
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button className="bg-white text-primary hover:bg-background-alt px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
+                    Propose Event
+                  </button>
+                  <button className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
+                    View Calendar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="bg-primary-dark text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-16">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+              <div className="lg:col-span-1">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-heart w-7 h-7 text-primary"
+                      aria-hidden="true"
+                    >
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold">NSS IITD</h3>
+                    <p className="text-sm opacity-80">Not Me But You</p>
+                  </div>
+                </div>
+                <p className="text-white/80 mb-6 leading-relaxed">
+                  Empowering students to serve society through meaningful
+                  community engagement and sustainable development initiatives
+                  since 1969.
+                </p>
+                <div className="flex space-x-4">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-200 transform hover:scale-110"
+                    aria-label="Facebook"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-facebook w-5 h-5"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-200 transform hover:scale-110"
+                    aria-label="Twitter"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-twitter w-5 h-5"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-200 transform hover:scale-110"
+                    aria-label="Instagram"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-instagram w-5 h-5"
+                      aria-hidden="true"
+                    >
+                      <rect width={20} height={20} x={2} y={2} rx={5} ry={5} />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-200 transform hover:scale-110"
+                    aria-label="LinkedIn"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-linkedin w-5 h-5"
+                      aria-hidden="true"
+                    >
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect width={4} height={12} x={2} y={9} />
+                      <circle cx={4} cy={4} r={2} />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href="#about"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>About Us</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#events"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Events</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#achievements"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Achievements</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#contact"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Contact</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold mb-6">Our Programs</h4>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href="#"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Community Health</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Education Support</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Environmental Conservation</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-white/80 hover:text-white transition-colors duration-200 flex items-center space-x-2 group"
+                    >
+                      <span className="w-1 h-1 bg-white/60 rounded-full group-hover:bg-white transition-colors" />
+                      <span>Digital Literacy</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold mb-6">Get in Touch</h4>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-map-pin w-5 h-5 mt-1 text-white/60"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                      <circle cx={12} cy={10} r={3} />
+                    </svg>
+                    <div>
+                      <p className="text-white/80">
+                        IIT Delhi Campus
+                        <br />
+                        Hauz Khas, New Delhi
+                        <br />
+                        110016, India
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-mail w-5 h-5 text-white/60"
+                      aria-hidden="true"
+                    >
+                      <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+                      <rect x={2} y={4} width={20} height={16} rx={2} />
+                    </svg>
+                    <a
+                      href="mailto:nss@iitd.ac.in"
+                      className="text-white/80 hover:text-white transition-colors"
+                    >
+                      nss@iitd.ac.in
+                    </a>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-phone w-5 h-5 text-white/60"
+                      aria-hidden="true"
+                    >
+                      <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+                    </svg>
+                    <a
+                      href="tel:+911126591000"
+                      className="text-white/80 hover:text-white transition-colors"
+                    >
+                      +91 11 2659 1000
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-white/20 py-8">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h4 className="text-xl font-semibold mb-2">Stay Updated</h4>
+                <p className="text-white/80">
+                  Subscribe to our newsletter for the latest updates on events
+                  and initiatives.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
+                  type="email"
+                />
+                <button className="bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-white/20 py-6">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <div className="text-white/60 text-sm">
+                © 2024 NSS IIT Delhi. All rights reserved.
+              </div>
+              <div className="flex items-center space-x-6 text-sm text-white/60">
+                <a href="#" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </a>
+                <a href="#" className="hover:text-white transition-colors">
+                  Terms of Service
+                </a>
+                <a href="#" className="hover:text-white transition-colors">
+                  Code of Conduct
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-success to-warning" />
+      </footer>
+    </div>
+  </div>
+  <div
+    style={{ position: "relative" }}
+    id="zp-10-1-5-licdn-root-apollo_everywhere"
+    data-has-tooltip-listener=""
+  >
+    <div className="x_BJJxg" data-disable-focus-trap="true" />
+    <div
+      className="x_KfhZL"
+      aria-live="polite"
+      aria-atomic="true"
+      data-disable-focus-trap="true"
+    />
+    <span
+      data-name="tooltip-listener"
+      aria-hidden="true"
+      style={{ display: "none" }}
+    />{" "}
+  </div>
+</>
