@@ -2,9 +2,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 // Keep your compiled Tailwind and custom CSS as project imports (do not inline <style> tags in components)
-import "./styles/styles.css";
+import "../../styles/styles.css";
 
-const NSSIITD = () => {
+const Home = () => {
   // Minimal state/behavior without altering the UI
   const [year, setYear] = useState(() => new Date().getFullYear());
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -545,4 +545,4 @@ const NSSIITD = () => {
   );
 };
 
-export default NSSIITD;
+export default Home;
