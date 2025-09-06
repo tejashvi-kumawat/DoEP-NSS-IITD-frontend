@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 // Keep your compiled Tailwind and custom CSS as project imports (do not inline <style> tags in components)
-import "./index.css";
 import "./styles/styles.css";
 
 const NSSIITD = () => {
