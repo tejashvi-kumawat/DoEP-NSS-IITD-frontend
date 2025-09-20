@@ -1,6 +1,0 @@
-{
-    "css.lint.unknownProperties": "ignore",
-    "css.customData": [
-        ".vscode/css_custom_data.json"
-    ]
-}
