@@ -1,6 +1,6 @@
 # NSS IITD Webapp: Style and Development Guide
 
-This guide outlines the development and styling standards for the "Digitalisation of Educational Projects in NSS IITD" webapp. It ensures a consistent, modern, and accessible UI with a greenish-tinted theme, reflecting NSS IIT Delhi's educational mission. The frontend uses  **React** ,  **Vite** ,  **JSX + SWC** , and **CSS modules** for styling, with an **Express.js** backend. All team members must follow these guidelines to maintain consistency.
+This guide outlines the development and styling standards for the "Digitalisation of Educational Projects in NSS IITD" webapp. It ensures a consistent, modern, and accessible UI with a greenish-tinted theme, reflecting NSS IIT Delhi's educational mission. The frontend uses **React**, **Vite**, **JSX + SWC**, and **Tailwind CSS** for utility-first styling, with an **Express.js** backend. All team members must follow these guidelines to maintain consistency.
 
 ## Table of Contents
 
@@ -36,7 +36,7 @@ The NSS IITD webapp digitizes educational projects, enabling students, coordinat
 * **React 18+** - Component-based UI library
 * **Vite** - Fast build tool and dev server
 * **JSX + SWC** - Speedy Web Compiler for ultra-fast compilation
-* **CSS Modules** - Scoped styling system
+* **Tailwind CSS** - Utility-first CSS framework
 * **React Router** - Client-side routing
 
 ## Backend
@@ -133,135 +133,172 @@ The NSS IITD webapp digitizes educational projects, enabling students, coordinat
 
 ## Theme Overview
 
-The theme uses a greenish palette, defined in `src/styles/styles.css`. Key features:
+The theme uses a greenish palette, leveraging Tailwind's customizable color system. Key features:
 
-* **Primary Color** : `#059669` (emerald green) for buttons, links, and accents
+* **Primary Color** : Emerald green (`emerald-600`: #059669) for buttons, links, and accents
 * **Accessibility** : Colors meet WCAG 2.1 AA contrast ratios
-* **Typography** : `Inter` font for readability
-* **CSS Modules** : Scoped styles ensure consistency
+* **Typography** : `Inter` font for readability (via Tailwind typography plugin)
+* **Utility Classes** : Consistent styling through Tailwind's utility classes
 
 ## Color Palette
 
-Use these colors from `src/styles/styles.css`:
+Use these Tailwind color classes:
 
-| Name             | Hex     | Usage                     |
-| ---------------- | ------- | ------------------------- |
-| Primary          | #059669 | Buttons, links, accents   |
-| Primary Dark     | #065F46 | Hover states              |
-| Success          | #10B981 | Success messages, badges  |
-| Warning          | #F59E0B | Warning messages, badges  |
-| Text Primary     | #1A202C | Headings, primary text    |
-| Text Secondary   | #4A5568 | Secondary text            |
-| Text Tertiary    | #718096 | Muted text, placeholders  |
-| Background       | #F7FAFC | Main background           |
-| Background Alt   | #EDF2F7 | Secondary sections        |
-| Surface          | #FFFFFF | Cards, modals, forms      |
-| Surface Elevated | #F7FAFC | Hover states for surfaces |
-| Border           | #E2E8F0 | Default borders           |
-| Border Light     | #EDF2F7 | Subtle borders            |
+| Purpose          | Tailwind Class    | Hex     | Usage                     |
+| ---------------- | ----------------- | ------- | ------------------------- |
+| Primary          | emerald-600       | #059669 | Buttons, links, accents   |
+| Primary Dark     | emerald-700       | #065F46 | Hover states             |
+| Success          | emerald-500       | #10B981 | Success messages, badges  |
+| Warning          | amber-500         | #F59E0B | Warning messages, badges  |
+| Text Primary     | gray-900         | #1A202C | Headings, primary text    |
+| Text Secondary   | gray-700         | #4A5568 | Secondary text           |
+| Text Tertiary    | gray-500         | #718096 | Muted text, placeholders |
+| Background       | gray-50          | #F7FAFC | Main background          |
+| Background Alt   | gray-100         | #EDF2F7 | Secondary sections       |
+| Surface          | white            | #FFFFFF | Cards, modals, forms     |
+| Surface Elevated | gray-50          | #F7FAFC | Hover states for surfaces|
+| Border           | gray-200         | #E2E8F0 | Default borders          |
+| Border Light     | gray-100         | #EDF2F7 | Subtle borders           |
 
- **Gradients** :
+**Gradients** (using Tailwind classes):
 
-* Primary: `linear-gradient(135deg, #059669, #10B981)`
-* Surface: `linear-gradient(135deg, #FFFFFF, #F7FAFC)`
-* Hero: `linear-gradient(135deg, #D6FFE6, #E6FFFA)`
+* Primary: `bg-gradient-to-tr from-emerald-600 to-emerald-500`
+* Surface: `bg-gradient-to-tr from-white to-gray-50`
+* Hero: `bg-gradient-to-tr from-emerald-50 to-emerald-100`
 
 ## Typography
 
-* **Font** : `Inter` (via Google Fonts) with fallbacks: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
+Using Tailwind's typography system:
+
+* **Font** : `Inter` (configured in `tailwind.config.js`) with system fallbacks
 * **Sizes** :
-* `h1`: 2.5rem (2rem mobile)
-* `h2`: 2rem (1.75rem mobile)
-* `h3`: 1.5rem (1.375rem mobile)
-* `h4`: 1.25rem
-* Paragraph: 1rem, line-height 1.7
-* Small text: 0.875rem
-* **Weights** : 700 (headings), 600 (emphasis), 400 (body)
-* **Colors** : `var(--text-primary)`, `var(--text-secondary)`, `var(--text-tertiary)`
+  * `text-4xl`: 2.5rem (h1)
+  * `text-3xl`: 2rem (h2)
+  * `text-2xl`: 1.5rem (h3)
+  * `text-xl`: 1.25rem (h4)
+  * `text-base`: 1rem (paragraph)
+  * `text-sm`: 0.875rem (small text)
+* **Weights** :
+  * `font-bold`: 700 (headings)
+  * `font-semibold`: 600 (emphasis)
+  * `font-normal`: 400 (body)
+* **Colors** :
+  * `text-gray-900`: Primary text
+  * `text-gray-700`: Secondary text
+  * `text-gray-500`: Tertiary text
 
 ## Spacing
 
-Use this scale:
+Use Tailwind's spacing scale:
 
-* `--space-1`: 4px
-* `--space-2`: 8px
-* `--space-3`: 12px
-* `--space-4`: 16px
-* `--space-6`: 24px
-* `--space-8`: 32px
-* `--space-16`: 64px
-* `--space-20`: 80px
+* `p-1` or `m-1`: 0.25rem (4px)
+* `p-2` or `m-2`: 0.5rem (8px)
+* `p-3` or `m-3`: 0.75rem (12px)
+* `p-4` or `m-4`: 1rem (16px)
+* `p-6` or `m-6`: 1.5rem (24px)
+* `p-8` or `m-8`: 2rem (32px)
+* `p-16` or `m-16`: 4rem (64px)
+* `p-20` or `m-20`: 5rem (80px)
 
 ## Components
 
 ## Component Structure Template
 
-Every component should follow this exact structure :[](https://www.freecodecamp.org/news/best-practices-for-react/)
+Every component should follow this exact structure:
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">jsx</div></div><div class="pr-lg"><span><code><span class="token token">// src/components/ComponentName.jsx</span><span>
-</span><span></span><span class="token token">import</span><span> React </span><span class="token token">from</span><span></span><span class="token token">'react'</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token">import</span><span> styles </span><span class="token token">from</span><span></span><span class="token token">'./ComponentName.module.css'</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">const</span><span></span><span class="token token function-variable">ComponentName</span><span></span><span class="token token operator">=</span><span></span><span class="token token punctuation">(</span><span class="token token parameter punctuation">{</span><span class="token token parameter"> prop1</span><span class="token token parameter punctuation">,</span><span class="token token parameter"> prop2 </span><span class="token token parameter punctuation">}</span><span class="token token punctuation">)</span><span></span><span class="token token operator">=></span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token">// 1. State declarations (if any)</span><span>
-</span><span></span><span class="token token">// 2. Event handlers</span><span>
-</span><span></span><span class="token token">// 3. Other functions</span><span>
-</span>  
-<span></span><span class="token token">return</span><span></span><span class="token token punctuation">(</span><span>
-</span><span></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">className</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">styles</span><span class="token token script language-javascript punctuation">.</span><span class="token token script language-javascript">container</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation">{</span><span class="token token">/* Your JSX here */</span><span class="token token punctuation">}</span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation"></</span><span class="token token">div</span><span class="token token punctuation">></span><span>
-</span><span></span><span class="token token punctuation">)</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token punctuation">}</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">export</span><span></span><span class="token token">default</span><span> ComponentName</span><span class="token token punctuation">;</span></code></span></div></div></div></pre>
+```jsx
+// src/components/ComponentName.jsx
+import React from 'react';
+
+const ComponentName = (props) => {
+  // 1. State declarations (if any)
+  // 2. Event handlers
+  // 3. Other functions
+  
+  return (
+    <div className="container mx-auto px-4">
+      {/* Your JSX here */}
+    </div>
+  );
+};
+
+export default ComponentName;
+```
 
 ## Button
 
-* **Classes** : `btn btn-primary` or `btn btn-secondary`
-* **Use** : Primary for main actions, secondary for auxiliary
+* **Classes**: Use Tailwind's utility classes
+* **Use**: Primary for main actions, secondary for auxiliary
 
- **Example** :
+**Example**:
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">jsx</div></div><div class="pr-lg"><span><code><span class="token token">// src/components/Button.jsx</span><span>
-</span><span></span><span class="token token">import</span><span> styles </span><span class="token token">from</span><span></span><span class="token token">'./Button.module.css'</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">const</span><span> Button </span><span class="token token operator">=</span><span></span><span class="token token punctuation">(</span><span class="token token punctuation">{</span><span> variant </span><span class="token token operator">=</span><span></span><span class="token token">'primary'</span><span class="token token punctuation">,</span><span> children</span><span class="token token punctuation">,</span><span> onClick</span><span class="token token punctuation">,</span><span></span><span class="token token operator">...</span><span>props </span><span class="token token punctuation">}</span><span class="token token punctuation">)</span><span></span><span class="token token operator">=></span><span></span><span class="token token punctuation">(</span><span>
-</span><span></span><span class="token token punctuation"><</span><span class="token token">button</span><span class="token token"> 
-</span><span class="token token"></span><span class="token token">className</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript template-string template-punctuation">`</span><span class="token token script language-javascript template-string interpolation interpolation-punctuation punctuation">${</span><span class="token token script language-javascript template-string interpolation">styles</span><span class="token token script language-javascript template-string interpolation punctuation">.</span><span class="token token script language-javascript template-string interpolation">button</span><span class="token token script language-javascript template-string interpolation interpolation-punctuation punctuation">}</span><span class="token token script language-javascript template-string"> btn btn-</span><span class="token token script language-javascript template-string interpolation interpolation-punctuation punctuation">${</span><span class="token token script language-javascript template-string interpolation">variant</span><span class="token token script language-javascript template-string interpolation interpolation-punctuation punctuation">}</span><span class="token token script language-javascript template-string template-punctuation">`</span><span class="token token script language-javascript punctuation">}</span><span class="token token">
-</span><span class="token token"></span><span class="token token">onClick</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">onClick</span><span class="token token script language-javascript punctuation">}</span><span class="token token">
-</span><span class="token token"></span><span class="token token spread punctuation">{</span><span class="token token spread operator">...</span><span class="token token spread">props</span><span class="token token spread punctuation">}</span><span class="token token">
-</span><span class="token token"></span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation">{</span><span>children</span><span class="token token punctuation">}</span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation"></</span><span class="token token">button</span><span class="token token punctuation">></span><span>
-</span><span></span><span class="token token punctuation">)</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">export</span><span></span><span class="token token">default</span><span> Button</span><span class="token token punctuation">;</span><span>
-</span></code></span></div></div></div></pre>
+```jsx
+// src/components/Button.jsx
+const Button = ({ variant = 'primary', children, onClick, ...props }) => {
+  const baseClasses = "px-4 py-2 rounded-lg font-semibold transition-colors duration-200";
+  const variantClasses = {
+    primary: "bg-emerald-600 text-white hover:bg-emerald-700",
+    secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300"
+  };
+
+  return (
+    <button 
+      className={`${baseClasses} ${variantClasses[variant]}`}
+      onClick={onClick}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
+```
 
 ## Project Card
 
-* **Class** : `card`
-* **Use** : Display project details
+* **Classes**: Use Tailwind's utility classes for consistent styling
+* **Use**: Display project details
+
+**Example**:
+
+```jsx
+// src/components/ProjectCard.jsx
+const ProjectCard = ({ project }) => {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">{project.title}</h3>
+      <p className="text-gray-700 mb-4">{project.description}</p>
+      <div className="flex gap-2">
+        <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-sm rounded">
+          {project.status}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default ProjectCard;
+```
 
 ## Import Organization Rules
 
-Always organize imports in this order :[](https://www.freecodecamp.org/news/best-practices-for-react/)
+Always organize imports in this order:
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">jsx</div></div><div class="pr-lg"><span><code><span class="token token">// 1. React and React-related imports</span><span>
-</span><span></span><span class="token token">import</span><span> React</span><span class="token token punctuation">,</span><span></span><span class="token token punctuation">{</span><span> useState</span><span class="token token punctuation">,</span><span> useEffect </span><span class="token token punctuation">}</span><span></span><span class="token token">from</span><span></span><span class="token token">'react'</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token">import</span><span></span><span class="token token punctuation">{</span><span> BrowserRouter</span><span class="token token punctuation">,</span><span> Route </span><span class="token token punctuation">}</span><span></span><span class="token token">from</span><span></span><span class="token token">'react-router-dom'</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">// 2. Third-party libraries</span><span>
-</span><span></span><span class="token token">import</span><span> axios </span><span class="token token">from</span><span></span><span class="token token">'axios'</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">// 3. Internal components</span><span>
-</span><span></span><span class="token token">import</span><span> Button </span><span class="token token">from</span><span></span><span class="token token">'../components/Button'</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token">import</span><span> Header </span><span class="token token">from</span><span></span><span class="token token">'../components/Header'</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">// 4. CSS modules (always last)</span><span>
-</span><span></span><span class="token token">import</span><span> styles </span><span class="token token">from</span><span></span><span class="token token">'./ComponentName.module.css'</span><span class="token token punctuation">;</span><span>
-</span></code></span></div></div></div></pre>
+```jsx
+// 1. React and React-related imports
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+// 2. Third-party libraries
+import axios from 'axios';
+
+// 3. Internal components
+import Button from '../components/Button';
+import Header from '../components/Header';
+
+// Note: No CSS imports needed with Tailwind
+```
 
 ## Beginner-Friendly Code Review Checklist
 
@@ -269,10 +306,10 @@ Always organize imports in this order :[](https://www.freecodecamp.org/news/best
 
 * [ ] **Does it compile?** Run `npm run dev` and check for errors
 * [ ] **Does it match the design?** Compare with mockups/requirements
-* [ ] **Are CSS modules used?** No inline styles or global CSS classes
+* [ ] **Are Tailwind classes used correctly?** Follow utility-first approach
 * [ ] **Are console.log statements removed?** Clean up debugging code
 * [ ] **Are variable names descriptive?** `user` instead of `u`, `isLoading` instead of `loading`
-* [ ] **Is the component responsive?** Test on mobile view in browser
+* [ ] **Is the component responsive?** Use Tailwind's responsive classes (sm:, md:, lg:)
 
 ## For Code Reviewers[](https://axify.io/blog/code-review-checklist)
 
@@ -289,73 +326,114 @@ Always organize imports in this order :[](https://www.freecodecamp.org/news/best
 
 ## React-Specific Don'ts
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">jsx</div></div><div class="pr-lg"><span><code><span>❌ </span><span class="token token constant">DON</span><span>'</span><span class="token token constant">T</span><span></span><span class="token token constant">DO</span><span></span><span class="token token constant">THIS</span><span class="token token operator">:</span><span>
-</span><span></span><span class="token token">// Directly mutating state</span><span>
-</span><span></span><span class="token token">const</span><span></span><span class="token token punctuation">[</span><span>users</span><span class="token token punctuation">,</span><span> setUsers</span><span class="token token punctuation">]</span><span></span><span class="token token operator">=</span><span></span><span class="token token">useState</span><span class="token token punctuation">(</span><span class="token token punctuation">[</span><span class="token token punctuation">]</span><span class="token token punctuation">)</span><span class="token token punctuation">;</span><span>
-</span><span>users</span><span class="token token punctuation">.</span><span class="token token">push</span><span class="token token punctuation">(</span><span>newUser</span><span class="token token punctuation">)</span><span class="token token punctuation">;</span><span></span><span class="token token">// Wrong!</span><span>
-</span>
-<span></span><span class="token token">// Using index as key in lists</span><span>
-</span><span></span><span class="token token punctuation">{</span><span>items</span><span class="token token punctuation">.</span><span class="token token">map</span><span class="token token punctuation">(</span><span class="token token punctuation">(</span><span class="token token parameter">item</span><span class="token token parameter punctuation">,</span><span class="token token parameter"> index</span><span class="token token punctuation">)</span><span></span><span class="token token operator">=></span><span> 
-</span><span></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">key</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">index</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span><span class="token token punctuation">{</span><span>item</span><span class="token token punctuation">.</span><span>name</span><span class="token token punctuation">}</span><span class="token token punctuation"></</span><span class="token token">div</span><span class="token token punctuation">></span><span>
-</span><span></span><span class="token token punctuation">)</span><span class="token token punctuation">}</span><span>
-</span>
-<span></span><span class="token token">// Inline styles</span><span>
-</span><span></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">style</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript literal-property property">color</span><span class="token token script language-javascript operator">:</span><span class="token token script language-javascript"></span><span class="token token script language-javascript">'red'</span><span class="token token script language-javascript punctuation">,</span><span class="token token script language-javascript"></span><span class="token token script language-javascript literal-property property">fontSize</span><span class="token token script language-javascript operator">:</span><span class="token token script language-javascript"></span><span class="token token script language-javascript">'16px'</span><span class="token token script language-javascript punctuation">}</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text">
-</span><span class="token token plain-text">✅ DO THIS INSTEAD:
-</span><span class="token token plain-text">// Proper state updates  
-</span><span class="token token plain-text">setUsers([...users, newUser]);
-</span><span class="token token plain-text">
-</span><span class="token token plain-text">// Unique keys
-</span><span class="token token plain-text"></span><span class="token token punctuation">{</span><span>items</span><span class="token token punctuation">.</span><span class="token token">map</span><span class="token token punctuation">(</span><span class="token token punctuation">(</span><span class="token token parameter">item</span><span class="token token punctuation">)</span><span></span><span class="token token operator">=></span><span> 
-</span><span></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">key</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">item</span><span class="token token script language-javascript punctuation">.</span><span class="token token script language-javascript">id</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span><span class="token token punctuation">{</span><span>item</span><span class="token token punctuation">.</span><span>name</span><span class="token token punctuation">}</span><span class="token token punctuation"></</span><span class="token token">div</span><span class="token token punctuation">></span><span>
-</span><span></span><span class="token token punctuation">)</span><span class="token token punctuation">}</span><span class="token token plain-text">
-</span><span class="token token plain-text">
-</span><span class="token token plain-text">// CSS modules
-</span><span class="token token plain-text"></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">className</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">styles</span><span class="token token script language-javascript punctuation">.</span><span class="token token script language-javascript">redText</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span></code></span></div></div></div></pre>
+```jsx
+❌ DON'T DO THIS:
+// Directly mutating state
+const [users, setUsers] = useState([]);
+users.push(newUser); // Wrong!
+
+// Using index as key in lists
+{items.map((item, index) => 
+  <div key={index}>{item.name}</div>
+)}
+
+// Inline styles or unnecessary custom classes
+<div style={{ color: 'red', fontSize: '16px' }}>
+<div className="custom-red-text">
+
+✅ DO THIS INSTEAD:
+// Proper state updates  
+setUsers([...users, newUser]);
+
+// Unique keys
+{items.map((item) => 
+  <div key={item.id}>{item.name}</div>
+)}
+
+// Tailwind utility classes
+<div className="text-red-600 text-base">
+```
 
 ## Development Instructions
 
-## Vite Configuration
+## Vite & Tailwind Configuration
 
 Your `vite.config.js` should use SWC for optimal performance:
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">js</div></div><div class="pr-lg"><span><code><span class="token token">import</span><span></span><span class="token token punctuation">{</span><span> defineConfig </span><span class="token token punctuation">}</span><span></span><span class="token token">from</span><span></span><span class="token token">'vite'</span><span>
-</span><span></span><span class="token token">import</span><span> react </span><span class="token token">from</span><span></span><span class="token token">'@vitejs/plugin-react-swc'</span><span>
-</span>
-<span></span><span class="token token">export</span><span></span><span class="token token">default</span><span></span><span class="token token">defineConfig</span><span class="token token punctuation">(</span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token literal-property property">plugins</span><span class="token token operator">:</span><span></span><span class="token token punctuation">[</span><span class="token token">react</span><span class="token token punctuation">(</span><span class="token token punctuation">)</span><span class="token token punctuation">]</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token literal-property property">server</span><span class="token token operator">:</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token literal-property property">port</span><span class="token token operator">:</span><span></span><span class="token token">5173</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token literal-property property">proxy</span><span class="token token operator">:</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token string-property property">'/api'</span><span class="token token operator">:</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token literal-property property">target</span><span class="token token operator">:</span><span></span><span class="token token">'http://localhost:5000'</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token literal-property property">changeOrigin</span><span class="token token operator">:</span><span></span><span class="token token boolean">true</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token literal-property property">secure</span><span class="token token operator">:</span><span></span><span class="token token boolean">false</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token punctuation">}</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token punctuation">}</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token punctuation">}</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token literal-property property">build</span><span class="token token operator">:</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token literal-property property">outDir</span><span class="token token operator">:</span><span></span><span class="token token">'dist'</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token literal-property property">sourcemap</span><span class="token token operator">:</span><span></span><span class="token token boolean">true</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token punctuation">}</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token punctuation">}</span><span class="token token punctuation">)</span><span>
-</span></code></span></div></div></div></pre>
+```js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
+});
+```
+
+Create `tailwind.config.js`:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#059669',
+          dark: '#065F46',
+        }
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [],
+}
 
 ## Development Scripts
 
 Add these scripts to your `frontend/package.json`:
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">json</div></div><div class="pr-lg"><span><code><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token property">"scripts"</span><span class="token token operator">:</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token property">"dev"</span><span class="token token operator">:</span><span></span><span class="token token">"vite"</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token property">"build"</span><span class="token token operator">:</span><span></span><span class="token token">"vite build"</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token property">"preview"</span><span class="token token operator">:</span><span></span><span class="token token">"vite preview"</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token property">"lint"</span><span class="token token operator">:</span><span></span><span class="token token">"eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"</span><span class="token token punctuation">,</span><span>
-</span><span></span><span class="token token property">"lint:css"</span><span class="token token operator">:</span><span></span><span class="token token">"stylelint 'src/**/*.css'"</span><span>
-</span><span></span><span class="token token punctuation">}</span><span>
-</span><span></span><span class="token token punctuation">}</span><span>
-</span></code></span></div></div></div></pre>
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "vite": "^5.0.8"
+  }
+}
 
 ## Running the Application
 
@@ -368,38 +446,50 @@ Add these scripts to your `frontend/package.json`:
 </span><span></span><span class="token token">npm</span><span> run dev
 </span></code></span></div></div></div></pre>
 
-## CSS Modules Usage
+## Tailwind CSS Usage
 
-* **Global Theme** : Use `src/styles/styles.css`
-* **CSS Modules** : Create `.module.css` files with `composes`
+* **Global Theme**: Configure in `tailwind.config.js`
+* **Utility Classes**: Use Tailwind's utility classes for all styling
 
- **Example** :
+**Example**:
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">css</div></div><div class="pr-lg"><span><code><span class="token token">/* src/components/Home.module.css */</span><span>
-</span><span></span><span class="token token">.hero</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token property">composes</span><span class="token token punctuation">:</span><span> hero-section from </span><span class="token token">'../styles/styles.css'</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token property">padding</span><span class="token token punctuation">:</span><span></span><span class="token token">var</span><span class="token token punctuation">(</span><span>--space-16</span><span class="token token punctuation">)</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token punctuation">}</span><span>
-</span>
-<span></span><span class="token token">.container</span><span></span><span class="token token punctuation">{</span><span>
-</span><span></span><span class="token token property">composes</span><span class="token token punctuation">:</span><span> container from </span><span class="token token">'../styles/styles.css'</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token property">max-width</span><span class="token token punctuation">:</span><span> 1200px</span><span class="token token punctuation">;</span><span>
-</span><span></span><span class="token token punctuation">}</span><span>
-</span></code></span></div></div></div></pre>
+```jsx
+// src/pages/Home.jsx
+const Home = () => {
+  return (
+    <div className="bg-gradient-to-tr from-emerald-50 to-emerald-100 py-16">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <h1 className="text-4xl font-bold text-gray-900 mb-6">
+          Welcome to NSS IITD
+        </h1>
+        <p className="text-gray-700 max-w-2xl">
+          Making a difference in our community through educational initiatives.
+        </p>
+      </div>
+    </div>
+  );
+};
 
-<pre class="not-prose w-full rounded font-mono text-sm font-extralight"><div class="codeWrapper text-light selection:text-super selection:bg-super/10 my-md relative flex flex-col rounded font-mono text-sm font-normal bg-subtler"><div class="translate-y-xs -translate-x-xs bottom-xl mb-xl sticky top-0 flex h-0 items-start justify-end"></div><div class="-mt-xl"><div><div data-testid="code-language-indicator" class="text-quiet bg-offsetPlus py-xs px-sm inline-block rounded-br rounded-tl-[3px] font-thin">jsx</div></div><div class="pr-lg"><span><code><span class="token token">// src/pages/Home.jsx</span><span>
-</span><span></span><span class="token token">import</span><span> styles </span><span class="token token">from</span><span></span><span class="token token">'./Home.module.css'</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">const</span><span></span><span class="token token function-variable">Home</span><span></span><span class="token token operator">=</span><span></span><span class="token token punctuation">(</span><span class="token token punctuation">)</span><span></span><span class="token token operator">=></span><span></span><span class="token token punctuation">(</span><span>
-</span><span></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">className</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">styles</span><span class="token token script language-javascript punctuation">.</span><span class="token token script language-javascript">hero</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation"><</span><span class="token token">div</span><span class="token token"></span><span class="token token">className</span><span class="token token script language-javascript script-punctuation punctuation">=</span><span class="token token script language-javascript punctuation">{</span><span class="token token script language-javascript">styles</span><span class="token token script language-javascript punctuation">.</span><span class="token token script language-javascript">container</span><span class="token token script language-javascript punctuation">}</span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation"><</span><span class="token token">h1</span><span class="token token punctuation">></span><span class="token token plain-text">Welcome to NSS IITD</span><span class="token token punctuation"></</span><span class="token token">h1</span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation"></</span><span class="token token">div</span><span class="token token punctuation">></span><span class="token token plain-text">
-</span><span class="token token plain-text"></span><span class="token token punctuation"></</span><span class="token token">div</span><span class="token token punctuation">></span><span>
-</span><span></span><span class="token token punctuation">)</span><span class="token token punctuation">;</span><span>
-</span>
-<span></span><span class="token token">export</span><span></span><span class="token token">default</span><span> Home</span><span class="token token punctuation">;</span><span>
-</span></code></span></div></div></div></pre>
+export default Home;
+```
+
+**Common Patterns**:
+
+```jsx
+// Layouts
+<div className="container mx-auto px-4"> {/* Container */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Grid */}
+<div className="flex items-center justify-between"> {/* Flexbox */}
+
+// Typography
+<h1 className="text-4xl font-bold text-gray-900"> {/* Heading */}
+<p className="text-base text-gray-700"> {/* Body text */}
+<span className="text-sm text-gray-500"> {/* Small text */}
+
+// Components
+<button className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">
+<div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow">
+```
 
 ## Backend Integration
 

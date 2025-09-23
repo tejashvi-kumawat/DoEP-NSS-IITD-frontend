@@ -1,4 +1,0 @@
-/* src/App.module.css */
-.app {
-  composes: app from './styles/styles.css';
-}

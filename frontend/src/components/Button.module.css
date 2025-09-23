@@ -1,9 +1,0 @@
-.button {
-  composes: btn from '../styles/styles.css';
-}
-.btn-primary {
-  composes: btn-primary from '../styles/styles.css';
-}
-.btn-secondary {
-  composes: btn-secondary from '../styles/styles.css';
-}

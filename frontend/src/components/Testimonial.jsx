@@ -1,6 +1,4 @@
-// src/components/Testimonial.jsx
 import React, { useState, useEffect } from 'react';
-import styles from './Testimonial.module.css';
 
 const Testimonial = () => {
   const testimonials = [
@@ -30,7 +28,7 @@ const Testimonial = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
@@ -39,28 +37,33 @@ const Testimonial = () => {
   }, [testimonials.length]);
 
   return (
-    <section className={styles.testimonials}>
-      <div className="container">
-        <h2 className="text-center mb-16">What People Say</h2>
-        
-        <div className={styles.testimonialSlider}>
-          <div className={styles.testimonialCard}>
-            <blockquote className={styles.quote}>
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
+          What People Say
+        </h2>
+
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <blockquote className="text-xl text-gray-700 italic mb-6">
               "{testimonials[currentIndex].quote}"
             </blockquote>
-            <div className={styles.author}>
-              <h4>{testimonials[currentIndex].author}</h4>
-              <p>{testimonials[currentIndex].role}</p>
+            <div className="flex flex-col items-center">
+              <h4 className="text-lg font-semibold text-gray-900">
+                {testimonials[currentIndex].author}
+              </h4>
+              <p className="text-gray-600">
+                {testimonials[currentIndex].role}
+              </p>
             </div>
           </div>
-          
-          <div className={styles.indicators}>
+
+          <div className="flex justify-center space-x-2">
             {testimonials.map((_, index) => (
               <button
                 key={index}
-                className={`${styles.indicator} ${
-                  index === currentIndex ? styles.indicatorActive : ''
-                }`}
+                className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${index === currentIndex ? 'bg-emerald-600' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
                 onClick={() => setCurrentIndex(index)}
               />
             ))}

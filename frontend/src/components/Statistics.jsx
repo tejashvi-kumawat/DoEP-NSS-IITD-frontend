@@ -1,6 +1,4 @@
-// src/components/Statistics.jsx
 import React from 'react';
-import styles from './Statistics.module.css';
 
 const Statistics = () => {
   const stats = [
@@ -11,13 +9,13 @@ const Statistics = () => {
   ];
 
   return (
-    <section className={styles.statistics}>
-      <div className="container">
-        <div className={`grid grid-4 ${styles.statsGrid}`}>
+    <section className="py-16 bg-emerald-50">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <div key={index} className={styles.statCard}>
-              <h3 className={styles.statNumber}>{stat.number}</h3>
-              <p className={styles.statLabel}>{stat.label}</p>
+            <div key={index} className="text-center">
+              <h3 className="text-4xl font-bold text-emerald-600 mb-2">{stat.number}</h3>
+              <p className="text-gray-600 font-medium">{stat.label}</p>
             </div>
           ))}
         </div>
