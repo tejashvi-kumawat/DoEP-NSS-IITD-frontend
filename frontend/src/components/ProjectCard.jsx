@@ -11,6 +11,14 @@ const ProjectCard = ({ project }) => {
     }
   };
 
+  // Development URLs
+  const getProjectUrl = (subdomain) => {
+    const isDev = process.env.NODE_ENV === 'development';
+    return isDev
+      ? `http://${subdomain}.localhost:5174` // Point to project frontend port
+      : `https://${subdomain}.nssiitd.in`;
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
       <div className="flex justify-between items-start mb-4">
@@ -30,7 +38,7 @@ const ProjectCard = ({ project }) => {
           </span>
         </div>
         <a
-          href={`https://${project.subdomain}.nssiitd.in`}
+          href={getProjectUrl(project.subdomain)}
           className="inline-block bg-gray-100 text-gray-800 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
