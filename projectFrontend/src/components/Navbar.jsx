@@ -14,19 +14,19 @@ const ProjectNavbar = () => {
   }, []);
 
   const navLinks = [
-    { title: "Home", href: "/project" },
-    { title: "Team", href: "/project/team" },
-    { title: "Doubts", href: "/project/doubts" },
-    { title: "Resources", href: "/project/resources" },
+    { title: "Home", href: "/" },
+    { title: "Team", href: "/team" },
+    { title: "Doubts", href: "/doubts" },
+    { title: "Resources", href: "/resources" },
+    { title: "Gallery", href: "/gallery" },
   ];
 
   return (
     <nav
-      className={`fixed w-full top-0 z-50 transition-colors duration-500 backdrop-blur-md ${
-        isScrolled
+      className={`fixed w-full top-0 z-50 transition-colors duration-500 backdrop-blur-md ${isScrolled
           ? "bg-white/80 shadow-md border-b border-gray-200 text-gray-900"
           : "bg-indigo-900/80 text-white"
-      }`}
+        }`}
       style={{ height: "56px" }}
     >
       <div className="container mx-auto px-6 h-full flex items-center justify-between">
