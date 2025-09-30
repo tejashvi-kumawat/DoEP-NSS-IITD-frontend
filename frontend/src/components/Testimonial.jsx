@@ -1,76 +1,88 @@
 import React, { useState, useEffect } from 'react';
 
-const Testimonial = () => {
-  const testimonials = [
-    {
-      quote: "NSS IIT Delhi's teaching programs have completely transformed our children's learning experience. The volunteers are dedicated and passionate.",
-      author: "Priya Sharma",
-      role: "Parent, Munirka Community"
-    },
-    {
-      quote: "Being part of NSS has been incredible. Teaching underprivileged children has given me a new perspective on life and education.",
-      author: "Rahul Kumar",
-      role: "Volunteer, IIT Delhi"
-    },
-    {
-      quote: "The digital literacy program helped our community access better opportunities. Thank you NSS for bridging the digital divide.",
-      author: "Sanjay Gupta",
-      role: "Community Leader"
-    },
-    {
-      quote: "The structured approach and innovative teaching methods make learning fun and effective for all students.",
-      author: "Dr. Meera Singh",
-      role: "Education Consultant"
-    }
-  ];
+const testimonials = [
+  {
+    quote: "NSS IIT Delhi's teaching programs have completely transformed our children's learning experience. The volunteers are dedicated and passionate.",
+    author: 'Priya Sharma',
+    role: 'Parent, Munirka Community',
+  },
+  {
+    quote: 'Being part of NSS has been incredible. Teaching underprivileged children has given me a new perspective on life and education.',
+    author: 'Rahul Kumar',
+    role: 'Volunteer, IIT Delhi',
+  },
+  {
+    quote: 'The digital literacy program helped our community access better opportunities. Thank you NSS for bridging the digital divide.',
+    author: 'Sanjay Gupta',
+    role: 'Community Leader',
+  },
+  {
+    quote: 'The structured approach and innovative teaching methods make learning fun and effective for all students.',
+    author: 'Dr. Meera Singh',
+    role: 'Education Consultant',
+  },
+];
 
+const Testimonial = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [fadeProp, setFadeProp] = useState({ fade: 'fade-in' });
+
+  const length = testimonials.length;
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-      );
+    const timeout = setInterval(() => {
+      setFadeProp({ fade: 'fade-out' });
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % length);
+        setFadeProp({ fade: 'fade-in' });
+      }, 500);
     }, 5000);
 
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
+    return () => clearInterval(timeout);
+  }, [length]);
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
+    <>
+      <style>{`
+        .fade-in {
+          opacity: 1;
+          transition: opacity 500ms ease-in;
+        }
+        .fade-out {
+          opacity: 0;
+          transition: opacity 500ms ease-out;
+        }
+      `}</style>
+      <section>
+        <h2 className="text-3xl font-bold mb-8 text-gray-900 select-none">
           What People Say
         </h2>
+        <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-gray-200 max-w-xl mx-auto">
+          <p className={`text-xl italic text-gray-800 mb-6 leading-relaxed min-h-[8rem] ${fadeProp.fade}`}>
+            &ldquo;{testimonials[currentIndex].quote}&rdquo;
+          </p>
+          <p className={`font-semibold text-emerald-700 ${fadeProp.fade}`}>
+            {testimonials[currentIndex].author}
+          </p>
+          <p className={`text-sm text-gray-600 ${fadeProp.fade}`}>
+            {testimonials[currentIndex].role}
+          </p>
 
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <blockquote className="text-xl text-gray-700 italic mb-6">
-              "{testimonials[currentIndex].quote}"
-            </blockquote>
-            <div className="flex flex-col items-center">
-              <h4 className="text-lg font-semibold text-gray-900">
-                {testimonials[currentIndex].author}
-              </h4>
-              <p className="text-gray-600">
-                {testimonials[currentIndex].role}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex justify-center space-x-2">
-            {testimonials.map((_, index) => (
+          <div className="flex justify-center mt-6 space-x-3">
+            {testimonials.map((_, i) => (
               <button
-                key={index}
-                className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${index === currentIndex ? 'bg-emerald-600' : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                onClick={() => setCurrentIndex(index)}
+                key={i}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  i === currentIndex ? 'bg-emerald-700' : 'bg-emerald-300'
+                }`}
+                onClick={() => setCurrentIndex(i)}
+                aria-label={`Show testimonial ${i + 1}`}
               />
             ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

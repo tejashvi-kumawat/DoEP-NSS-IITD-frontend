@@ -1,91 +1,126 @@
 // src/pages/Home.jsx
-import React from 'react';
-import Button from '../components/Button';
+import React, { useState, useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
 import Statistics from '../components/Statistics';
 import Testimonial from '../components/Testimonial';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
-import img from '../assets/pillow.jpg';
+import Button from '../components/Button';
+
+const SexyLoader = () => (
+  <div className="fixed inset-0 flex items-center justify-center bg-emerald-900 z-50">
+    <div className="relative w-16 h-16">
+      {[...Array(4)].map((_, i) => {
+        const size = 64 - i * 12;
+        return (
+          <span
+            key={i}
+            className="absolute border-4 border-emerald-400 rounded-full border-t-transparent border-b-transparent animate-spin"
+            style={{
+              width: size,
+              height: size,
+              top: '50%',
+              left: '50%',
+              marginTop: -size / 2,
+              marginLeft: -size / 2,
+              animationDuration: `${1.5 + i * 0.4}s`,
+              animationDirection: i % 2 === 0 ? 'normal' : 'reverse',
+            }}
+          />
+        );
+      })}
+    </div>
+  </div>
+);
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
+
   const projects = [
     {
       id: 'munirka',
       name: 'Munirka Teaching Initiative',
       description: 'Structured teaching & digital literacy for children in Munirka.',
-      status: 'Active',
       participants: 120,
       volunteers: 25,
-      subdomain: 'munirka'
+      subdomain: 'munirka',
     },
     {
       id: 'vidya',
       name: 'Vidya Digital Platform',
       description: 'Interactive digital courses for underserved students.',
-      status: 'Active',
       participants: 200,
       volunteers: 15,
-      subdomain: 'vidya'
+      subdomain: 'vidya',
     },
     {
       id: 'sampark',
       name: 'Sampark Community Connect',
       description: 'Mentorship & skill development connecting students with communities.',
-      status: 'Planning',
       participants: 80,
       volunteers: 20,
-      subdomain: 'sampark'
-    }
+      subdomain: 'sampark',
+    },
+    // Add or remove projects dynamically here
   ];
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <SexyLoader />;
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       <Navbar />
+      <main className="text-white">
+        {/* Hero with gradient */}
+        <section className="min-h-[320px] bg-gradient-to-b from-emerald-900 via-emerald-700 to-emerald-600 flex flex-col justify-center items-center text-center px-6 py-16">
+          <h1 className="font-extrabold text-5xl max-w-4xl leading-tight mb-4 tracking-wide drop-shadow-lg">
+            Empowering Communities <br /> Through Digital Education & Mentorship
+          </h1>
+          <p className="text-lg max-w-3xl mb-8 drop-shadow-md">
+            Join us to uplift underserved students and connect volunteers through impactful projects.
+          </p>
+          <Button variant="secondary" size="lg" className="uppercase tracking-widest px-8">
+            Get Involved
+          </Button>
+        </section>
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-emerald-50 to-emerald-100">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="flex-1">
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Digital Education Initiative at NSS IIT Delhi
-              </h1>
-              <p className="text-lg text-gray-700 mb-8">
-                Empowering communities through digital education and mentorship.
-              </p>
-              <div className="space-x-4">
-                <Button variant="primary">Get Started</Button>
-                <Button variant="secondary">Learn More</Button>
-              </div>
-            </div>
-            <div className="flex-1">
-              <img
-                src={img}
-                alt="Digital Education"
-                className="rounded-lg shadow-xl w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map(project => (
-              <ProjectCard key={project.id} project={project} />
+        {/* Projects with dynamic centering and gradient background */}
+        <section className="bg-gradient-to-b from-emerald-700 to-emerald-500 py-14 px-6">
+          <div
+            className={`max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center ${
+              projects.length % 3 === 1
+                ? 'md:grid-cols-[repeat(3,1fr)] md:justify-center'
+                : projects.length % 3 === 2
+                ? 'md:grid-cols-[repeat(3,1fr)] md:justify-center'
+                : ''
+            }`}
+          >
+            {projects.map((proj) => (
+              <ProjectCard key={proj.id} project={proj} />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Statistics />
-      <Testimonial />
-      <Footer />
-    </div>
+        {/* Stats vertical full-width */}
+        <section className="bg-gradient-to-b from-emerald-500 to-emerald-400 py-16 px-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="bg-white bg-opacity-10 rounded-3xl p-8">
+              <Statistics />
+            </div>
+            <div className="bg-white bg-opacity-10 rounded-3xl p-8">
+              <Testimonial />
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <Footer />
+      </main>
+    </>
   );
 };
 

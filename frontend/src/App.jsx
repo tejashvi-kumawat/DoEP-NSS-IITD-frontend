@@ -5,10 +5,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Registration';
 import VolunteerRegister from './pages/VolunteerRegister';
-
+import Navbar from './components/Navbar';
 const App = () => {
   return (
     <Router>
+      <Navbar/>
       <div>
         <Routes>
           <Route path="/" element={<Home />} />

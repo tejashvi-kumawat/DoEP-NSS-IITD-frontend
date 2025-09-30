@@ -78,8 +78,8 @@ const VolunteerRegister = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-emerald-50 to-emerald-100 flex items-center justify-center px-4">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+    <div className="min-h-screen  bg-gradient-to-tr from-emerald-50 to-emerald-100 flex items-center justify-center px-4 pt-12 pb-12">
+      <div className="bg-white  shadow-md rounded-lg p-8 max-w-md w-full">
         <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Volunteer Registration</h2>
         
         {error && (
