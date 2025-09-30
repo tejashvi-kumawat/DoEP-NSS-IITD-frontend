@@ -1,12 +1,19 @@
 // src/App.jsx
 import React from 'react';
-import ProjectHome from './pages/ProjectHome';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProjectHome from './pages/ProjectHome'
+import ProjectNavbar from './components/Navbar';
 
 const App = () => {
   return (
-    <div>
-      <ProjectHome />
-    </div>
+    <Router>
+      <ProjectNavbar/>
+      <div>
+        <Routes>
+          <Route path="/" element={<ProjectHome />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

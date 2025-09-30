@@ -1,0 +1,24 @@
+{
+  "munirka": {
+    "theme": {
+      "primary": "#10B981", "secondary": "#0891B2", "background": "#f9fafb"
+    },
+    "name": "Munirka Teaching Initiative",
+    "description": "Structured teaching & digital literacy for children in Munirka.",
+    "stats": { "students": 120, "volunteers": 25, "hours": 11000 },
+    "testimonials": [
+      { "quote": "Changed lives!", "author": "Priya Sharma", "role": "Parent" }
+    ]
+  },
+  "vidya": {
+    "theme": {
+      "primary": "#7C3AED", "secondary": "#FBBF24", "background": "#f3f4f6"
+    },
+    "name": "Vidya Digital Platform",
+    "description": "Interactive digital courses for underserved students.",
+    "stats": { "students": 200, "volunteers": 15, "hours": 14000 },
+    "testimonials": [
+      { "quote": "Amazing impact!", "author": "Rahul Kumar", "role": "Volunteer" }
+    ]
+  }
+}

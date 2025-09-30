@@ -1,96 +1,94 @@
-import React, { useEffect, useState } from "react";
-import pillow from '../assets/pillow.jpg'
-import bg from '../assets/1.jpg'
+import React, { useEffect, useState } from 'react';
+import ProjectNavbar from '../components/Navbar';
+import projectData from '../assets/projects.json';
 
-// ----- Project configuration array -----
-const projectConfigs = [
-  {
-    id: "munirka",
-    description: "Munirka: Education outreach in South Delhi.",
-    banner: bg,
-    theme: { bg: "bg-orange-100", text: "text-orange-700" },
-  },
-  {
-    id: "vasantkunj",
-    description: "Vasant Kunj: Literacy and empowerment drive.",
-    banner: bg,
-    theme: { bg: "bg-blue-100", text: "text-blue-700" },
-  },
-  // --- Add more projects as required ---
-];
+const getProjectKeyFromSubdomain = () => {
+  const host = window.location.hostname;
+  if (host.includes('localhost')) {
+    return host.split('.')[0]; // e.g., munirka.localhost
+  }
+  if (host.includes('nssiitd.in')) {
+    return host.split('.')[0];
+  }
+  return 'munirka';
+};
 
-// ----- Main component -----
 const ProjectHome = () => {
-  // Extract subdomain (project id) from URL
-  const subdomain = window.location.hostname.split(".")[0];
-  // Find config for current project
-  const config = projectConfigs.find((p) => p.id === subdomain);
+  const [project, setProject] = useState(null);
 
-  // State for backend data (optional)
-  const [projectData, setProjectData] = useState(null);
-  const [error, setError] = useState(null);
-
-  // Fetch backend project data based on subdomain/project id
   useEffect(() => {
-    fetch(`/api/projects/data?id=${subdomain}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("API error");
-        return res.json();
-      })
-      .then((data) => setProjectData(data))
-      .catch((err) => setError("Could not load project data"));
-  }, [subdomain]);
+    const key = getProjectKeyFromSubdomain();
+    setProject(projectData[key]);
+    document.body.style.background = projectData[key]?.theme?.background || '#fff';
+  }, []);
 
-  // Handle unknown project ids gracefully
-  if (!config) {
+  if (!project)
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <h2 className="text-3xl font-bold text-red-700 mb-4">
-          Project Not Found
-        </h2>
-        <p className="text-lg text-gray-600">
-          Please check the URL or contact support.
-        </p>
+      <div className="flex h-screen bg-gray-200 items-center justify-center">
+        <div className="animate-pulse text-2xl font-bold text-gray-400">Loading...</div>
       </div>
     );
-  }
 
   return (
-    <div className={`${config.theme.bg} min-h-screen`}>
-      <header className="container mx-auto py-8">
-        {/* Project Title from subdomain */}
-        <h1
-          className={`text-4xl font-bold mb-4 ${config.theme.text} capitalize`}
-        >
-          {subdomain}
-        </h1>
-        {/* Banner image */}
-        <img
-          src={config.banner}
-          alt={`${config.id} banner`}
-          className="w-full rounded-lg mb-6 shadow"
-        />
-        {/* Project description */}
-        <p className={`text-xl mb-6 ${config.theme.text}`}>
-          {config.description}
-        </p>
-        {/* Render backend API data */}
-        <section>
-          {error && <div className="text-red-600">{error}</div>}
-          {projectData && (
-            <div>
-              {/* Display your API data as needed */}
-              <pre className="bg-white p-4 rounded text-gray-700">
-                {JSON.stringify(projectData, null, 2)}
-              </pre>
-            </div>
-          )}
-          {!projectData && !error && (
-            <div className="text-gray-500">Loading project details...</div>
-          )}
+    <>
+      <ProjectNavbar theme={project.theme} projectName={project.name} />
+      <div className="h-14 w-full" />
+      <main className="px-6 pt-6 max-w-5xl mx-auto">
+        <section id="overview" className="mb-10 text-center">
+          <h1 className="font-extrabold text-4xl mb-4" style={{ color: project.theme.primary }}>
+            {project.name}
+          </h1>
+          <p className="text-lg text-gray-700 mb-4">{project.description}</p>
         </section>
-      </header>
-    </div>
+        <section
+          id="stats"
+          className="bg-white rounded-2xl shadow-lg py-8 px-8 mb-10 flex flex-col items-center"
+          style={{
+            borderColor: project.theme.primary,
+            borderWidth: 2,
+            borderStyle: 'solid',
+            boxShadow: `0 2px 12px 0 ${project.theme.primary}22`,
+          }}
+        >
+          <h2 className="font-bold text-2xl mb-6" style={{ color: project.theme.secondary }}>
+            Project Stats
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full">
+            <div className="flex flex-col items-center">
+              <span className="font-extrabold text-3xl" style={{ color: project.theme.primary }}>{project.stats.students}</span>
+              <span className="uppercase text-sm text-gray-500 mt-2">Students</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="font-extrabold text-3xl" style={{ color: project.theme.primary }}>{project.stats.volunteers}</span>
+              <span className="uppercase text-sm text-gray-500 mt-2">Volunteers</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="font-extrabold text-3xl" style={{ color: project.theme.primary }}>{project.stats.hours}</span>
+              <span className="uppercase text-sm text-gray-500 mt-2">Teaching Hrs</span>
+            </div>
+          </div>
+        </section>
+        <section id="testimonials">
+          <h2 className="font-bold text-2xl mb-6 text-center" style={{ color: project.theme.secondary }}>
+            Testimonials
+          </h2>
+          <div className="grid gap-6">
+            {project.testimonials.map((t, idx) => (
+              <blockquote
+                key={idx}
+                className="bg-white rounded-xl shadow p-6 border-l-4"
+                style={{ borderColor: project.theme.primary }}
+              >
+                <p className="italic text-lg font-medium text-gray-600">&ldquo;{t.quote}&rdquo;</p>
+                <footer className="mt-2 text-sm text-right text-emerald-700 font-bold">
+                  {t.author} <span className="text-gray-400 font-normal">({t.role})</span>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
   );
 };
 
