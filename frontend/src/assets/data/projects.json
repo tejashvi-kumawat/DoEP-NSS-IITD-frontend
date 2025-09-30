@@ -1,0 +1,39 @@
+[
+  {
+    "id": "munirka",
+    "name": "Munirka Teaching Initiative",
+    "description": "Structured teaching digital literacy for children in Munirka.",
+    "longDescription": "The Munirka Teaching Initiative is a comprehensive program designed to bridge the digital divide in the Munirka community. We provide hands-on computer literacy training, programming fundamentals, and digital citizenship education to empower children with essential 21st-century skills. Our curriculum includes interactive coding sessions, creative projects, and mentorship from IIT Delhi students.",
+    "participants": 120,
+    "volunteers": 25,
+    "subdomain": "munirka",
+    "impact": "Over 120 students trained in basic computer skills and digital literacy",
+    "location": "Munirka Community Center, New Delhi",
+    "duration": "Ongoing since January 2024",
+    "goals": [
+      "Provide basic computer literacy to 150+ children",
+      "Introduce programming concepts through Scratch and Python",
+      "Build confidence in using digital tools",
+      "Create a sustainable learning environment"
+    ]
+  },
+  
+  {
+    "id": "vidya",
+    "name": "Vidya Digital Platform",
+    "description": "Interactive digital courses for underserved students.",
+    "longDescription": "Vidya Digital Platform revolutionizes access to quality education through an innovative online learning ecosystem. We curate and develop interactive courses covering mathematics, science, and language skills tailored for students from underserved communities. The platform features video lectures, gamified assessments, progress tracking, and personalized learning paths to ensure every student can learn at their own pace.",
+    "participants": 200,
+    "volunteers": 15,
+    "subdomain": "vidya",
+    "impact": "200+ students accessing quality educational content across 15 courses",
+    "location": "Online Platform (Pan-India reach)",
+    "duration": "Launched March 2024",
+    "goals": [
+      "Scale to 1000+ active learners by year-end",
+      "Develop 50+ comprehensive course modules",
+      "Integrate AI-powered personalized learning",
+      "Partner with 10+ schools for curriculum integration"
+    ]
+  }
+]

@@ -6,6 +6,9 @@ import Login from './pages/Login';
 import Register from './pages/Registration';
 import VolunteerRegister from './pages/VolunteerRegister';
 import Navbar from './components/Navbar';
+import Projects from './pages/Projects';
+import GetInvolved from './pages/GetInvolved';
+import Contact from './pages/Contact';
 const App = () => {
   return (
     <Router>
@@ -13,6 +16,9 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/get-involved" element={<GetInvolved />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register/>} />
           <Route path="/volunteer-register" element = {<VolunteerRegister/>} />

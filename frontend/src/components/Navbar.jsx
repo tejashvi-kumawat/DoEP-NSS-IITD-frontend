@@ -15,7 +15,6 @@ const Navbar = () => {
   const navLinks = [
     { title: 'Home', href: '/' },
     { title: 'Projects', href: '/projects' },
-    { title: 'Resources', href: '/resources' },
     { title: 'Get Involved', href: '/get-involved' },
     { title: 'Contact', href: '/contact' },
   ];
@@ -75,7 +74,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/login"
-              className={`border border-emerald-600 hover:bg-emerald-50 hover:text-emerald-500 rounded-md px-4 py-1.5 text-emerald-700 font-semibold transition duration-300
+              className={`border border-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 rounded-md px-4 py-1.5 font-semibold transition duration-300
             ${isScrolled ? '' : 'text-emerald-200'
                 }`}
             >

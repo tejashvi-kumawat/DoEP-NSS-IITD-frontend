@@ -26,7 +26,6 @@ const testimonials = [
 const Testimonial = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fadeProp, setFadeProp] = useState({ fade: 'fade-in' });
-
   const length = testimonials.length;
 
   useEffect(() => {
@@ -42,47 +41,57 @@ const Testimonial = () => {
   }, [length]);
 
   return (
-    <>
-      <style>{`
-        .fade-in {
-          opacity: 1;
-          transition: opacity 500ms ease-in;
-        }
-        .fade-out {
-          opacity: 0;
-          transition: opacity 500ms ease-out;
-        }
-      `}</style>
-      <section>
-        <h2 className="text-3xl font-bold mb-8 text-gray-900 select-none">
+    <section className="bg-gradient-to-br from-gray-50 via-emerald-50 to-gray-50 py-20">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-5xl">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-16">
           What People Say
         </h2>
-        <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-gray-200 max-w-xl mx-auto">
-          <p className={`text-xl italic text-gray-800 mb-6 leading-relaxed min-h-[8rem] ${fadeProp.fade}`}>
-            &ldquo;{testimonials[currentIndex].quote}&rdquo;
-          </p>
-          <p className={`font-semibold text-emerald-700 ${fadeProp.fade}`}>
-            {testimonials[currentIndex].author}
-          </p>
-          <p className={`text-sm text-gray-600 ${fadeProp.fade}`}>
-            {testimonials[currentIndex].role}
-          </p>
-
-          <div className="flex justify-center mt-6 space-x-3">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  i === currentIndex ? 'bg-emerald-700' : 'bg-emerald-300'
-                }`}
-                onClick={() => setCurrentIndex(i)}
-                aria-label={`Show testimonial ${i + 1}`}
-              />
-            ))}
+        
+        <div 
+          className={`bg-white rounded-2xl shadow-lg p-10 md:p-14 transition-opacity duration-500 border border-gray-100 ${
+            fadeProp.fade === 'fade-in' ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <div className="relative">
+            <svg 
+              className="absolute -top-4 -left-2 w-12 h-12 text-emerald-200 opacity-50" 
+              fill="currentColor" 
+              viewBox="0 0 32 32"
+            >
+              <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
+            </svg>
+            
+            <blockquote className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 relative z-10 italic">
+              {testimonials[currentIndex].quote}
+            </blockquote>
+            
+            <div className="flex flex-col items-center">
+              <div className="text-lg font-semibold text-gray-900 mb-1">
+                {testimonials[currentIndex].author}
+              </div>
+              <div className="text-base text-gray-600">
+                {testimonials[currentIndex].role}
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="flex justify-center gap-3 mt-10">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                i === currentIndex 
+                  ? 'bg-emerald-600 w-8' 
+                  : 'bg-gray-300 hover:bg-emerald-300'
+              }`}
+              aria-label={`Show testimonial ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

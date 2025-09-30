@@ -6,6 +6,7 @@ import ProjectCard from '../components/ProjectCard';
 import Statistics from '../components/Statistics';
 import Testimonial from '../components/Testimonial';
 import Button from '../components/Button';
+import projectsData from '../assets/data/projects.json';
 
 const SexyLoader = () => (
   <div className="fixed inset-0 flex items-center justify-center bg-emerald-900 z-50">
@@ -36,34 +37,6 @@ const SexyLoader = () => (
 const Home = () => {
   const [loading, setLoading] = useState(true);
 
-  const projects = [
-    {
-      id: 'munirka',
-      name: 'Munirka Teaching Initiative',
-      description: 'Structured teaching & digital literacy for children in Munirka.',
-      participants: 120,
-      volunteers: 25,
-      subdomain: 'munirka',
-    },
-    {
-      id: 'vidya',
-      name: 'Vidya Digital Platform',
-      description: 'Interactive digital courses for underserved students.',
-      participants: 200,
-      volunteers: 15,
-      subdomain: 'vidya',
-    },
-    {
-      id: 'sampark',
-      name: 'Sampark Community Connect',
-      description: 'Mentorship & skill development connecting students with communities.',
-      participants: 80,
-      volunteers: 20,
-      subdomain: 'sampark',
-    },
-    // Add or remove projects dynamically here
-  ];
-
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
@@ -72,55 +45,67 @@ const Home = () => {
   if (loading) return <SexyLoader />;
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <main className="text-white">
-        {/* Hero with gradient */}
-        <section className="min-h-[320px] bg-gradient-to-b from-emerald-900 via-emerald-700 to-emerald-600 flex flex-col justify-center items-center text-center px-6 py-16">
-          <h1 className="font-extrabold text-5xl max-w-4xl leading-tight mb-4 tracking-wide drop-shadow-lg">
-            Empowering Communities <br /> Through Digital Education & Mentorship
-          </h1>
-          <p className="text-lg max-w-3xl mb-8 drop-shadow-md">
-            Join us to uplift underserved students and connect volunteers through impactful projects.
-          </p>
-          <Button variant="secondary" size="lg" className="uppercase tracking-widest px-8">
-            Get Involved
-          </Button>
-        </section>
+      
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-600 text-white overflow-hidden" style={{ marginTop: '56px' }}>
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6bTAgNDBjMC02LjYyNyA1LjM3My0xMiAxMi0xMnMxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMi0xMi01LjM3My0xMi0xMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+        
+        <div className="container mx-auto px-6 py-24 relative z-10">
+          <div className="max-w-4xl">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              Digitalising Educational Projects at{' '}
+              <span className="text-emerald-300">NSS IIT Delhi</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-emerald-100 leading-relaxed">
+              Empowering communities through technology-driven education initiatives. Join us in creating lasting impact.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button variant="primary" className="bg-white text-emerald-900 hover:bg-emerald-50 px-8 py-3 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl">
+                Explore Projects
+              </Button>
+              <Button variant="primary" className="bg-white text-emerald-900 hover:bg-emerald-50 px-8 py-3 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl">
+                Get Involved
+              </Button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#F9FAFB"/>
+          </svg>
+        </div>
+      </section>
 
-        {/* Projects with dynamic centering and gradient background */}
-        <section className="bg-gradient-to-b from-emerald-700 to-emerald-500 py-14 px-6">
-          <div
-            className={`max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center ${
-              projects.length % 3 === 1
-                ? 'md:grid-cols-[repeat(3,1fr)] md:justify-center'
-                : projects.length % 3 === 2
-                ? 'md:grid-cols-[repeat(3,1fr)] md:justify-center'
-                : ''
-            }`}
-          >
-            {projects.map((proj) => (
-              <ProjectCard key={proj.id} project={proj} />
+      {/* Projects Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Projects</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Discover our initiatives making a difference in education and community development
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {projectsData.map((project) => (
+              <ProjectCard key={project.id} project={project} />
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Stats vertical full-width */}
-        <section className="bg-gradient-to-b from-emerald-500 to-emerald-400 py-16 px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-white bg-opacity-10 rounded-3xl p-8">
-              <Statistics />
-            </div>
-            <div className="bg-white bg-opacity-10 rounded-3xl p-8">
-              <Testimonial />
-            </div>
-          </div>
-        </section>
+      {/* Statistics Section */}
+      <Statistics />
 
-        {/* Footer */}
-        <Footer />
-      </main>
-    </>
+      {/* Testimonials Section */}
+      <Testimonial />
+
+      <Footer />
+    </div>
   );
 };
 
