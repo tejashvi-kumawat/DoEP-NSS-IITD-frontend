@@ -6,7 +6,7 @@ const ProjectCard = ({ project }) => {
 
   const getProjectUrl = (subdomain) => {
     const isDev = process.env.NODE_ENV === 'development';
-    return isDev ? `http://${subdomain}.localhost:5174` : `https://${subdomain}.nssiitd.in`;
+    return isDev ? `http://${subdomain}.localhost:5174` : `https://${subdomain}.do-ep-nss-iitd-frontend.vercel.app/`;
   };
 
   const handleShare = (e) => {
