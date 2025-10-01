@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProjectNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,86 +23,115 @@ const ProjectNavbar = () => {
   ];
 
   return (
-    <nav
-      className={`fixed w-full top-0 z-50 transition-colors duration-500 backdrop-blur-md ${isScrolled
-          ? "bg-white/80 shadow-md border-b border-gray-200 text-gray-900"
-          : "bg-indigo-900/80 text-white"
-        }`}
-      style={{ height: "56px" }}
-    >
-      <div className="container mx-auto px-6 h-full flex items-center justify-between">
-        {/* Logo and Title */}
-        <Link to="/project" className="flex items-center space-x-2 select-none">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-400 flex items-center justify-center text-lg font-bold">
-            PF
+      <nav
+          className={`fixed w-full z-30 transition-all duration-300 ${
+              isScrolled
+                  ? "bg-gradient-to-r from-[#1f2937] via-[#374151] to-[#111827] shadow-lg"
+                  : "bg-transparent"
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo and Title */}
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="font-bold text-emerald-400 text-2xl select-none">PF</div>
+            <span className="text-gray-100 font-semibold text-xl">ProjectFrontend</span>
+          </Link>
+
+          {/* Desktop Nav Links and Buttons */}
+          <div className="hidden md:flex items-center space-x-6">
+            {navLinks.map(({ title, href }) => (
+                <Link
+                    key={title}
+                    to={href}
+                    className="text-gray-300 hover:text-emerald-400 font-medium transition-colors"
+                >
+                  {title}
+                </Link>
+            ))}
+
+            {/* Login Button */}
+            <button
+                onClick={() => navigate("/login")}
+                className="ml-4 bg-gradient-to-r from-lime-400 via-green-400 to-emerald-500 hover:from-lime-500 hover:via-green-500 hover:to-emerald-600 text-gray-900 font-semibold px-4 py-2 rounded-md shadow-md transition-colors"
+            >
+              Login
+            </button>
+
+            {/* Become a Volunteer Button */}
+            <button
+                onClick={() => navigate("/volunteer-register")}
+                className="ml-4 bg-gradient-to-r from-emerald-500 via-green-600 to-lime-500 hover:from-emerald-600 hover:via-green-700 hover:to-lime-600 text-gray-900 font-semibold px-4 py-2 rounded-md shadow-md transition-colors"
+            >
+              Become a Volunteer
+            </button>
           </div>
-          <span className="font-semibold text-lg">ProjectFrontend</span>
-        </Link>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex space-x-6">
-          {navLinks.map(({ title, href }) => (
-            <Link
-              key={title}
-              to={href}
-              className="hover:text-indigo-600 transition-colors duration-300"
-            >
-              {title}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Hamburger */}
-        <div className="md:hidden flex items-center">
+          {/* Mobile Hamburger */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="focus:outline-none"
-            aria-label="Toggle menu"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden focus:outline-none text-gray-100"
+              aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {isMenuOpen ? (
+                <svg
+                    className="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            ) : (
+                <svg
+                    className="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            )}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-md border-t border-gray-200 text-gray-900">
-          <div className="flex flex-col p-4 space-y-4">
-            {navLinks.map(({ title, href }) => (
-              <Link
-                key={title}
-                to={href}
-                className="block hover:text-indigo-600 transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+            <div className="md:hidden bg-gradient-to-r from-[#1f2937] via-[#374151] to-[#111827] shadow-lg px-6 py-4 space-y-4">
+              {navLinks.map(({ title, href }) => (
+                  <Link
+                      key={title}
+                      to={href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block text-gray-300 hover:text-emerald-400 font-medium transition-colors"
+                  >
+                    {title}
+                  </Link>
+              ))}
+
+              <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/login");
+                  }}
+                  className="w-full bg-gradient-to-r from-lime-400 via-green-400 to-emerald-500 hover:from-lime-500 hover:via-green-500 hover:to-emerald-600 text-gray-900 font-semibold px-4 py-2 rounded-md shadow-md transition-colors"
               >
-                {title}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+                Login
+              </button>
+
+              <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/volunteer-register");
+                  }}
+                  className="w-full bg-gradient-to-r from-emerald-500 via-green-600 to-lime-500 hover:from-emerald-600 hover:via-green-700 hover:to-lime-600 text-gray-900 font-semibold px-4 py-2 rounded-md shadow-md transition-colors"
+              >
+                Become a Volunteer
+              </button>
+            </div>
+        )}
+      </nav>
   );
 };
 
