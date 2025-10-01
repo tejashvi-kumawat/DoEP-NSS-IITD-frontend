@@ -1,24 +1,60 @@
 {
   "munirka": {
-    "theme": {
-      "primary": "#10B981", "secondary": "#0891B2", "background": "#f9fafb"
-    },
     "name": "Munirka Teaching Initiative",
+    "theme": {
+      "bgFrom": "#064e3b",
+      "bgVia": "#087f5b",
+      "bgTo": "#047857",
+      "textColorHex": "#34d399",
+      "detailColorHex": "#a7f3d0"
+    },
     "description": "Structured teaching & digital literacy for children in Munirka.",
-    "stats": { "students": 120, "volunteers": 25, "hours": 11000 },
-    "testimonials": [
-      { "quote": "Changed lives!", "author": "Priya Sharma", "role": "Parent" }
-    ]
+    "cards": [
+      {
+        "title": "Community Engagement",
+        "description": "Fostering local community support and participation.",
+        "icon": "🤝"
+      },
+      {
+        "title": "Digital Literacy",
+        "description": "Teaching essential computer skills to the youth.",
+        "icon": "💻"
+      },
+      {
+        "title": "Volunteer Network",
+        "description": "Building a strong team of committed volunteers.",
+        "icon": "🌐"
+      }
+    ],
+    "testimonials": []
   },
   "vidya": {
+    "name": "Vidya Educational Project",
     "theme": {
-      "primary": "#7C3AED", "secondary": "#FBBF24", "background": "#f3f4f6"
+      "bgFrom": "#004080",
+      "bgVia": "#2b6cb0",
+      "bgTo": "#4299e1",
+      "textColorHex": "#38bdf8",
+      "detailColorHex": "#a5b4fc"
     },
-    "name": "Vidya Digital Platform",
-    "description": "Interactive digital courses for underserved students.",
-    "stats": { "students": 200, "volunteers": 15, "hours": 14000 },
-    "testimonials": [
-      { "quote": "Amazing impact!", "author": "Rahul Kumar", "role": "Volunteer" }
-    ]
+    "description": "Empowering students with knowledge through Vidya.",
+    "cards": [
+      {
+        "title": "Scholarship Programs",
+        "description": "Financial aid for deserving students.",
+        "icon": "🎓"
+      },
+      {
+        "title": "Workshops",
+        "description": "Interactive sessions to enhance skills.",
+        "icon": "🛠️"
+      },
+      {
+        "title": "Mentorship",
+        "description": "Guidance from experienced professionals.",
+        "icon": "👩‍🏫"
+      }
+    ],
+    "testimonials": []
   }
 }
