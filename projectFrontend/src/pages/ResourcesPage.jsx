@@ -1,68 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 
-const resources = {
-    pdfs: [{ name: "Sample PDF", url: "/assets/sample.pdf" }],
-    docs: [{ name: "Sample Doc", url: "/assets/sample.docx" }],
-    articles: [{ name: "Sample Article", url: "https://www.youtube.com/" }],
-    videos: [{ name: "Intro Video", url: "https://www.youtube.com/" }],
-};
+const team = [
+    { name: "Aryan Rathore", role: "Project Secretary", img: "/assets/1.jpg" },
+    { name: "Priya Verma", role: "Project Executive", img: "/assets/1.jpg" },
+    { name: "Harsh Patel", role: "Project Executive", img: "/assets/1.jpg" },
+    // Add more as needed
+];
 
-const tabList = ["pdfs", "docs", "articles", "videos"];
-
-const ResourcesPage = () => {
-    const [activeTab, setActiveTab] = useState("pdfs");
-
+const TeamPage = () => {
     return (
         <div className="min-h-screen relative bg-gradient-to-br from-[#1f2937] via-[#374151] to-[#111827] px-8 py-20 text-gray-100 font-sans">
             <div className="absolute inset-0 -z-10 overflow-hidden">
-                <div className="absolute top-20 left-20 w-60 h-60 rounded-full bg-gradient-to-tr from-green-500/40 via-green-600/25 to-transparent blur-3xl animate-pulse-slow"></div>
+                <div className="absolute top-24 left-16 w-60 h-60 rounded-full bg-gradient-to-tr from-green-500/40 via-green-600/25 to-transparent blur-3xl animate-pulse-slow"></div>
                 <div className="absolute bottom-20 right-20 w-96 h-96 rounded-3xl bg-gradient-to-bl from-green-700/35 via-green-800/20 to-transparent blur-2xl animate-pulse-slow animation-delay-2000"></div>
             </div>
 
-            <header className="max-w-5xl mx-auto text-center mb-12">
+            <header className="max-w-5xl mx-auto text-center mb-16">
                 <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-green-400 via-lime-300 to-green-200 bg-clip-text text-transparent drop-shadow-lg">
-                    Resources
+                    Team
                 </h1>
                 <p className="mt-4 text-lg md:text-xl font-light text-gray-300">
-                    Explore our collection of helpful resources.
+                    Meet the amazing people behind our project.
                 </p>
             </header>
 
-            {/* Tabs */}
-            <div className="max-w-4xl mx-auto flex justify-center gap-8 mb-12">
-                {tabList.map((tab) => (
-                    <button
-                        key={tab}
-                        className={`px-5 py-3 rounded-full font-semibold tracking-wide transition-colors duration-300 ${
-                            activeTab === tab
-                                ? "bg-gradient-to-r from-green-500 to-green-400 text-gray-900 shadow-lg"
-                                : "text-green-300 hover:text-green-200"
-                        }`}
-                        onClick={() => setActiveTab(tab)}
-                    >
-                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                    </button>
-                ))}
-            </div>
-
-            <section className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                {(resources[activeTab] || []).map((res, idx) => (
-                    <a
+            <section className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+                {team.map((person, idx) => (
+                    <div
                         key={idx}
-                        href={res.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-3xl border border-green-700 bg-green-900/40 backdrop-blur-md p-6 shadow-lg hover:scale-[1.03] transition-transform duration-300 block"
+                        className="relative rounded-3xl overflow-hidden border border-green-700 shadow-xl bg-green-900/40 backdrop-blur-md cursor-default hover:scale-[1.03] transition-transform duration-300"
                     >
-                        <h3 className="text-xl font-bold text-green-300 mb-2">{res.name}</h3>
-                        <p className="text-green-400 text-sm font-light break-words">Link: {res.url}</p>
-                    </a>
+                        <img
+                            src={person.img}
+                            alt={person.name}
+                            className="w-full h-72 object-cover rounded-t-3xl"
+                            loading="lazy"
+                        />
+                        <div className="p-6">
+                            <h3 className="text-2xl font-bold text-green-300">{person.name}</h3>
+                            <p className="mt-2 text-green-400 font-light">{person.role}</p>
+                        </div>
+                    </div>
                 ))}
-                {(resources[activeTab] || []).length === 0 && (
-                    <p className="col-span-full text-center text-green-400 font-light">
-                        No resources available in this category.
-                    </p>
-                )}
             </section>
 
             <style jsx>{`
@@ -82,4 +61,4 @@ const ResourcesPage = () => {
     );
 };
 
-export default ResourcesPage;
+export default TeamPage;
