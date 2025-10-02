@@ -6,9 +6,9 @@ import ProjectNavbar from './components/Navbar';
 import GalleryPage from './pages/GalleryPage';
 import ResourcesPage from "./pages/ResourcesPage.jsx";
 import TeamPage from "./pages/TeamPage.jsx";
-import Login from "./pages/Login.jsx";
-import VolunteerRegister from "./pages/Registration.jsx";
-import Registration from "./pages/Registration.jsx";
+// import Login from "./pages/Login.jsx";
+// import VolunteerRegister from "./pages/Registration.jsx";
+// import Registration from "./pages/Registration.jsx";
 const App = () => {
   return (
     <Router>
@@ -19,8 +19,8 @@ const App = () => {
             <Route path="/gallery" element={<GalleryPage />} /> {/* add GalleryPage route */}\
             <Route path="/team" element={<TeamPage />} /> {/* add GalleryPage route */}
             <Route path="/resources" element={<ResourcesPage />} /> {/* add GalleryPage route */}
-            <Route path="/login" element={<Login />} /> {/* add GalleryPage route */}
-            <Route path="/volunteer-register" element={<Registration />} /> {/* add GalleryPage route */}
+            {/* <Route path="/login" element={<Login />} /> {/* add GalleryPage route */} */}
+            {/* <Route path="/volunteer-register" element={<Registration />} /> {/* add GalleryPage route */} */}
         </Routes>
       </div>
     </Router>
