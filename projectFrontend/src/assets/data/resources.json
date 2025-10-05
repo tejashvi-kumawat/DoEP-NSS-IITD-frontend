@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "title": "Annual Report 2024",
+    "description": "Comprehensive overview of project achievements, statistics, and impact metrics for the year 2024.",
+    "type": "docs",
+    "category": "reports",
+    "size": 2457600,
+    "date": "2024-09-15",
+    "url": "/downloads/annual-report-2024.pdf"
+  },
+  {
+    "id": 2,
+    "title": "Student Workshop Guide",
+    "description": "Step-by-step instructions for conducting educational workshops with students in the community.",
+    "type": "docs",
+    "category": "guides",
+    "size": 1536000,
+    "date": "2024-08-22",
+    "url": "/downloads/workshop-guide.pdf"
+  },
+  {
+    "id": 3,
+    "title": "Community Event Photos",
+    "description": "Photo gallery from the recent community engagement event featuring student volunteers and local participants.",
+    "type": "images",
+    "category": "education",
+    "size": 15728640,
+    "date": "2024-09-01",
+    "url": "/downloads/event-photos.zip",
+    "thumbnail": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400"
+  },
+  {
+    "id": 4,
+    "title": "Teaching Best Practices",
+    "description": "Research-backed article on effective teaching methodologies for underprivileged communities.",
+    "type": "articles",
+    "category": "education",
+    "size": 892800,
+    "date": "2024-07-10",
+    "url": "/downloads/teaching-practices.pdf"
+  },
+  {
+    "id": 5,
+    "title": "Project Introduction Video",
+    "description": "5-minute overview video explaining project goals, methodology, and impact on the local community.",
+    "type": "videos",
+    "category": "education",
+    "size": 52428800,
+    "date": "2024-09-20",
+    "url": "/downloads/intro-video.mp4"
+  },
+  {
+    "id": 6,
+    "title": "Volunteer Training Manual",
+    "description": "Complete training guide for new volunteers including safety protocols and teaching strategies.",
+    "type": "docs",
+    "category": "training",
+    "size": 3145728,
+    "date": "2024-06-15",
+    "url": "/downloads/training-manual.pdf"
+  },
+  {
+    "id": 7,
+    "title": "Class Activity Photos",
+    "description": "Collection of photos from various classroom activities and student projects throughout the year.",
+    "type": "images",
+    "category": "education",
+    "size": 12582912,
+    "date": "2024-08-30",
+    "url": "/downloads/class-photos.zip",
+    "thumbnail": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400"
+  },
+  {
+    "id": 8,
+    "title": "Community Impact Study",
+    "description": "Research paper analyzing the long-term impact of educational interventions on community development.",
+    "type": "articles",
+    "category": "reports",
+    "size": 1048576,
+    "date": "2024-06-05",
+    "url": "/downloads/impact-study.pdf"
+  },
+  {
+    "id": 9,
+    "title": "Project Launch Event Recording",
+    "description": "Full recording of the project launch event with speeches from stakeholders and project overview.",
+    "type": "videos",
+    "category": "education",
+    "size": 104857600,
+    "date": "2024-04-15",
+    "url": "/downloads/launch-event.mp4"
+  },
+  {
+    "id": 10,
+    "title": "Student Progress Infographics",
+    "description": "Visual representation of student academic progress and engagement metrics over the semester.",
+    "type": "images",
+    "category": "reports",
+    "size": 4194304,
+    "date": "2024-09-10",
+    "url": "/downloads/infographics.png",
+    "thumbnail": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400"
+  },
+  {
+    "id": 11,
+    "title": "Educational Technology in Action",
+    "description": "Article exploring innovative uses of technology in bridging educational gaps.",
+    "type": "articles",
+    "category": "education",
+    "size": 716800,
+    "date": "2024-05-20",
+    "url": "/downloads/tech-education.pdf"
+  },
+  {
+    "id": 12,
+    "title": "Volunteer Testimonials",
+    "description": "Video compilation of volunteer experiences and reflections on their time with the project.",
+    "type": "videos",
+    "category": "education",
+    "size": 73400320,
+    "date": "2024-09-18",
+    "url": "/downloads/testimonials.mp4"
+  },
+  {
+    "id": 13,
+    "title": "Workshop Highlights Gallery",
+    "description": "Curated collection of best moments from educational workshops conducted throughout the semester.",
+    "type": "images",
+    "category": "education",
+    "size": 18874368,
+    "date": "2024-07-25",
+    "url": "/downloads/workshop-gallery.zip",
+    "thumbnail": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400"
+  },
+  {
+    "id": 14,
+    "title": "Fundraising Strategy Guide",
+    "description": "Detailed guide on effective fundraising strategies and donor engagement for educational projects.",
+    "type": "docs",
+    "category": "guides",
+    "size": 1843200,
+    "date": "2024-07-28",
+    "url": "/downloads/fundraising-guide.pdf"
+  },
+  {
+    "id": 15,
+    "title": "Campus Outreach Photos",
+    "description": "Documentation of campus outreach activities and student engagement initiatives.",
+    "type": "images",
+    "category": "education",
+    "size": 9437184,
+    "date": "2024-08-15",
+    "url": "/downloads/campus-photos.zip",
+    "thumbnail": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400"
+  },
+  {
+    "id": 16,
+    "title": "Sustainability in Education",
+    "description": "Article discussing sustainable practices in educational projects and long-term impact assessment.",
+    "type": "articles",
+    "category": "reports",
+    "size": 956800,
+    "date": "2024-08-12",
+    "url": "/downloads/sustainability-article.pdf"
+  }
+]
