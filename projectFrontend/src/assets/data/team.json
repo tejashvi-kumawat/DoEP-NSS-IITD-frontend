@@ -1,0 +1,69 @@
+{
+  "secretary": {
+    "id": 1,
+    "name": "Priya Sharma",
+    "role": "Secretary",
+    "title": "Project Secretary",
+    "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800",
+    "bio": "Leading our NSS initiatives with passion and dedication. Committed to creating lasting impact in the community through education and empowerment programs. With 3 years of experience in social work and community development.",
+    "stats": {
+      "projects": 24,
+      "volunteers": 150
+    },
+    "social": {
+      "email": "secretary@nssiitd.in",
+      "phone": "+91 98765 43210",
+      "linkedin": "https://linkedin.com/in/priya-sharma"
+    }
+  },
+  "executives": [
+    {
+      "id": 2,
+      "name": "Rahul Verma",
+      "role": "Executive",
+      "title": "Operations & Logistics",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
+      "bio": "Managing day-to-day operations and coordinating volunteer activities. Ensures smooth execution of all project events and maintains relationships with partner organizations.",
+      "stats": {
+        "projects": 18,
+        "volunteers": 80
+      },
+      "social": {
+        "email": "rahul@nssiitd.in",
+        "linkedin": "https://linkedin.com/in/rahul-verma"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Ananya Desai",
+      "role": "Executive",
+      "title": "Community Outreach",
+      "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800",
+      "bio": "Building bridges with local communities and establishing partnerships. Specializes in program development and stakeholder engagement to maximize our social impact.",
+      "stats": {
+        "projects": 15,
+        "volunteers": 65
+      },
+      "social": {
+        "email": "ananya@nssiitd.in",
+        "linkedin": "https://linkedin.com/in/ananya-desai"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Arjun Patel",
+      "role": "Executive",
+      "title": "Communications & Media",
+      "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800",
+      "bio": "Crafting compelling narratives and managing our digital presence. Handles all communications, social media strategy, and documentation of our community initiatives.",
+      "stats": {
+        "projects": 12,
+        "volunteers": 45
+      },
+      "social": {
+        "email": "arjun@nssiitd.in",
+        "linkedin": "https://linkedin.com/in/arjun-patel"
+      }
+    }
+  ]
+}

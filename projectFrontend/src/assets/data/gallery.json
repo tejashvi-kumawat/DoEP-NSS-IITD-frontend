@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Community Workshop 2024",
+    "category": "events",
+    "url": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800"
+  },
+  {
+    "id": 2,
+    "title": "Student Learning Session",
+    "category": "education",
+    "url": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800"
+  },
+  {
+    "id": 3,
+    "title": "Volunteer Team Building",
+    "category": "team",
+    "url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800"
+  },
+  {
+    "id": 4,
+    "title": "Classroom Activities",
+    "category": "education",
+    "url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800"
+  },
+  {
+    "id": 5,
+    "title": "Annual Celebration",
+    "category": "events",
+    "url": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800"
+  },
+  {
+    "id": 6,
+    "title": "Science Experiment Day",
+    "category": "education",
+    "url": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800"
+  },
+  {
+    "id": 7,
+    "title": "Art Workshop",
+    "category": "activities",
+    "url": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800"
+  },
+  {
+    "id": 8,
+    "title": "Sports Day Competition",
+    "category": "activities",
+    "url": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800"
+  },
+  {
+    "id": 9,
+    "title": "Reading Club Meeting",
+    "category": "education",
+    "url": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800"
+  },
+  {
+    "id": 10,
+    "title": "Team Planning Session",
+    "category": "team",
+    "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
+  },
+  {
+    "id": 11,
+    "title": "Music Performance",
+    "category": "activities",
+    "url": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800"
+  },
+  {
+    "id": 12,
+    "title": "Cultural Festival",
+    "category": "events",
+    "url": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800"
+  },
+  {
+    "id": 13,
+    "title": "Computer Lab Session",
+    "category": "education",
+    "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800"
+  },
+  {
+    "id": 14,
+    "title": "Volunteer Orientation",
+    "category": "team",
+    "url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800"
+  },
+  {
+    "id": 15,
+    "title": "Field Trip Adventure",
+    "category": "activities",
+    "url": "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=800"
+  },
+  {
+    "id": 16,
+    "title": "Poetry Reading Event",
+    "category": "events",
+    "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800"
+  }
+]
