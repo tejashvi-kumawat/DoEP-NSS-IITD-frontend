@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "studentName": "Rahul Kumar",
+    "subject": "Mathematics",
+    "question": "I don't understand how to solve quadratic equations using the formula method. Can someone explain step by step?",
+    "time": "2 hours ago",
+    "status": "pending"
+  },
+  {
+    "id": 2,
+    "studentName": "Priya Singh",
+    "subject": "Science",
+    "question": "What is the difference between mitosis and meiosis? I get confused with the stages.",
+    "time": "5 hours ago",
+    "status": "answered",
+    "answeredBy": "Ananya Sharma",
+    "answer": "Great question! Mitosis produces 2 identical daughter cells with the same number of chromosomes as the parent cell. It's used for growth and repair. Meiosis produces 4 non-identical cells with half the chromosomes - these become sex cells (gametes). Meiosis has two divisions while mitosis has one. The key difference is that meiosis creates genetic variation through crossing over, which is crucial for reproduction."
+  },
+  {
+    "id": 3,
+    "studentName": "Amit Verma",
+    "subject": "English",
+    "question": "How do I write a good essay introduction? What should I include?",
+    "time": "1 day ago",
+    "status": "answered",
+    "answeredBy": "Ravi Patel",
+    "answer": "A strong introduction has three parts: 1) Hook - start with an interesting fact, question, or quote to grab attention. 2) Context - provide background information about your topic. 3) Thesis statement - clearly state your main argument or purpose. Keep it concise (3-4 sentences) and make sure it flows naturally into your body paragraphs. Avoid being too general or vague."
+  },
+  {
+    "id": 4,
+    "studentName": "Neha Gupta",
+    "subject": "Mathematics",
+    "question": "Can someone help me understand the concept of probability? I'm stuck on conditional probability problems.",
+    "time": "3 hours ago",
+    "status": "pending"
+  },
+  {
+    "id": 5,
+    "studentName": "Arjun Das",
+    "subject": "History",
+    "question": "What were the main causes of World War I? I need to write an essay but I'm confused about which causes are most important.",
+    "time": "6 hours ago",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "studentName": "Sneha Reddy",
+    "subject": "Science",
+    "question": "How does photosynthesis work? I understand the basic concept but not the detailed process with light and dark reactions.",
+    "time": "2 days ago",
+    "status": "answered",
+    "answeredBy": "Kavya Menon",
+    "answer": "Photosynthesis has two main stages: Light reactions happen in the thylakoid membranes. Chlorophyll absorbs light energy, splits water molecules, releases oxygen, and produces ATP and NADPH. Dark reactions (Calvin Cycle) occur in the stroma. Using the ATP and NADPH from light reactions, CO2 is converted into glucose. The simplified equation is: 6CO2 + 6H2O + light energy → C6H12O6 + 6O2. Think of it as a two-step factory process!"
+  }
+]

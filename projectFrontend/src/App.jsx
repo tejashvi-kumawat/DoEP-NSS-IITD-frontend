@@ -6,6 +6,9 @@ import ProjectNavbar from './components/Navbar';
 import Resources from './pages/Resources';
 import Gallery from './pages/Gallery';
 import Team from './pages/Team';
+import StudentDoubts from './pages/StudentDoubts';
+import VolunteerDoubts from './pages/VolunteerDoubts';
+
 
 const App = () => {
   return (
@@ -17,6 +20,8 @@ const App = () => {
           <Route path="/resources" element={<Resources />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/doubts" element={<StudentDoubts />} />
+          <Route path="/clear-doubts" element={<VolunteerDoubts />} />
 
         </Routes>
       </div>

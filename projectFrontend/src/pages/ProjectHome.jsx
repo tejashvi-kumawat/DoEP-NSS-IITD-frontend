@@ -189,62 +189,6 @@ const ProjectHome = () => {
               </div>
             </div>
           </div>
-
-          {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center transform transition-all duration-1000 delay-900 ${
-            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            <button
-              className="group relative px-10 py-5 rounded-2xl font-bold text-lg text-white overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 min-w-[200px]"
-              style={{ backgroundColor: project.theme.primary }}
-            >
-              <span className="relative z-10">Explore Project</span>
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `linear-gradient(135deg, ${project.theme.primary} 0%, ${project.theme.secondary} 100%)`,
-                }}
-              />
-            </button>
-
-            <button
-              className="group px-10 py-5 rounded-2xl font-bold text-lg backdrop-blur-xl border-2 transition-all duration-500 hover:scale-105 min-w-[200px] shadow-lg hover:shadow-xl"
-              style={{
-                color: project.theme.primary,
-                borderColor: project.theme.primary,
-                backgroundColor: `${project.theme.primary}08`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = `${project.theme.primary}20`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = `${project.theme.primary}08`;
-              }}
-            >
-              Get Involved
-            </button>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className={`text-center mt-20 transform transition-all duration-1000 delay-1000 ${
-            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            <div className="flex flex-col items-center gap-3">
-              <span className="text-sm text-gray-500 uppercase tracking-wider font-medium">
-                Scroll to explore
-              </span>
-              <div 
-                className="w-6 h-10 rounded-full border-2 flex items-start justify-center p-2 animate-bounce"
-                style={{ borderColor: project.theme.primary }}
-              >
-                <div 
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: project.theme.primary }}
-                />
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
