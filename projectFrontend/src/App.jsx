@@ -13,8 +13,9 @@ import Curriculum from './pages/Curriculum';
 import CurriculumManage from './pages/CurriculumManage';
 import MarkAttendance from './pages/MarkAttendance';
 import VerifyAttendance from './pages/VerifyAttendance';
-
-
+import StudentLogin from './pages/StudentLogin';
+import StudentsData from './pages/StudentData';
+import AddStudent from './pages/AddStudents';
 
 
 const App = () => {
@@ -34,6 +35,9 @@ const App = () => {
           <Route path="/curriculum-manage" element={<CurriculumManage />} />
           <Route path="/mark-attendance" element={<MarkAttendance />} />
           <Route path="/verify-attendance" element={<VerifyAttendance />} />
+          <Route path="/student-login" element={<StudentLogin />} />
+          <Route path="/student-data" element={<StudentsData />} />
+          <Route path="/add-student" element={<AddStudent />} />
 
         </Routes>
       </div>

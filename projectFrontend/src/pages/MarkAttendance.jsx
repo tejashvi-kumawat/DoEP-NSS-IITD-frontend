@@ -1,4 +1,4 @@
-// src/pages/MarkAttendance.jsx (Volunteer View)
+// src/pages/MarkAttendance.jsx (UPDATED with Geolocation)
 import React, { useEffect, useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import projectData from '../assets/data/projects.json';
@@ -35,15 +35,32 @@ const RefreshIcon = ({ className }) => (
   </svg>
 );
 
+const LocationIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
 const MarkAttendance = () => {
   const [project, setProject] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [step, setStep] = useState('entry'); // 'entry' or 'exit'
-  const [currentCapture, setCurrentCapture] = useState('student'); // 'student' or 'board'
-  const [entryPhotos, setEntryPhotos] = useState({ student: null, board: null, time: null });
-  const [exitPhotos, setExitPhotos] = useState({ student: null, board: null, time: null });
+  const [step, setStep] = useState('entry');
+  const [currentCapture, setCurrentCapture] = useState('student');
+  const [entryPhotos, setEntryPhotos] = useState({ student: null, board: null, time: null, location: null });
+  const [exitPhotos, setExitPhotos] = useState({ student: null, board: null, time: null, location: null });
   const [capturedImage, setCapturedImage] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [locationError, setLocationError] = useState(null);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
   const webcamRef = useRef(null);
+
+  // Project location coordinates (set this for your project)
+  const projectLocation = {
+    latitude: 28.5494,
+    longitude: 77.1918,
+    name: "Munirka Community Center"
+  };
 
   useEffect(() => {
     const key = getProjectKeyFromSubdomain();
@@ -58,13 +75,115 @@ const MarkAttendance = () => {
     setTimeout(() => setIsLoaded(true), 50);
   }, []);
 
-  const capturePhoto = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setCapturedImage(imageSrc);
+  // Get user location
+  const getUserLocation = () => {
+    return new Promise((resolve, reject) => {
+      setIsGettingLocation(true);
+      setLocationError(null);
+
+      if (!navigator.geolocation) {
+        const error = 'Geolocation is not supported by your browser';
+        setLocationError(error);
+        setIsGettingLocation(false);
+        reject(error);
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy,
+            timestamp: new Date().toISOString()
+          };
+          setCurrentLocation(location);
+          setIsGettingLocation(false);
+          resolve(location);
+        },
+        (error) => {
+          let errorMessage = 'Unable to retrieve location';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage = 'Location permission denied. Please enable location access.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage = 'Location information unavailable.';
+              break;
+            case error.TIMEOUT:
+              errorMessage = 'Location request timed out.';
+              break;
+          }
+          setLocationError(errorMessage);
+          setIsGettingLocation(false);
+          reject(errorMessage);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    });
+  };
+
+  // Calculate distance between two coordinates (in meters)
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371e3; // Earth radius in meters
+    const φ1 = lat1 * Math.PI / 180;
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+  };
+
+  // Verify location is within acceptable range (500 meters)
+  const verifyLocation = (location) => {
+    const distance = calculateDistance(
+      location.latitude,
+      location.longitude,
+      projectLocation.latitude,
+      projectLocation.longitude
+    );
+
+    const maxDistance = 500; // 500 meters radius
+    return {
+      isValid: distance <= maxDistance,
+      distance: Math.round(distance)
+    };
+  };
+
+  const capturePhoto = async () => {
+    try {
+      // Get location first
+      const location = await getUserLocation();
+      
+      // Verify location
+      const verification = verifyLocation(location);
+      
+      if (!verification.isValid) {
+        alert(`You are ${verification.distance}m away from ${projectLocation.name}. You must be within 500m to mark attendance.`);
+        return;
+      }
+
+      // Capture photo
+      const imageSrc = webcamRef.current.getScreenshot();
+      setCapturedImage(imageSrc);
+
+    } catch (error) {
+      alert('Failed to get location. Please enable location services and try again.');
+    }
   };
 
   const retakePhoto = () => {
     setCapturedImage(null);
+    setCurrentLocation(null);
   };
 
   const savePhoto = () => {
@@ -74,19 +193,21 @@ const MarkAttendance = () => {
       setEntryPhotos({
         ...entryPhotos,
         [currentCapture]: capturedImage,
-        time: timestamp
+        time: timestamp,
+        location: currentLocation
       });
     } else {
       setExitPhotos({
         ...exitPhotos,
         [currentCapture]: capturedImage,
-        time: timestamp
+        time: timestamp,
+        location: currentLocation
       });
     }
 
     setCapturedImage(null);
+    setCurrentLocation(null);
     
-    // Move to next step
     if (currentCapture === 'student') {
       setCurrentCapture('board');
     } else {
@@ -96,7 +217,10 @@ const MarkAttendance = () => {
         setCurrentCapture('student');
       } else {
         alert('Exit attendance marked! Pending verification.');
-        // Submit to backend here
+        console.log('Attendance Data:', {
+          entry: entryPhotos,
+          exit: exitPhotos
+        });
       }
     }
   };
@@ -135,6 +259,15 @@ const MarkAttendance = () => {
           background-size: 400% 400%;
           animation: gradientShift 15s ease infinite;
         }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        .pulse {
+          animation: pulse 2s ease-in-out infinite;
+        }
       `}</style>
 
       <div className="animated-bg min-h-screen">
@@ -143,6 +276,10 @@ const MarkAttendance = () => {
           <div className="container mx-auto max-w-3xl px-6 py-8">
             <h1 className="text-3xl font-black text-gray-900 mb-2">Mark Attendance</h1>
             <p className="text-gray-600">{project.name}</p>
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              <LocationIcon className="w-4 h-4 text-gray-500" />
+              <span className="text-gray-600">{projectLocation.name}</span>
+            </div>
           </div>
         </div>
 
@@ -164,6 +301,32 @@ const MarkAttendance = () => {
             </div>
           </div>
 
+          {/* Location Status */}
+          {(isGettingLocation || currentLocation || locationError) && (
+            <div className={`mb-6 p-4 rounded-lg border ${
+              locationError ? 'bg-red-50 border-red-200' :
+              currentLocation ? 'bg-green-50 border-green-200' :
+              'bg-blue-50 border-blue-200'
+            }`}>
+              <div className="flex items-center gap-2">
+                <LocationIcon className={`w-5 h-5 ${
+                  locationError ? 'text-red-600' :
+                  currentLocation ? 'text-green-600' :
+                  'text-blue-600 pulse'
+                }`} />
+                <span className={`text-sm font-semibold ${
+                  locationError ? 'text-red-700' :
+                  currentLocation ? 'text-green-700' :
+                  'text-blue-700'
+                }`}>
+                  {isGettingLocation && 'Getting your location...'}
+                  {currentLocation && `Location verified • ${Math.round(currentLocation.accuracy)}m accuracy`}
+                  {locationError && locationError}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Camera Section */}
           <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200 overflow-hidden shadow-lg">
             <div className="p-6">
@@ -175,6 +338,9 @@ const MarkAttendance = () => {
                   {currentCapture === 'student' 
                     ? 'Take a selfie with students in the background'
                     : 'Take a photo of the classroom board showing date/topic'}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  📍 Location will be automatically captured with photo
                 </p>
               </div>
 
@@ -192,7 +358,6 @@ const MarkAttendance = () => {
                   />
                 )}
                 
-                {/* Overlay Guide */}
                 {!capturedImage && (
                   <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute inset-8 border-4 border-white/30 rounded-lg" />
@@ -200,6 +365,16 @@ const MarkAttendance = () => {
                       <p className="text-sm font-semibold">
                         {currentCapture === 'student' ? 'Position yourself with students visible' : 'Frame the board clearly'}
                       </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Location indicator on captured photo */}
+                {capturedImage && currentLocation && (
+                  <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-2 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <LocationIcon className="w-4 h-4 text-green-400" />
+                      <span className="text-white text-xs font-semibold">Location Verified</span>
                     </div>
                   </div>
                 )}
@@ -228,11 +403,12 @@ const MarkAttendance = () => {
                 ) : (
                   <button
                     onClick={capturePhoto}
-                    className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-lg text-white font-bold transition-all duration-300 hover:shadow-lg"
+                    disabled={isGettingLocation}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-lg text-white font-bold transition-all duration-300 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` }}
                   >
                     <CameraIcon className="w-6 h-6" />
-                    Capture Photo
+                    {isGettingLocation ? 'Getting Location...' : 'Capture Photo'}
                   </button>
                 )}
               </div>
@@ -258,7 +434,14 @@ const MarkAttendance = () => {
                 )}
               </div>
               {getCurrentPhotos().time && (
-                <p className="text-xs text-gray-500 mt-3">Marked at: {getCurrentPhotos().time}</p>
+                <div className="mt-3 pt-3 border-t border-gray-200">
+                  <p className="text-xs text-gray-500">Time: {getCurrentPhotos().time}</p>
+                  {getCurrentPhotos().location && (
+                    <p className="text-xs text-gray-500">
+                      Location: {getCurrentPhotos().location.latitude.toFixed(6)}, {getCurrentPhotos().location.longitude.toFixed(6)}
+                    </p>
+                  )}
+                </div>
               )}
             </div>
           )}

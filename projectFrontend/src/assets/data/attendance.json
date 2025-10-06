@@ -6,6 +6,18 @@
     "entryTime": "10:30 AM",
     "exitTime": "12:45 PM",
     "status": "pending",
+    "location": {
+      "entry": {
+        "latitude": 28.5494,
+        "longitude": 77.1918,
+        "accuracy": 15
+      },
+      "exit": {
+        "latitude": 28.5496,
+        "longitude": 77.1920,
+        "accuracy": 18
+      }
+    },
     "photos": {
       "entry": {
         "student": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400",
@@ -14,44 +26,6 @@
       "exit": {
         "student": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400",
         "board": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400"
-      }
-    }
-  },
-  {
-    "id": 2,
-    "volunteerName": "Priya Sharma",
-    "date": "October 5, 2025",
-    "entryTime": "02:00 PM",
-    "exitTime": "04:30 PM",
-    "status": "approved",
-    "verifiedAt": "October 5, 2025 5:15 PM",
-    "photos": {
-      "entry": {
-        "student": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400",
-        "board": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400"
-      },
-      "exit": {
-        "student": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400",
-        "board": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400"
-      }
-    }
-  },
-  {
-    "id": 3,
-    "volunteerName": "Amit Kumar",
-    "date": "October 4, 2025",
-    "entryTime": "11:00 AM",
-    "exitTime": "01:15 PM",
-    "status": "rejected",
-    "verifiedAt": "October 4, 2025 2:30 PM",
-    "photos": {
-      "entry": {
-        "student": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400",
-        "board": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400"
-      },
-      "exit": {
-        "student": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400",
-        "board": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400"
       }
     }
   }
