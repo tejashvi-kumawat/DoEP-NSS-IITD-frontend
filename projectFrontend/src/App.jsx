@@ -16,12 +16,16 @@ import VerifyAttendance from './pages/VerifyAttendance';
 import StudentLogin from './pages/StudentLogin';
 import StudentsData from './pages/StudentData';
 import AddStudent from './pages/AddStudents';
+import ApproveVolunteers from './pages/ApproveVolunteers';
+import VolunteerRegister from './pages/VolunteerRegister';
+import Login from './pages/Login';
+import Register from './pages/Registration';
 
 
 const App = () => {
   return (
     <Router>
-      <ProjectNavbar/>
+      <ProjectNavbar />
       <div>
         <Routes>
           <Route path="/" element={<ProjectHome />} />
@@ -38,6 +42,10 @@ const App = () => {
           <Route path="/student-login" element={<StudentLogin />} />
           <Route path="/student-data" element={<StudentsData />} />
           <Route path="/add-student" element={<AddStudent />} />
+          <Route path="/approve-volunteers" element={<ApproveVolunteers />} />
+          <Route path="/volunteer-register" element={<VolunteerRegister />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
         </Routes>
       </div>

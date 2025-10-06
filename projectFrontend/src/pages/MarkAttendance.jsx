@@ -143,7 +143,7 @@ const MarkAttendance = () => {
     return R * c;
   };
 
-  // Verify location is within acceptable range (500 meters)
+  // Verify location is within acceptable range (100 meters)
   const verifyLocation = (location) => {
     const distance = calculateDistance(
       location.latitude,
@@ -152,7 +152,7 @@ const MarkAttendance = () => {
       projectLocation.longitude
     );
 
-    const maxDistance = 500; // 500 meters radius
+    const maxDistance = 100; // 100 meters radius
     return {
       isValid: distance <= maxDistance,
       distance: Math.round(distance)

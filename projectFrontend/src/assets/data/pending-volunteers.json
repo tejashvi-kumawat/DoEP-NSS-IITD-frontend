@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Arjun Sharma",
+    "entryNo": "2023CS10145",
+    "email": "arjun.sharma@iitd.ac.in",
+    "mobile": "9876543210",
+    "branch": "Computer Science",
+    "year": "2",
+    "hostel": "Aravali",
+    "interestedProject": "munirka",
+    "status": "pending",
+    "submittedAt": "2025-10-05T14:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Priya Malhotra",
+    "entryNo": "2024EE10087",
+    "email": "priya.malhotra@student.iitd.ac.in",
+    "mobile": "9123456789",
+    "branch": "Electrical Engineering",
+    "year": "1",
+    "hostel": "Himadri",
+    "interestedProject": "munirka",
+    "status": "pending",
+    "submittedAt": "2025-10-04T10:15:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Rohan Kumar",
+    "entryNo": "2022ME10234",
+    "email": "rohan.kumar@iitd.ac.in",
+    "mobile": "9988776655",
+    "branch": "Mechanical Engineering",
+    "year": "3",
+    "hostel": "Kumaon",
+    "interestedProject": "khirki",
+    "status": "approved",
+    "submittedAt": "2025-10-03T16:45:00.000Z",
+    "approvedAt": "2025-10-04T09:00:00.000Z"
+  }
+]

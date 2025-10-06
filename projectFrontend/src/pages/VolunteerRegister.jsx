@@ -1,4 +1,4 @@
-// src/pages/VolunteerRegister.jsx (UPDATED)
+// src/pages/VolunteerRegister.jsx (UPDATED with default Munirka theme)
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import projectsData from '../assets/data/projects.json';
@@ -17,7 +17,7 @@ const getProjectKeyFromSubdomain = () => {
 
 const VolunteerRegister = () => {
   const [detectedProject, setDetectedProject] = useState(null);
-  const [currentTheme, setCurrentTheme] = useState(null);
+  const [currentTheme, setCurrentTheme] = useState(projectsData.munirka.theme); // Default Munirka theme
   const [form, setForm] = useState({
     name: '',
     hostel: '',
@@ -42,6 +42,10 @@ const VolunteerRegister = () => {
       // Apply theme
       document.documentElement.style.setProperty('--theme-primary', projectsData[projectKey].theme.primary);
       document.documentElement.style.setProperty('--theme-secondary', projectsData[projectKey].theme.secondary);
+    } else {
+      // Use Munirka theme as default
+      document.documentElement.style.setProperty('--theme-primary', projectsData.munirka.theme.primary);
+      document.documentElement.style.setProperty('--theme-secondary', projectsData.munirka.theme.secondary);
     }
   }, []);
 
@@ -122,8 +126,6 @@ const VolunteerRegister = () => {
     label: data.name
   }));
 
-  const theme = currentTheme || { primary: '#3B82F6', secondary: '#8B5CF6' };
-
   return (
     <div className="min-h-screen pt-14 bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-6">
       <style>{`
@@ -134,9 +136,9 @@ const VolunteerRegister = () => {
         
         .animated-bg {
           background: linear-gradient(135deg, 
-            ${theme.primary}15 0%,
-            ${theme.secondary}10 50%,
-            ${theme.primary}15 100%
+            ${currentTheme.primary}15 0%,
+            ${currentTheme.secondary}10 50%,
+            ${currentTheme.primary}15 100%
           );
           background-size: 200% 200%;
           animation: gradientShift 10s ease infinite;
@@ -148,7 +150,7 @@ const VolunteerRegister = () => {
           {/* Header */}
           <div 
             className="px-8 py-6 text-white"
-            style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
+            style={{ background: `linear-gradient(135deg, ${currentTheme.primary}, ${currentTheme.secondary})` }}
           >
             <h2 className="text-3xl font-black mb-2">Volunteer Registration</h2>
             <p className="text-white/90">
@@ -185,7 +187,7 @@ const VolunteerRegister = () => {
                   onChange={handleChange}
                   placeholder="Enter your full name"
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition"
-                  style={{ '--tw-ring-color': theme.primary }}
+                  style={{ '--tw-ring-color': currentTheme.primary }}
                 />
               </div>
 
@@ -202,7 +204,7 @@ const VolunteerRegister = () => {
                     onChange={handleChange}
                     placeholder="2023CE10237"
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   />
                 </div>
 
@@ -217,7 +219,7 @@ const VolunteerRegister = () => {
                     onChange={handleChange}
                     placeholder="Computer Science"
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   />
                 </div>
               </div>
@@ -233,7 +235,7 @@ const VolunteerRegister = () => {
                     value={form.year}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   >
                     <option value="" className="bg-gray-900">Select year</option>
                     <option value="1" className="bg-gray-900">1st Year</option>
@@ -255,7 +257,7 @@ const VolunteerRegister = () => {
                     onChange={handleChange}
                     placeholder="Hostel name"
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   />
                 </div>
               </div>
@@ -273,7 +275,7 @@ const VolunteerRegister = () => {
                     onChange={handleChange}
                     placeholder="name@iitd.ac.in"
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   />
                 </div>
 
@@ -288,7 +290,7 @@ const VolunteerRegister = () => {
                     onChange={handleChange}
                     placeholder="9876543210"
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   />
                 </div>
               </div>
@@ -309,7 +311,7 @@ const VolunteerRegister = () => {
                     value={form.interestedProject}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:border-transparent transition"
-                    style={{ '--tw-ring-color': theme.primary }}
+                    style={{ '--tw-ring-color': currentTheme.primary }}
                   >
                     <option value="" className="bg-gray-900">Select a project</option>
                     {projects.map(project => (
@@ -325,7 +327,7 @@ const VolunteerRegister = () => {
               <button
                 type="submit"
                 className="w-full py-4 rounded-lg text-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
+                style={{ background: `linear-gradient(135deg, ${currentTheme.primary}, ${currentTheme.secondary})` }}
               >
                 Submit Registration
               </button>
@@ -335,7 +337,7 @@ const VolunteerRegister = () => {
             <div className="mt-6 text-center text-white/60 text-sm">
               <p>
                 Already registered as a volunteer?{' '}
-                <Link to="/volunteer-login" className="font-semibold hover:text-white transition" style={{ color: theme.primary }}>
+                <Link to="/login" className="font-semibold hover:text-white transition" style={{ color: currentTheme.primary }}>
                   Login Here
                 </Link>
               </p>
