@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import Button from '../components/Button';
 import projectsData from '../assets/data/projects.json';
 
@@ -283,7 +282,6 @@ const Projects = () => {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 };

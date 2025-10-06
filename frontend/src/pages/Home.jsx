@@ -1,7 +1,6 @@
 // src/pages/Home.jsx
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
 import Statistics from '../components/Statistics';
 import Testimonial from '../components/Testimonial';
@@ -104,7 +103,6 @@ const Home = () => {
       {/* Testimonials Section */}
       <Testimonial />
 
-      <Footer />
     </div>
   );
 };

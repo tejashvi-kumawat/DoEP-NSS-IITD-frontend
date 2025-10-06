@@ -9,6 +9,8 @@ import Navbar from './components/Navbar';
 import Projects from './pages/Projects';
 import GetInvolved from './pages/GetInvolved';
 import Contact from './pages/Contact';
+import Footer from './components/Footer';
+
 const App = () => {
   return (
     <Router>
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/volunteer-register" element = {<VolunteerRegister/>} />
         </Routes>
       </div>
+      <Footer />
+
     </Router>
   );
 };

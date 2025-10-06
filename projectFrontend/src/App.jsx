@@ -20,6 +20,7 @@ import ApproveVolunteers from './pages/ApproveVolunteers';
 import VolunteerRegister from './pages/VolunteerRegister';
 import Login from './pages/Login';
 import Register from './pages/Registration';
+import ProjectFooter from './components/Footer';
 
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
 
         </Routes>
       </div>
+      <ProjectFooter/>
     </Router>
   );
 };

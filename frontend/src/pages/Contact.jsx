@@ -1,7 +1,6 @@
 // src/pages/Contact.jsx
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -344,7 +343,6 @@ const Contact = () => {
         </div>
       </section> */}
 
-      <Footer />
     </div>
   );
 };
