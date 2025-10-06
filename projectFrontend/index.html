@@ -5,6 +5,31 @@
     <link rel="icon" type="image/svg+xml" href="https://nssiitd.in/assets/nss-c2e5f3d0.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Educational Project of NSS IITD</title>
+    
+    <!-- Dynamic Title Script -->
+    <script>
+      (function() {
+        const host = window.location.hostname;
+        let projectName = 'Educational Project of NSS IITD';
+        
+        // Check if on subdomain
+        if (host.includes('localhost')) {
+          const subdomain = host.split('.')[0];
+          if (subdomain !== 'localhost') {
+            // Capitalize first letter
+            projectName = subdomain.charAt(0).toUpperCase() + subdomain.slice(1) + ' Project - NSS IITD';
+          }
+        } else if (host.includes('nssiitd.in')) {
+          const subdomain = host.split('.')[0];
+          if (subdomain !== 'nssiitd' && subdomain !== 'www') {
+            // Capitalize first letter and format
+            projectName = subdomain.charAt(0).toUpperCase() + subdomain.slice(1) + ' Project - NSS IITD';
+          }
+        }
+        
+        document.title = projectName;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
