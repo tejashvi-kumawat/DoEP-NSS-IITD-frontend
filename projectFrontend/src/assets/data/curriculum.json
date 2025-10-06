@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "week": "Week 1",
+    "title": "Introduction to Basic Mathematics",
+    "description": "Understanding numbers, counting, and basic arithmetic operations. Building foundation for mathematical thinking.",
+    "resources": [
+      {
+        "name": "Number Systems Guide",
+        "type": "pdf",
+        "url": "/resources/week1-numbers.pdf"
+      },
+      {
+        "name": "Practice Worksheets",
+        "type": "pdf",
+        "url": "/resources/week1-practice.pdf"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "week": "Week 2",
+    "title": "Addition and Subtraction",
+    "description": "Learning to add and subtract numbers. Practical applications in daily life scenarios.",
+    "resources": [
+      {
+        "name": "Addition Examples",
+        "type": "pdf",
+        "url": "/resources/week2-addition.pdf"
+      },
+      {
+        "name": "Visual Learning Cards",
+        "type": "image",
+        "url": "/resources/week2-cards.jpg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "week": "Week 3",
+    "title": "Multiplication Tables",
+    "description": "Memorizing multiplication tables from 1 to 10. Fun tricks and techniques to remember easily.",
+    "resources": [
+      {
+        "name": "Multiplication Chart",
+        "type": "pdf",
+        "url": "/resources/week3-tables.pdf"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "week": "Week 4",
+    "title": "Basic English Grammar",
+    "description": "Introduction to parts of speech, sentence structure, and basic grammar rules.",
+    "resources": [
+      {
+        "name": "Grammar Basics",
+        "type": "pdf",
+        "url": "/resources/week4-grammar.pdf"
+      },
+      {
+        "name": "Sentence Formation",
+        "type": "text",
+        "url": "/resources/week4-sentences.txt"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "week": "Week 5",
+    "title": "Reading Comprehension",
+    "description": "Improving reading skills through short stories and passages. Understanding context and meaning.",
+    "resources": [
+      {
+        "name": "Story Collection",
+        "type": "pdf",
+        "url": "/resources/week5-stories.pdf"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "week": "Week 6",
+    "title": "Science - Human Body",
+    "description": "Learning about different body systems, organs, and their functions. Basic health and hygiene.",
+    "resources": [
+      {
+        "name": "Body Systems Diagram",
+        "type": "image",
+        "url": "/resources/week6-body.jpg"
+      },
+      {
+        "name": "Health Guide",
+        "type": "pdf",
+        "url": "/resources/week6-health.pdf"
+      }
+    ]
+  }
+]
