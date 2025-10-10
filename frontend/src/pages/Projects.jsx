@@ -12,7 +12,7 @@ const Projects = () => {
     const isDev = process.env.NODE_ENV === 'development';
     return isDev 
       ? `http://${subdomain}.localhost:5174` 
-      : `https://${subdomain}.do-ep-nss-iitd-frontend.vercel.app`;
+      : `https://${subdomain}.nssiitd.in`;
   };
 
   return (
