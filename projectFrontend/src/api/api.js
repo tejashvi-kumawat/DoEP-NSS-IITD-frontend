@@ -1,7 +1,7 @@
 // Configure the API base URL for the frontend.
 // - Same origin: leave NEXT_PUBLIC_API_BASE_URL empty (default '').
 // - Different origin: set NEXT_PUBLIC_API_BASE_URL to "https://your-backend.example.com".
-const API_BASE_URL = (typeof process !== "undefined" && process.env && process.env.NEXT_PUBLIC_API_BASE_URL) || ""
+const API_BASE_URL = (typeof process !== "undefined" && process.env && process.env.NEXT_PUBLIC_API_BASE_URL) || "https://doep-nss-iitd-backend.onrender.com"
 
 // Internal: build full URL
 const buildUrl = (path) => `${API_BASE_URL}${path}`

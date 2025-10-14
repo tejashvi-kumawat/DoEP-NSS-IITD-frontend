@@ -9,7 +9,7 @@
  * - Retry logic for failed requests
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ""
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://doep-nss-iitd-backend.onrender.com"
 const DEFAULT_TIMEOUT = 60000 // 60 seconds for Render free tier
 const MAX_RETRIES = 3
 const RETRY_DELAY = 1000
