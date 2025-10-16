@@ -1,144 +1,160 @@
 // src/pages/Dashboard.jsx
-import React, { useEffect, useState, useMemo } from 'react';
-import allProjectsData from '../assets/data/projects.json';
-
-const getCurrentUser = () => {
-  return {
-    name: "Rahul Verma",
-    role: "executive", // "executive" | "secretary" | "admin"
-    assignedProjects: ["munirka"],
-  };
-};
-
-const ArrowIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <line x1="7" y1="17" x2="17" y2="7" />
-    <polyline points="7 7 17 7 17 17" />
-  </svg>
-);
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { membersAPI, classesAPI } from '../api/api';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
+  const [memberData, setMemberData] = useState(null);
+  const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const currentUser = getCurrentUser();
-    setUser(currentUser);
-    setTimeout(() => setIsLoaded(true), 50);
-  }, []);
-
-  // Memoize projects to prevent recalculation
-  const projects = useMemo(() => {
-    if (!user) return [];
-    
-    if (user.role === 'admin') {
-      return Object.entries(allProjectsData).map(([key, data]) => ({
-        key,
-        ...data
-      }));
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
     }
-    
-    return user.assignedProjects.map(projectKey => ({
-      key: projectKey,
-      ...allProjectsData[projectKey]
-    }));
-  }, [user]);
 
-  if (!user) return null;
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch member details
+        if (user?.kerberosid) {
+          const member = await membersAPI.getMemberByKerberosId(user.kerberosid);
+          setMemberData(member);
+
+          // Fetch assigned classes
+          const memberClasses = await membersAPI.getMemberClasses(user.kerberosid);
+          setClasses(memberClasses);
+        }
+      } catch (err) {
+        setError(err.message || 'Failed to load dashboard data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [isAuthenticated, user, navigate]);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg">
+          {error}
+        </div>
+      </div>
+    );
+  }
 
   const roleText = {
     executive: 'Executive',
-    secretary: 'Secretary', 
-    admin: 'Administrator'
-  }[user.role];
+    secretary: 'Secretary',
+    admin: 'Administrator',
+    volunteer: 'Volunteer'
+  }[memberData?.role || 'volunteer'];
 
   return (
-    <div className={`min-h-screen pt-14 bg-black transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-      
-      {/* Minimal Header */}
-      <div className="border-b border-white/10">
-        <div className="container mx-auto max-w-6xl px-6 py-8">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-white/50 text-sm mb-2">{roleText}</p>
-              <h1 className="text-4xl font-black text-white tracking-tight">
-                {user.name}
-              </h1>
-            </div>
+    <div className="min-h-screen bg-gray-50 p-6">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto mb-8">
+        <div className="bg-white rounded-xl shadow-sm p-6 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800">
+              Welcome, {memberData?.name || user?.name}!
+            </h1>
+            <p className="text-gray-600 mt-1">{roleText} Dashboard</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="text-sm text-gray-600 mb-1">Hostel</div>
+          <div className="text-2xl font-bold text-gray-800">
+            {memberData?.hostel || 'N/A'}
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="text-sm text-gray-600 mb-1">Vertical</div>
+          <div className="text-2xl font-bold text-gray-800">
+            {memberData?.vertical || 'N/A'}
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="text-sm text-gray-600 mb-1">Assigned Classes</div>
+          <div className="text-2xl font-bold text-gray-800">
+            {classes.length}
           </div>
         </div>
       </div>
 
-      {/* Projects Grid */}
-      <div className="container mx-auto max-w-6xl px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project) => (
-            <a
-              key={project.key}
-              href={`http://${project.key}.localhost:5173`}
-              className="group relative block bg-white/5 border-2 border-white/10 hover:border-white/30 transition-all duration-300 overflow-hidden"
-            >
-              {/* Gradient Bar */}
-              <div 
-                className="absolute top-0 left-0 right-0 h-1"
-                style={{ 
-                  background: `linear-gradient(90deg, ${project.theme.primary}, ${project.theme.secondary})` 
-                }}
-              />
-
-              <div className="p-8">
-                {/* Project Name */}
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-white mb-2">
-                      {project.name}
-                    </h3>
-                    <p className="text-white/50 text-sm">
-                      {project.location}
-                    </p>
-                  </div>
-                  <div className="w-10 h-10 flex items-center justify-center border-2 border-white/20 group-hover:border-white/50 transition-colors duration-300">
-                    <ArrowIcon className="w-5 h-5 text-white/50 group-hover:text-white transition-colors duration-300" />
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-white/70 text-sm leading-relaxed mb-6">
-                  {project.description}
+      {/* Classes Section */}
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">My Classes</h2>
+        
+        {classes.length === 0 ? (
+          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+            <p className="text-gray-600">No classes assigned yet</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {classes.map((classItem) => (
+              <div
+                key={classItem._id}
+                className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition"
+              >
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  {classItem.name}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {classItem.program}
                 </p>
-
-                {/* Stats Grid */}
-                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
-                  <div>
-                    <p className="text-white/50 text-xs mb-1">Students</p>
-                    <p className="text-white text-lg font-bold">24</p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Date:</span>
+                    <span className="font-medium">
+                      {new Date(classItem.date).toLocaleDateString()}
+                    </span>
                   </div>
-                  <div>
-                    <p className="text-white/50 text-xs mb-1">Volunteers</p>
-                    <p className="text-white text-lg font-bold">8</p>
-                  </div>
-                  <div>
-                    <p className="text-white/50 text-xs mb-1">Events</p>
-                    <p className="text-white text-lg font-bold">12</p>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Time:</span>
+                    <span className="font-medium">
+                      {classItem.startTime} - {classItem.endTime}
+                    </span>
                   </div>
                 </div>
               </div>
-
-              {/* Hover Gradient */}
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none"
-                style={{ 
-                  background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` 
-                }}
-              />
-            </a>
-          ))}
-        </div>
-
-        {/* Empty State */}
-        {projects.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-white/50">No projects assigned</p>
+            ))}
           </div>
         )}
       </div>
