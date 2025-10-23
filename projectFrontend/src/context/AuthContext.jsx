@@ -2,7 +2,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authAPI, membersAPI, studentsAPI } from '../api/api';
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -37,6 +37,10 @@ export const AuthProvider = ({ children }) => {
             setUser(userData);
             setIsAuthenticated(true);
             localStorage.setItem('user', JSON.stringify(userData));
+            // Store token separately for Authorization header
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            }
             return userData;
         } catch (error) {
             throw error;
@@ -53,6 +57,10 @@ export const AuthProvider = ({ children }) => {
             setUser(userData);
             setIsAuthenticated(true);
             localStorage.setItem('user', JSON.stringify(userData));
+            // Store token separately for Authorization header
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            }
             return userData;
         } catch (error) {
             throw error;
@@ -68,6 +76,7 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             setIsAuthenticated(false);
             localStorage.removeItem('user');
+            localStorage.removeItem('token'); // Also remove token
         }
     };
 

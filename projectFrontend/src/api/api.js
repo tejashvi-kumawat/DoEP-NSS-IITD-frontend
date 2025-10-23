@@ -31,7 +31,7 @@ apiClient.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
+
     return config;
   },
   (error) => {
@@ -51,7 +51,7 @@ apiClient.interceptors.response.use(
   (error) => {
     // Any status codes outside 2xx range trigger this function
     const message = error.response?.data?.message || error.message || 'An unexpected error occurred';
-    
+
     // Handle specific status codes
     if (error.response?.status === 401) {
       // Unauthorized - redirect to login or clear auth state
@@ -65,7 +65,7 @@ apiClient.interceptors.response.use(
     } else if (error.response?.status >= 500) {
       console.error('Server error:', message);
     }
-    
+
     return Promise.reject({
       message,
       status: error.response?.status,
@@ -238,6 +238,195 @@ export const classesAPI = {
 };
 
 // =============================================================================
+// PROJECTS API
+// =============================================================================
+
+export const projectsAPI = {
+  /**
+   * Get all projects
+   */
+  getAllProjects: () => {
+    return apiClient.get('/projects');
+  },
+
+  /**
+   * Get project by ID
+   * @param {string} projectId - Project ID
+   */
+  getProjectById: (projectId) => {
+    return apiClient.get(`/projects/${projectId}`);
+  },
+
+  /**
+   * Get projects assigned to a member
+   * @param {string} kerberosid - Kerberos ID of the member
+   */
+  getMemberProjects: (kerberosid) => {
+    return apiClient.get(`/members/${kerberosid}/projects`);
+  },
+
+  /**
+   * Get project statistics
+   * @param {string} projectId - Project ID
+   */
+  getProjectStats: (projectId) => {
+    return apiClient.get(`/projects/${projectId}/stats`);
+  },
+
+  /**
+   * Get students in a project
+   * @param {string} projectId - Project ID
+   */
+  getProjectStudents: (projectId) => {
+    return apiClient.get(`/projects/${projectId}/students`);
+  },
+
+  /**
+   * Get volunteers in a project
+   * @param {string} projectId - Project ID
+   */
+  getProjectVolunteers: (projectId) => {
+    return apiClient.get(`/projects/${projectId}/volunteers`);
+  },
+};
+
+// =============================================================================
+// PROJECT CONFIG API (for subdomain-based theming)
+// =============================================================================
+
+export const projectConfigAPI = {
+  /**
+   * Get project configuration by key (from subdomain)
+   * @param {string} key - Project key (e.g., 'vidya', 'munirka')
+   */
+  getProjectConfig: (key) => {
+    return apiClient.get(`/project-config/${key}`);
+  },
+
+  /**
+   * Get all project configurations (Admin only)
+   * @param {Object} params - Query parameters
+   * @param {boolean} params.isActive - Filter by active status
+   * @param {boolean} params.isPublished - Filter by published status
+   */
+  getAllProjectConfigs: (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    return apiClient.get(`/project-config${queryString ? `?${queryString}` : ''}`);
+  },
+
+  /**
+   * Create new project configuration (Admin only)
+   * @param {Object} configData - Project configuration data
+   */
+  createProjectConfig: (configData) => {
+    return apiClient.post('/project-config', configData);
+  },
+
+  /**
+   * Update project configuration (Admin only)
+   * @param {string} key - Project key
+   * @param {Object} configData - Updated configuration data
+   */
+  updateProjectConfig: (key, configData) => {
+    return apiClient.put(`/project-config/${key}`, configData);
+  },
+
+  /**
+   * Delete project configuration (Admin only)
+   * @param {string} key - Project key
+   */
+  deleteProjectConfig: (key) => {
+    return apiClient.delete(`/project-config/${key}`);
+  },
+
+  /**
+   * Toggle project status (Admin only)
+   * @param {string} key - Project key
+   * @param {Object} statusData - Status update data
+   * @param {boolean} statusData.isActive - Active status
+   * @param {boolean} statusData.isPublished - Published status
+   */
+  toggleProjectStatus: (key, statusData) => {
+    return apiClient.patch(`/project-config/${key}/toggle-status`, statusData);
+  },
+};
+
+// =============================================================================
+// DOUBTS API
+// =============================================================================
+
+export const doubtsAPI = {
+  /**
+   * Get all doubts (filtered by role)
+   * @param {Object} params - Query parameters
+   * @param {string} params.status - Filter by status (pending, answered, resolved)
+   * @param {string} params.project - Filter by project name
+   * @param {string} params.category - Filter by category
+   */
+  getAllDoubts: (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    return apiClient.get(`/doubts${queryString ? `?${queryString}` : ''}`);
+  },
+
+  /**
+   * Get doubt by ID
+   * @param {string} doubtId - Doubt ID
+   */
+  getDoubtById: (doubtId) => {
+    return apiClient.get(`/doubts/${doubtId}`);
+  },
+
+  /**
+   * Get doubts by project
+   * @param {string} projectName - Project name
+   * @param {Object} params - Query parameters
+   */
+  getDoubtsByProject: (projectName, params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    return apiClient.get(`/doubts/project/${projectName}${queryString ? `?${queryString}` : ''}`);
+  },
+
+  /**
+   * Create new doubt (Students)
+   * @param {Object} doubtData - Doubt details
+   * @param {string} doubtData.question - The question/doubt
+   * @param {string} doubtData.project - Project name
+   * @param {string} doubtData.subject - Optional subject
+   * @param {string} doubtData.category - Category (academic, technical, general, other)
+   * @param {string} doubtData.priority - Priority (low, medium, high)
+   */
+  createDoubt: (doubtData) => {
+    return apiClient.post('/doubts', doubtData);
+  },
+
+  /**
+   * Answer a doubt (Volunteers and above)
+   * @param {string} doubtId - Doubt ID
+   * @param {string} answer - The answer text
+   */
+  answerDoubt: (doubtId, answer) => {
+    return apiClient.put(`/doubts/${doubtId}/answer`, { answer });
+  },
+
+  /**
+   * Update doubt status
+   * @param {string} doubtId - Doubt ID
+   * @param {string} status - New status (pending, answered, resolved)
+   */
+  updateDoubtStatus: (doubtId, status) => {
+    return apiClient.put(`/doubts/${doubtId}/status`, { status });
+  },
+
+  /**
+   * Delete doubt (Admin or owner)
+   * @param {string} doubtId - Doubt ID
+   */
+  deleteDoubt: (doubtId) => {
+    return apiClient.delete(`/doubts/${doubtId}`);
+  },
+};
+
+// =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
 
@@ -279,6 +468,9 @@ export default {
   members: membersAPI,
   students: studentsAPI,
   classes: classesAPI,
+  projects: projectsAPI,
+  projectConfig: projectConfigAPI,
+  doubts: doubtsAPI,
   checkAuth,
   handleAPIError,
 };

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const ProjectNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [user, setUser] = useState(null);
+  const { user, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,36 +13,74 @@ const ProjectNavbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Get user info from localStorage
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { title: "Home", href: "/" },
-    { title: "Team", href: "/team" },
-    { title: "Doubts", href: "/doubts" },
-    { title: "Resources", href: "/resources" },
-    { title: "Gallery", href: "/gallery" },
-  ];
+  // Role hierarchy: student(1) → volunteer(2) → exe(3) → secy(4) → admin(5)
+  const roleHierarchy = {
+    student: 1,
+    volunteer: 2,
+    exe: 3,
+    secy: 4,
+    admin: 5,
+  };
 
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user');
-    window.location.href = 'https://nssiitd.in';
+  // Get navigation links based on user role
+  const getNavLinks = () => {
+    const publicLinks = [
+      { title: "Home", href: "/" },
+      { title: "Team", href: "/team" },
+      { title: "Gallery", href: "/gallery" },
+    ];
+
+    // If no user, show only public links
+    if (!user) return publicLinks;
+
+    const userRoleLevel = roleHierarchy[user.role] || 0;
+    const authenticatedLinks = [...publicLinks];
+
+    // All authenticated users can access Resources
+    authenticatedLinks.push({ title: "Resources", href: "/resources" });
+
+    // Student and above can access Doubts & Curriculum
+    if (userRoleLevel >= roleHierarchy.student) {
+      authenticatedLinks.push({ title: "Doubts", href: "/doubts" });
+      authenticatedLinks.push({ title: "Curriculum", href: "/curriculum" });
+    }
+
+    // Volunteer and above can access Answer Doubts, Mark Attendance
+    if (userRoleLevel >= roleHierarchy.volunteer) {
+      authenticatedLinks.push({ title: "Answer Doubts", href: "/answer-doubts" });
+      authenticatedLinks.push({ title: "Mark Attendance", href: "/mark-attendance" });
+    }
+
+    // Exe and above can access Student Data, Verify Attendance
+    if (userRoleLevel >= roleHierarchy.exe) {
+      authenticatedLinks.push({ title: "Student Data", href: "/student-data" });
+      authenticatedLinks.push({ title: "Verify Attendance", href: "/verify-attendance" });
+    }
+
+    // Secy and above can access Approve Volunteers
+    if (userRoleLevel >= roleHierarchy.secy) {
+      authenticatedLinks.push({ title: "Approve Volunteers", href: "/approve-volunteers" });
+    }
+
+    return authenticatedLinks;
+  };
+
+  const navLinks = getNavLinks();
+
+  const handleLogout = async () => {
+    await logout();
+    setIsMenuOpen(false);
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-white/95 backdrop-blur-md shadow-lg"
+        : "bg-white/80 backdrop-blur-sm"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -66,8 +105,8 @@ const ProjectNavbar = () => {
                 {title}
               </Link>
             ))}
-            
-            {user && (
+
+            {user ? (
               <div className="relative group">
                 <button className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md hover:shadow-lg transition-all">
                   {user.name?.charAt(0).toUpperCase() || 'U'}
@@ -90,6 +129,21 @@ const ProjectNavbar = () => {
                     Logout
                   </button>
                 </div>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link
+                  to="/login"
+                  className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-gradient-to-br from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
+                >
+                  Register
+                </Link>
               </div>
             )}
           </div>
@@ -127,8 +181,8 @@ const ProjectNavbar = () => {
                 {title}
               </Link>
             ))}
-            
-            {user && (
+
+            {user ? (
               <>
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex items-center space-x-3 mb-3">
@@ -149,15 +203,29 @@ const ProjectNavbar = () => {
                   Dashboard
                 </Link>
                 <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMenuOpen(false);
-                  }}
+                  onClick={handleLogout}
                   className="block w-full text-center bg-red-50 text-red-600 py-2 rounded-lg font-semibold"
                 >
                   Logout
                 </button>
               </>
+            ) : (
+              <div className="border-t border-gray-200 pt-3 space-y-2">
+                <Link
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-center text-gray-700 hover:text-purple-600 py-2 font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block bg-gradient-to-br from-purple-600 to-blue-600 text-white text-center py-2 rounded-lg font-semibold"
+                >
+                  Register
+                </Link>
+              </div>
             )}
           </div>
         </div>

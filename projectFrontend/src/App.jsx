@@ -1,10 +1,7 @@
 // src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-
-// Import components
-import ProjectHome from './pages/ProjectHome';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProjectHome from './pages/ProjectHome'
 import ProjectNavbar from './components/Navbar';
 import Resources from './pages/Resources';
 import Gallery from './pages/Gallery';
@@ -12,6 +9,7 @@ import Team from './pages/Team';
 import StudentDoubts from './pages/StudentDoubts';
 import VolunteerDoubts from './pages/VolunteerDoubts';
 import Dashboard from './pages/Dashboard';
+import ProjectDetail from './pages/ProjectDetail';
 import Curriculum from './pages/Curriculum';
 import CurriculumManage from './pages/CurriculumManage';
 import MarkAttendance from './pages/MarkAttendance';
@@ -24,153 +22,159 @@ import VolunteerRegister from './pages/VolunteerRegister';
 import Login from './pages/Login';
 import Register from './pages/Registration';
 import ProjectFooter from './components/Footer';
-
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
-  
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-  
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-};
-
-const AppRoutes = () => {
-  return (
-    <>
-      <ProjectNavbar />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<ProjectHome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/volunteer-register" element={<VolunteerRegister />} />
-        <Route path="/student-login" element={<StudentLogin />} />
-        
-        {/* Protected Routes */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/resources"
-          element={
-            <ProtectedRoute>
-              <Resources />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/gallery"
-          element={
-            <ProtectedRoute>
-              <Gallery />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/team"
-          element={
-            <ProtectedRoute>
-              <Team />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/student-doubts"
-          element={
-            <ProtectedRoute>
-              <StudentDoubts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/volunteer-doubts"
-          element={
-            <ProtectedRoute>
-              <VolunteerDoubts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/curriculum"
-          element={
-            <ProtectedRoute>
-              <Curriculum />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/curriculum-manage"
-          element={
-            <ProtectedRoute>
-              <CurriculumManage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/mark-attendance"
-          element={
-            <ProtectedRoute>
-              <MarkAttendance />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/verify-attendance"
-          element={
-            <ProtectedRoute>
-              <VerifyAttendance />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/students-data"
-          element={
-            <ProtectedRoute>
-              <StudentsData />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/add-student"
-          element={
-            <ProtectedRoute>
-              <AddStudent />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/approve-volunteers"
-          element={
-            <ProtectedRoute>
-              <ApproveVolunteers />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-      <ProjectFooter />
-    </>
-  );
-};
+import ProtectedRoute from './components/ProtectedRoute';
+import Unauthorized from './pages/Unauthorized';
+import RoleTester from './pages/RoleTester'; // REMOVE IN PRODUCTION
+import ProjectHomePage from './pages/ProjectHomePage';
+import { ProjectConfigProvider } from './context/ProjectConfigContext';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <AppRoutes />
-      </Router>
-    </AuthProvider>
+    <Router>
+      <ProjectConfigProvider>
+        <ProjectNavbar />
+        <div>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<ProjectHome />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/student-login" element={<StudentLogin />} />
+            <Route path="/volunteer-register" element={<VolunteerRegister />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/team" element={<Team />} />
+
+            {/* DEVELOPMENT ONLY - REMOVE IN PRODUCTION */}
+            <Route path="/test-roles" element={<RoleTester />} />
+
+            {/* Routes accessible by all authenticated users */}
+            <Route
+              path="/resources"
+              element={
+                <ProtectedRoute>
+                  <Resources />
+                </ProtectedRoute>
+              }
+            />
+
+
+            {/* Student Routes - Accessible by students and above */}
+            <Route
+              path="/doubts"
+              element={
+                <ProtectedRoute minRole="student">
+                  <StudentDoubts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/curriculum"
+              element={
+                <ProtectedRoute minRole="student">
+                  <Curriculum />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Volunteer Routes - Accessible by volunteers and above */}
+            <Route
+              path="/answer-doubts"
+              element={
+                <ProtectedRoute minRole="volunteer">
+                  <VolunteerDoubts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mark-attendance"
+              element={
+                <ProtectedRoute minRole="volunteer">
+                  <MarkAttendance />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute minRole="volunteer">
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/project/:projectId"
+              element={
+                <ProtectedRoute minRole="volunteer">
+                  <ProjectDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/curriculum-manage"
+              element={
+                <ProtectedRoute minRole="volunteer">
+                  <CurriculumManage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Exe Routes - Accessible by exe and above */}
+            <Route
+              path="/student-data"
+              element={
+                <ProtectedRoute minRole="exe">
+                  <StudentsData />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/verify-attendance"
+              element={
+                <ProtectedRoute minRole="exe">
+                  <VerifyAttendance />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Secy Routes - Accessible by secy and above */}
+            <Route
+              path="/add-student"
+              element={
+                <ProtectedRoute minRole="exe">
+                  <AddStudent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/approve-volunteers"
+              element={
+                <ProtectedRoute minRole="secy">
+                  <ApproveVolunteers />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Admin Routes - Accessible by admin only */}
+            {/* Add admin-specific routes here when needed */}
+            {/* Example:
+          <Route 
+            path="/admin-panel" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminPanel />
+              </ProtectedRoute>
+            } 
+          />
+          */}
+
+          </Routes>
+        </div>
+        <ProjectFooter />
+      </ProjectConfigProvider>
+    </Router>
   );
 };
 
 export default App;
+
