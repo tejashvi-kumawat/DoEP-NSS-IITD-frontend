@@ -1,6 +1,7 @@
 // src/context/AuthContext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authAPI, membersAPI, studentsAPI } from '../api/api';
+import { getProjectKeyFromSubdomain } from '../utils/projectConfig';
 
 export const AuthContext = createContext(null);
 
@@ -29,10 +30,12 @@ export const AuthProvider = ({ children }) => {
 
     const loginMember = async (kerberosid, password) => {
         try {
-            const data = await authAPI.loginMember(kerberosid, password);
+            const projectKey = getProjectKeyFromSubdomain();
+            const data = await authAPI.loginMember(kerberosid, password, projectKey);
             const userData = {
                 ...data,
-                userType: 'member'
+                userType: 'member',
+                projectKey: data.projectKey || projectKey,
             };
             setUser(userData);
             setIsAuthenticated(true);
@@ -49,10 +52,12 @@ export const AuthProvider = ({ children }) => {
 
     const loginStudent = async (email, password) => {
         try {
-            const data = await authAPI.loginStudent(email, password);
+            const projectKey = getProjectKeyFromSubdomain();
+            const data = await authAPI.loginStudent(email, password, projectKey);
             const userData = {
                 ...data,
-                userType: 'student'
+                userType: 'student',
+                projectKey: data.projectKey || projectKey,
             };
             setUser(userData);
             setIsAuthenticated(true);

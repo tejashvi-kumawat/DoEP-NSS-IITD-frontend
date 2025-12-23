@@ -63,11 +63,11 @@ const App = () => {
             />
 
 
-            {/* Student Routes - Accessible by students and above */}
+            {/* Student Routes */}
             <Route
               path="/doubts"
               element={
-                <ProtectedRoute minRole="student">
+                <ProtectedRoute allowedRoles={["student"]}>
                   <StudentDoubts />
                 </ProtectedRoute>
               }
@@ -75,7 +75,7 @@ const App = () => {
             <Route
               path="/curriculum"
               element={
-                <ProtectedRoute minRole="student">
+                <ProtectedRoute allowedRoles={["student"]}>
                   <Curriculum />
                 </ProtectedRoute>
               }
@@ -117,6 +117,16 @@ const App = () => {
               }
             />
 
+            <Route
+              path="/student/profile"
+              element={
+                <ProtectedRoute allowedRoles={["student"]}>
+                  <StudentPerformance />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Backward-compat path */}
             <Route
               path="/student/performance"
               element={

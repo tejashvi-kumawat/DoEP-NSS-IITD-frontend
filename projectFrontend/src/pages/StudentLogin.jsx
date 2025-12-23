@@ -1,6 +1,6 @@
 // src/pages/StudentLogin.jsx
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const UserIcon = ({ className }) => (
@@ -40,13 +40,17 @@ const StudentLogin = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { loginStudent, isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated || !user) return;
     const role = String(user.role || '').toLowerCase();
     if (role === 'student') {
-      navigate('/doubts', { replace: true });
+      const fromPath = location.state?.from?.pathname;
+      const fallback = '/student/profile';
+      const safeTarget = fromPath && !['/login', '/student-login'].includes(fromPath) ? fromPath : fallback;
+      navigate(safeTarget, { replace: true });
     }
   }, [isAuthenticated, user, navigate]);
 
@@ -57,7 +61,10 @@ const StudentLogin = () => {
     try {
       await loginStudent(email, password);
       // rememberMe is currently handled by backend cookie/token; keep for future.
-      navigate('/doubts');
+      const fromPath = location.state?.from?.pathname;
+      const fallback = '/student/profile';
+      const safeTarget = fromPath && !['/login', '/student-login'].includes(fromPath) ? fromPath : fallback;
+      navigate(safeTarget);
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials.');
     } finally {

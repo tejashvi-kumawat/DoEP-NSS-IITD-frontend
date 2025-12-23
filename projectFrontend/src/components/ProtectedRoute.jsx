@@ -50,8 +50,12 @@ const ProtectedRoute = ({
 
     // Check if authentication is required
     if (requireAuth && !isAuthenticated) {
-        const effectiveRedirectTo =
-            minRole && String(minRole).toLowerCase() === 'student' ? '/student-login' : redirectTo;
+        const normalizedAllowed = allowedRoles.map((r) => String(r).toLowerCase()).filter(Boolean);
+        const isStudentOnly =
+            (normalizedAllowed.length === 1 && normalizedAllowed[0] === 'student') ||
+            (minRole && String(minRole).toLowerCase() === 'student');
+
+        const effectiveRedirectTo = isStudentOnly ? '/student-login' : redirectTo;
         return <Navigate to={effectiveRedirectTo} state={{ from: location }} replace />;
     }
 

@@ -9,6 +9,8 @@ const Resources = () => {
   const projectKey = useMemo(() => getProjectKeyFromSubdomain(), []);
   const isStudent = role === 'student';
 
+  const [activeTab, setActiveTab] = useState(isStudent ? 'all' : 'all');
+
   const [viewerItems, setViewerItems] = useState([]);
   const [myItems, setMyItems] = useState([]);
   const [students, setStudents] = useState([]);
@@ -120,40 +122,92 @@ const Resources = () => {
     }
   };
 
-  const renderItems = (items) => {
+  const renderItems = (items, scopeFilter) => {
     if (loading) return <div className="py-8 text-gray-600">Loading…</div>;
-    if (!items || items.length === 0) return <div className="py-8 text-gray-600">No items.</div>;
+    if (!items || items.length === 0) return <div className="py-8 text-gray-600">No resources yet.</div>;
+
+    const groups = { general: [], grade: [], student: [] };
+
+    for (const it of items) {
+      const k = it?.scopeType === 'grade' ? 'grade' : it?.scopeType === 'student' ? 'student' : 'general';
+      groups[k].push(it);
+    }
+
+    const Group = ({ title, list }) => {
+      if (!list.length) return null;
+      return (
+        <div className="mt-5">
+          <div className="text-sm font-black text-gray-900">{title}</div>
+          <div className="mt-3 space-y-3">
+            {list.map((it) => {
+              const href = openUrl(it);
+              const scopeLabel =
+                it.scopeType === 'general' ? 'General' : it.scopeType === 'grade' ? `Class ${it.grade}` : 'Student';
+              const typeLabel = it.kind === 'link' ? 'Link' : 'File';
+              return (
+                <div key={it._id} className="rounded-xl border border-gray-200 bg-white p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-xs text-gray-500">{scopeLabel} • {typeLabel}</div>
+                      <div className="font-bold text-gray-900 mt-1">{it.title}</div>
+                    </div>
+                  </div>
+                  {it.description && (
+                    <div className="text-sm text-gray-700 mt-2 whitespace-pre-wrap">{it.description}</div>
+                  )}
+                  {href ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-block mt-3 px-4 py-2 rounded-lg font-semibold text-white"
+                      style={{ backgroundColor: 'var(--color-primary)' }}
+                    >
+                      Open
+                    </a>
+                  ) : (
+                    <div className="text-xs text-gray-400 mt-3">No attachment</div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    };
+
+    if (scopeFilter && scopeFilter !== 'all') {
+      const title = scopeFilter === 'general' ? 'General' : scopeFilter === 'grade' ? 'Class' : 'Student';
+      return (
+        <div>
+          <Group title={title} list={groups[scopeFilter] || []} />
+        </div>
+      );
+    }
 
     return (
-      <div className="mt-3 space-y-3">
-        {items.map((it) => {
-          const href = openUrl(it);
-          const scopeLabel =
-            it.scopeType === 'general' ? 'General' : it.scopeType === 'grade' ? `Class ${it.grade}` : 'Student';
-          return (
-            <div key={it._id} className="rounded-xl border border-gray-200 bg-white p-4">
-              <div className="text-xs text-gray-500">{scopeLabel}</div>
-              <div className="font-bold text-gray-900 mt-1">{it.title}</div>
-              {it.description && <div className="text-sm text-gray-700 mt-2 whitespace-pre-wrap">{it.description}</div>}
-              {href ? (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block mt-3 px-4 py-2 rounded-lg font-semibold text-white"
-                  style={{ backgroundColor: 'var(--color-primary)' }}
-                >
-                  Open
-                </a>
-              ) : (
-                <div className="text-xs text-gray-400 mt-3">No attachment</div>
-              )}
-            </div>
-          );
-        })}
+      <div>
+        <Group title="General" list={groups.general} />
+        <Group title="Class" list={groups.grade} />
+        <Group title="Student" list={groups.student} />
       </div>
     );
   };
+
+  const tabs = isStudent
+    ? [
+      { key: 'all', label: 'All' },
+      { key: 'general', label: 'General' },
+      { key: 'grade', label: 'Class' },
+      { key: 'student', label: 'Student' },
+    ]
+    : [
+      { key: 'all', label: 'All' },
+      { key: 'general', label: 'General' },
+      { key: 'grade', label: 'Class' },
+      { key: 'student', label: 'Student' },
+      { key: 'upload', label: 'Upload' },
+    ];
 
   return (
     <div className="min-h-screen pt-20 bg-gray-50">
@@ -172,7 +226,29 @@ const Resources = () => {
               <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">{error}</div>
             )}
 
-            {!isStudent && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {tabs.map((t) => {
+                const active = activeTab === t.key;
+                return (
+                  <button
+                    key={t.key}
+                    type="button"
+                    onClick={() => setActiveTab(t.key)}
+                    className={
+                      'px-4 py-2 rounded-full text-sm font-semibold border ' +
+                      (active
+                        ? 'text-white border-transparent'
+                        : 'bg-white text-gray-800 border-gray-200 hover:bg-gray-50')
+                    }
+                    style={active ? { backgroundColor: 'var(--color-primary)' } : undefined}
+                  >
+                    {t.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {!isStudent && activeTab === 'upload' && (
               <form onSubmit={onSubmit} className="rounded-xl border border-gray-200 p-4 mb-6">
                 <div className="text-sm font-black text-gray-900 mb-3">Upload resource</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -299,22 +375,7 @@ const Resources = () => {
               </form>
             )}
 
-            {isStudent && (
-              <div>
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-black text-gray-900">Assigned resources</h2>
-                  <div className="text-sm text-gray-600">Project: {projectKey}</div>
-                </div>
-                {renderItems(viewerItems)}
-              </div>
-            )}
-
-            {!isStudent && (
-              <div className="mt-8">
-                <h2 className="text-lg font-black text-gray-900">My uploads</h2>
-                {renderItems(myItems)}
-              </div>
-            )}
+            {isStudent ? renderItems(viewerItems, activeTab) : renderItems(myItems, activeTab === 'upload' ? 'all' : activeTab)}
           </div>
         </div>
       </div>

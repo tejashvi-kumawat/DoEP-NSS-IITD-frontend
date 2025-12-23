@@ -16,15 +16,6 @@ const ProjectNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Role hierarchy: student(1) → volunteer(2) → exe(3) → secy(4) → admin(5)
-  const roleHierarchy = {
-    student: 1,
-    volunteer: 2,
-    exe: 3,
-    secy: 4,
-    admin: 5,
-  };
-
   // Get navigation links based on user role
   const getNavLinks = () => {
     const publicLinks = [
@@ -46,7 +37,7 @@ const ProjectNavbar = () => {
 
     if (userRole === 'student') {
       links.push({ title: "Curriculum", href: "/curriculum" });
-      links.push({ title: "My Performance", href: "/student/performance" });
+      links.push({ title: "My Profile", href: "/student/profile" });
     }
 
     // Teaching is volunteer-only
@@ -61,6 +52,7 @@ const ProjectNavbar = () => {
     if (userRole === 'exe' || userRole === 'secy' || userRole === 'admin') {
       links.push({ title: "Curriculum Manage", href: "/curriculum-manage" });
       links.push({ title: "Schedule", href: "/leader/schedule" });
+      links.push({ title: "Add Students", href: "/add-student" });
     }
 
     return links;
@@ -166,7 +158,7 @@ const ProjectNavbar = () => {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="focus:outline-none"
+            className="focus:outline-none md:hidden"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (

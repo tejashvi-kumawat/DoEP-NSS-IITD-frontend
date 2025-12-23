@@ -1,6 +1,6 @@
 // src/pages/Login.jsx
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
@@ -10,16 +10,23 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { loginMember, isAuthenticated, user } = useAuth();
+
+  const getDefaultPathForRole = (role) => {
+    const r = String(role || '').toLowerCase();
+    if (r === 'admin' || r === 'secy' || r === 'exe') return '/leader/schedule';
+    if (r === 'volunteer') return '/availability';
+    return '/';
+  };
 
   useEffect(() => {
     if (!isAuthenticated || !user) return;
     const role = String(user.role || '').toLowerCase();
-    if (role === 'admin' || role === 'secy' || role === 'exe') {
-      navigate('/leader/schedule', { replace: true });
-    } else {
-      navigate('/availability', { replace: true });
-    }
+    const fromPath = location.state?.from?.pathname;
+    const fallback = getDefaultPathForRole(role);
+    const safeTarget = fromPath && !['/login', '/student-login'].includes(fromPath) ? fromPath : fallback;
+    navigate(safeTarget, { replace: true });
   }, [isAuthenticated, user, navigate]);
 
   const handleSubmit = async (e) => {
@@ -36,11 +43,10 @@ const Login = () => {
     try {
       const loggedIn = await loginMember(kerberosid, password);
       const role = String(loggedIn?.role || '').toLowerCase();
-      if (role === 'admin' || role === 'secy' || role === 'exe') {
-        navigate('/leader/schedule');
-      } else {
-        navigate('/availability');
-      }
+      const fromPath = location.state?.from?.pathname;
+      const fallback = getDefaultPathForRole(role);
+      const safeTarget = fromPath && !['/login', '/student-login'].includes(fromPath) ? fromPath : fallback;
+      navigate(safeTarget);
     } catch (err) {
       setError(err.message || "Login failed. Please check your credentials.");
     } finally {

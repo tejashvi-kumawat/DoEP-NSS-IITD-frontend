@@ -84,8 +84,8 @@ export const authAPI = {
    * @param {string} kerberosid - Kerberos ID
    * @param {string} password - User password
    */
-  loginMember: (kerberosid, password) => {
-    return apiClient.post('/auth/login', { kerberosid, password });
+  loginMember: (kerberosid, password, projectKey) => {
+    return apiClient.post('/auth/login', { kerberosid, password, projectKey });
   },
 
   /**
@@ -93,8 +93,8 @@ export const authAPI = {
    * @param {string} email - Student email
    * @param {string} password - Student password
    */
-  loginStudent: (email, password) => {
-    return apiClient.post('/auth/login/student', { email, password });
+  loginStudent: (email, password, projectKey) => {
+    return apiClient.post('/auth/login/student', { email, password, projectKey });
   },
 
   /**
