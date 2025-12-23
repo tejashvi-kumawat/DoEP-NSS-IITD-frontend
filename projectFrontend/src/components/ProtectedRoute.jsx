@@ -50,7 +50,9 @@ const ProtectedRoute = ({
 
     // Check if authentication is required
     if (requireAuth && !isAuthenticated) {
-        return <Navigate to={redirectTo} state={{ from: location }} replace />;
+        const effectiveRedirectTo =
+            minRole && String(minRole).toLowerCase() === 'student' ? '/student-login' : redirectTo;
+        return <Navigate to={effectiveRedirectTo} state={{ from: location }} replace />;
     }
 
     // If no role restrictions, allow access for authenticated users

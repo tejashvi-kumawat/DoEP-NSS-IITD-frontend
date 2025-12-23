@@ -1,5 +1,7 @@
 // src/pages/StudentLogin.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const UserIcon = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -30,20 +32,42 @@ const EyeOffIcon = ({ className }) => (
 );
 
 const StudentLogin = () => {
-  const [rollNumber, setRollNumber] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const { loginStudent, isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated || !user) return;
+    const role = String(user.role || '').toLowerCase();
+    if (role === 'student') {
+      navigate('/doubts', { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { rollNumber, password, rememberMe });
-    // Handle login logic here
+    setError('');
+    setLoading(true);
+    try {
+      await loginStudent(email, password);
+      // rememberMe is currently handled by backend cookie/token; keep for future.
+      navigate('/doubts');
+    } catch (err) {
+      setError(err.message || 'Login failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ backgroundColor: '#f0fdf4' }}>
-      
+
       <style>{`
         @keyframes float {
           0%, 100% { transform: translate(0, 0) rotate(0deg); }
@@ -63,14 +87,14 @@ const StudentLogin = () => {
       {/* Animated Background Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-64 h-64 rounded-full opacity-20 float-slow"
-             style={{ background: 'radial-gradient(circle, #22c55e, transparent)' }} />
+          style={{ background: 'radial-gradient(circle, #22c55e, transparent)' }} />
         <div className="absolute bottom-20 right-20 w-80 h-80 rounded-full opacity-15 float-slower"
-             style={{ background: 'radial-gradient(circle, #16a34a, transparent)' }} />
+          style={{ background: 'radial-gradient(circle, #16a34a, transparent)' }} />
         <div className="absolute top-1/2 left-1/2 w-72 h-72 rounded-full opacity-10"
-             style={{ 
-               background: 'radial-gradient(circle, #15803d, transparent)',
-               transform: 'translate(-50%, -50%)'
-             }} />
+          style={{
+            background: 'radial-gradient(circle, #15803d, transparent)',
+            transform: 'translate(-50%, -50%)'
+          }} />
       </div>
 
       {/* Login Card */}
@@ -87,20 +111,27 @@ const StudentLogin = () => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-8">
-            {/* Roll Number Input */}
+            {error && (
+              <div className="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
+
+            {/* Email Input */}
             <div className="mb-5">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Roll Number</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
               <div className="relative">
                 <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                   <UserIcon className="w-5 h-5 text-gray-400" />
                 </div>
                 <input
                   type="text"
-                  value={rollNumber}
-                  onChange={(e) => setRollNumber(e.target.value)}
-                  placeholder="Enter your roll number"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
                   className="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-green-500 transition-colors duration-300"
                   required
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -119,6 +150,7 @@ const StudentLogin = () => {
                   placeholder="Enter your password"
                   className="w-full pl-11 pr-11 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-green-500 transition-colors duration-300"
                   required
+                  disabled={loading}
                 />
                 <button
                   type="button"
@@ -149,10 +181,11 @@ const StudentLogin = () => {
             {/* Login Button */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full py-3.5 rounded-lg text-white font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)' }}
             >
-              Login
+              {loading ? 'Signing in…' : 'Login'}
             </button>
 
             {/* Divider */}
@@ -172,6 +205,12 @@ const StudentLogin = () => {
             >
               Register Now
             </a>
+
+            <div className="mt-4 text-center">
+              <Link to="/login" className="text-sm font-semibold text-green-700 hover:text-green-800">
+                Volunteer/Leader Login
+              </Link>
+            </div>
           </form>
         </div>
 

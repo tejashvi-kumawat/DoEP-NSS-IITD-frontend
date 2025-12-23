@@ -1,492 +1,326 @@
-// src/pages/CurriculumManage.jsx (UPDATED with File Upload)
-import React, { useEffect, useState, useRef } from 'react';
-import projectData from '../assets/data/projects.json';
-import curriculumData from '../assets/data/curriculum.json';
-
-const getProjectKeyFromSubdomain = () => {
-  const host = window.location.hostname;
-  if (host.includes('localhost')) {
-    return host.split('.')[0];
-  }
-  if (host.includes('nssiitd.in')) {
-    return host.split('.')[0];
-  }
-  return 'munirka';
-};
-
-const PlusIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <line x1="12" y1="5" x2="12" y2="19" />
-    <line x1="5" y1="12" x2="19" y2="12" />
-  </svg>
-);
-
-const EditIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-  </svg>
-);
-
-const TrashIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polyline points="3 6 5 6 21 6" />
-    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-  </svg>
-);
-
-const FileIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
-    <polyline points="13 2 13 9 20 9" />
-  </svg>
-);
-
-const SaveIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
-const UploadIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="17 8 12 3 7 8" />
-    <line x1="12" y1="3" x2="12" y2="15" />
-  </svg>
-);
+import React, { useEffect, useMemo, useState } from 'react';
+import { contentAPI } from '../api/api';
+import { useAuth } from '../context/AuthContext';
+import { getProjectKeyFromSubdomain } from '../utils/projectConfig';
 
 const CurriculumManage = () => {
-  const [project, setProject] = useState(null);
-  const [curriculum, setCurriculum] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [editingId, setEditingId] = useState(null);
-  const [addingResourceTo, setAddingResourceTo] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
-  
-  const fileInputRef = useRef(null);
-  
-  // Form states
-  const [newItem, setNewItem] = useState({ week: '', title: '', description: '' });
-  const [editItem, setEditItem] = useState(null);
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const { user } = useAuth();
+  const role = String(user?.role || '').toLowerCase();
+  const projectKey = useMemo(() => getProjectKeyFromSubdomain(), []);
+
+  const [students, setStudents] = useState([]);
+  const [myItems, setMyItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [academicYear, setAcademicYear] = useState('');
+  const [scopeType, setScopeType] = useState('general');
+  const [grade, setGrade] = useState('');
+  const [studentId, setStudentId] = useState('');
+  const [kind, setKind] = useState('file');
+  const [url, setUrl] = useState('');
+  const [file, setFile] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const load = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const [mineRes, studentsRes] = await Promise.all([
+        contentAPI.listMyItems({ contentType: 'curriculum', projectKey }),
+        contentAPI.listStudents({ projectKey }),
+      ]);
+      setMyItems(mineRes?.data || mineRes || []);
+      setStudents(studentsRes?.data || studentsRes || []);
+    } catch (e) {
+      setError(e?.message || 'Failed to load curriculum uploads');
+      setMyItems([]);
+      setStudents([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const key = getProjectKeyFromSubdomain();
-    const projectInfo = projectData[key];
-    setProject(projectInfo);
-    setCurriculum(curriculumData);
-
-    if (projectInfo?.theme) {
-      document.documentElement.style.setProperty('--theme-primary', projectInfo.theme.primary);
-      document.documentElement.style.setProperty('--theme-secondary', projectInfo.theme.secondary);
-    }
-
-    setTimeout(() => setIsLoaded(true), 50);
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleAddItem = () => {
-    if (!newItem.week || !newItem.title) {
-      alert('Please fill in all required fields');
-      return;
-    }
-    
-    const item = {
-      id: Date.now(),
-      ...newItem,
-      resources: []
-    };
-    
-    setCurriculum([...curriculum, item]);
-    setNewItem({ week: '', title: '', description: '' });
-    setShowAddForm(false);
+  const resetForm = () => {
+    setTitle('');
+    setDescription('');
+    setAcademicYear('');
+    setScopeType('general');
+    setGrade('');
+    setStudentId('');
+    setKind('file');
+    setUrl('');
+    setFile(null);
   };
 
-  const handleStartEdit = (item) => {
-    setEditingId(item.id);
-    setEditItem({ ...item });
+  const validate = () => {
+    if (!title.trim()) return 'Title is required';
+    if (!scopeType) return 'Scope is required';
+    if (scopeType === 'grade' && !String(grade).trim()) return 'Grade is required';
+    if (scopeType === 'student' && !studentId) return 'Student is required';
+    if (kind === 'link' && !url.trim()) return 'URL is required';
+    if (kind === 'file' && !file) return 'File is required';
+    return '';
   };
 
-  const handleSaveEdit = () => {
-    setCurriculum(curriculum.map(item => 
-      item.id === editingId ? editItem : item
-    ));
-    setEditingId(null);
-    setEditItem(null);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingId(null);
-    setEditItem(null);
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      setCurriculum(curriculum.filter(item => item.id !== id));
-    }
-  };
-
-  // File upload handlers
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setUploadedFile(file);
-    }
-  };
-
-  const handleDragOver = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setUploadedFile(file);
-    }
-  };
-
-  const handleAddResource = (itemId) => {
-    if (!uploadedFile) {
-      alert('Please upload a file first');
+    const v = validate();
+    if (v) {
+      setError(v);
       return;
     }
 
-    // Get file type from extension
-    const fileExt = uploadedFile.name.split('.').pop().toLowerCase();
-    let fileType = 'text';
-    if (['pdf'].includes(fileExt)) fileType = 'pdf';
-    else if (['jpg', 'jpeg', 'png', 'gif', 'svg'].includes(fileExt)) fileType = 'image';
-    else if (['mp4', 'avi', 'mov'].includes(fileExt)) fileType = 'video';
-
-    // In real app, you would upload to server here
-    // For now, creating a local URL
-    const fileUrl = URL.createObjectURL(uploadedFile);
-
-    const newResource = {
-      name: uploadedFile.name,
-      type: fileType,
-      url: fileUrl,
-      size: uploadedFile.size
-    };
-
-    setCurriculum(curriculum.map(item => {
-      if (item.id === itemId) {
-        return {
-          ...item,
-          resources: [...(item.resources || []), newResource]
-        };
-      }
-      return item;
-    }));
-
-    setUploadedFile(null);
-    setAddingResourceTo(null);
+    try {
+      setSubmitting(true);
+      setError('');
+      await contentAPI.uploadItem({
+        projectKey,
+        contentType: 'curriculum',
+        title: title.trim(),
+        description: description.trim(),
+        academicYear: academicYear.trim() || undefined,
+        scopeType,
+        grade: scopeType === 'grade' ? String(grade).trim() : undefined,
+        studentId: scopeType === 'student' ? studentId : undefined,
+        kind,
+        url: kind === 'link' ? url.trim() : undefined,
+        file: kind === 'file' ? file : undefined,
+      });
+      resetForm();
+      await load();
+    } catch (e2) {
+      setError(e2?.message || 'Upload failed');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const formatFileSize = (bytes) => {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  const openUrl = (item) => {
+    const base = import.meta.env.VITE_API_BASE_URL || '';
+    if (item?.kind === 'link') return item?.url || '';
+    if (item?.file?.path) return `${base}${item.file.path}`;
+    return '';
   };
 
-  if (!project) return null;
-
-  return (
-    <div className={`min-h-screen pt-14 transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-      
-      <style>{`
-        @keyframes gradientShift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        .animated-bg {
-          background: linear-gradient(135deg, 
-            ${project.theme.primary}08 0%,
-            ${project.theme.secondary}05 10%,
-            ${project.theme.primary}10 20%,
-            ${project.theme.secondary}08 30%,
-            ${project.theme.primary}06 40%,
-            ${project.theme.secondary}12 50%,
-            ${project.theme.primary}09 60%,
-            ${project.theme.secondary}07 70%,
-            ${project.theme.primary}11 80%,
-            ${project.theme.secondary}09 90%,
-            ${project.theme.primary}08 100%
-          );
-          background-size: 400% 400%;
-          animation: gradientShift 15s ease infinite;
-        }
-      `}</style>
-
-      <div className="animated-bg min-h-screen">
-        {/* Header */}
-        <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
-          <div className="container mx-auto max-w-5xl px-6 py-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-black text-gray-900 mb-2">Manage Curriculum</h1>
-                <p className="text-gray-600">{project.name}</p>
-              </div>
-              <button
-                onClick={() => setShowAddForm(!showAddForm)}
-                className="flex items-center gap-2 px-5 py-3 rounded-lg text-white font-bold transition-all duration-300 hover:shadow-lg hover:scale-105"
-                style={{ background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` }}
-              >
-                <PlusIcon className="w-5 h-5" />
-                Add Item
-              </button>
-            </div>
+  if (role === 'student') {
+    return (
+      <div className="min-h-screen pt-20 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="text-gray-900 font-bold">Not allowed</div>
+            <div className="text-gray-600 mt-2">Students can’t upload curriculum.</div>
           </div>
         </div>
+      </div>
+    );
+  }
 
-        <div className="container mx-auto max-w-5xl px-6 py-8">
-          {/* Add Form */}
-          {showAddForm && (
-            <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg p-6 mb-8 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Add Curriculum Item</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <input
-                  type="text"
-                  placeholder="Week (e.g., Week 1)"
-                  value={newItem.week}
-                  onChange={(e) => setNewItem({...newItem, week: e.target.value})}
-                  className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:border-transparent"
-                  style={{ '--tw-ring-color': project.theme.primary }}
-                />
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={newItem.title}
-                  onChange={(e) => setNewItem({...newItem, title: e.target.value})}
-                  className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:border-transparent"
-                  style={{ '--tw-ring-color': project.theme.primary }}
-                />
-              </div>
-              <textarea
-                placeholder="Description"
-                value={newItem.description}
-                onChange={(e) => setNewItem({...newItem, description: e.target.value})}
-                rows={3}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:border-transparent resize-none mb-4"
-                style={{ '--tw-ring-color': project.theme.primary }}
-              />
-              <div className="flex gap-3">
-                <button
-                  onClick={handleAddItem}
-                  className="px-6 py-3 rounded-lg text-white font-bold transition-all duration-300 hover:shadow-lg"
-                  style={{ background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` }}
-                >
-                  Save Item
-                </button>
-                <button
-                  onClick={() => setShowAddForm(false)}
-                  className="px-6 py-3 rounded-lg bg-gray-200 text-gray-700 font-bold hover:bg-gray-300 transition-all duration-300"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
+  return (
+    <div className="min-h-screen pt-20 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+          <div
+            className="px-6 py-6"
+            style={{ background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))` }}
+          >
+            <h1 className="text-2xl md:text-3xl font-black text-white">Curriculum Manage</h1>
+            <p className="text-white/90 mt-1">Upload curriculum for general / class / student.</p>
+          </div>
 
-          {/* Curriculum List */}
-          <div className="space-y-4">
-            {curriculum.map((item, index) => (
-              <div
-                key={item.id}
-                className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg overflow-hidden hover:border-gray-300 transition-all duration-300 shadow-md"
-              >
-                <div className="p-6">
-                  {editingId === item.id ? (
-                    // Edit Mode
-                    <>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <input
-                          type="text"
-                          value={editItem.week}
-                          onChange={(e) => setEditItem({...editItem, week: e.target.value})}
-                          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
-                          style={{ '--tw-ring-color': project.theme.primary }}
-                        />
-                        <input
-                          type="text"
-                          value={editItem.title}
-                          onChange={(e) => setEditItem({...editItem, title: e.target.value})}
-                          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
-                          style={{ '--tw-ring-color': project.theme.primary }}
-                        />
-                      </div>
-                      <textarea
-                        value={editItem.description}
-                        onChange={(e) => setEditItem({...editItem, description: e.target.value})}
-                        rows={3}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 resize-none mb-4"
-                        style={{ '--tw-ring-color': project.theme.primary }}
-                      />
-                      <div className="flex gap-2">
-                        <button
-                          onClick={handleSaveEdit}
-                          className="flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold text-sm"
-                          style={{ background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` }}
-                        >
-                          <SaveIcon className="w-4 h-4" />
-                          Save
-                        </button>
-                        <button
-                          onClick={handleCancelEdit}
-                          className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold text-sm"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    // View Mode
-                    <>
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div 
-                            className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold"
-                            style={{ background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` }}
-                          >
-                            {index + 1}
-                          </div>
-                          <div>
-                            <span 
-                              className="inline-block px-2.5 py-0.5 rounded text-xs font-bold text-white mb-1"
-                              style={{ backgroundColor: project.theme.primary }}
-                            >
-                              {item.week}
-                            </span>
-                            <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleStartEdit(item)}
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition-all duration-300"
-                          >
-                            <EditIcon className="w-5 h-5" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(item.id)}
-                            className="p-2 rounded-lg bg-red-100 hover:bg-red-200 text-red-600 transition-all duration-300"
-                          >
-                            <TrashIcon className="w-5 h-5" />
-                          </button>
-                        </div>
-                      </div>
+          <div className="p-6">
+            {error && (
+              <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">{error}</div>
+            )}
 
-                      <p className="text-gray-700 text-sm mb-4">{item.description}</p>
-
-                      {/* Resources */}
-                      {item.resources && item.resources.length > 0 && (
-                        <div className="border-t border-gray-200 pt-4">
-                          <p className="text-gray-500 text-xs font-semibold mb-3">RESOURCES ({item.resources.length})</p>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            {item.resources.map((resource, idx) => (
-                              <div key={idx} className="flex items-center gap-2 p-2 rounded bg-gray-50 border border-gray-200">
-                                <FileIcon className="w-4 h-4 text-gray-500" />
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-gray-900 text-sm truncate">{resource.name}</p>
-                                  <p className="text-gray-500 text-xs">{resource.type.toUpperCase()} • {formatFileSize(resource.size)}</p>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Add Resource Section with Drag & Drop */}
-                      {addingResourceTo === item.id ? (
-                        <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                          <h4 className="text-sm font-bold text-gray-900 mb-3">Upload Resource</h4>
-                          
-                          {/* Drag & Drop Zone */}
-                          <div
-                            onDragOver={handleDragOver}
-                            onDragLeave={handleDragLeave}
-                            onDrop={handleDrop}
-                            className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 cursor-pointer ${
-                              isDragging 
-                                ? 'border-current bg-opacity-10' 
-                                : 'border-gray-300 hover:border-gray-400'
-                            }`}
-                            style={isDragging ? { borderColor: project.theme.primary, backgroundColor: `${project.theme.primary}10` } : {}}
-                            onClick={() => fileInputRef.current?.click()}
-                          >
-                            <input
-                              ref={fileInputRef}
-                              type="file"
-                              onChange={handleFileSelect}
-                              className="hidden"
-                              accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.mp4,.avi"
-                            />
-                            
-                            {uploadedFile ? (
-                              <div className="space-y-2">
-                                <FileIcon className="w-12 h-12 mx-auto" style={{ color: project.theme.primary }} />
-                                <p className="text-sm font-semibold text-gray-900">{uploadedFile.name}</p>
-                                <p className="text-xs text-gray-500">{formatFileSize(uploadedFile.size)}</p>
-                              </div>
-                            ) : (
-                              <div className="space-y-2">
-                                <UploadIcon className="w-12 h-12 mx-auto text-gray-400" />
-                                <p className="text-sm font-semibold text-gray-700">
-                                  Drop file here or click to browse
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  PDF, Images, Videos, Documents
-                                </p>
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="flex gap-2 mt-4">
-                            <button
-                              onClick={() => handleAddResource(item.id)}
-                              disabled={!uploadedFile}
-                              className="px-4 py-2 rounded-lg text-white font-semibold text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                              style={{ background: `linear-gradient(135deg, ${project.theme.primary}, ${project.theme.secondary})` }}
-                            >
-                              Save Resource
-                            </button>
-                            <button
-                              onClick={() => {
-                                setAddingResourceTo(null);
-                                setUploadedFile(null);
-                              }}
-                              className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold text-sm"
-                            >
-                              Cancel
-                            </button>
-                          </div>
-                        </div>
-                      ) : (
-                        <button 
-                          onClick={() => setAddingResourceTo(item.id)}
-                          className="mt-4 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 transition-all duration-300"
-                        >
-                          <PlusIcon className="w-4 h-4" />
-                          Add Resource
-                        </button>
-                      )}
-                    </>
-                  )}
+            <form onSubmit={onSubmit} className="rounded-xl border border-gray-200 p-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700">Title</label>
+                  <input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                  />
                 </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700">Academic Year (optional)</label>
+                  <input
+                    value={academicYear}
+                    onChange={(e) => setAcademicYear(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                    placeholder="e.g. 2025-26"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-semibold text-gray-700">Description (optional)</label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                    rows={3}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700">Scope</label>
+                  <select
+                    value={scopeType}
+                    onChange={(e) => setScopeType(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                  >
+                    <option value="general">General</option>
+                    <option value="grade">Class (grade)</option>
+                    <option value="student">Student</option>
+                  </select>
+                </div>
+
+                {scopeType === 'grade' && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700">Grade</label>
+                    <input
+                      value={grade}
+                      onChange={(e) => setGrade(e.target.value)}
+                      className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                      placeholder="e.g. 5"
+                    />
+                  </div>
+                )}
+
+                {scopeType === 'student' && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700">Student</label>
+                    <select
+                      value={studentId}
+                      onChange={(e) => setStudentId(e.target.value)}
+                      className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                    >
+                      <option value="">Select a student</option>
+                      {students.map((s) => (
+                        <option key={s._id} value={s._id}>
+                          {s.name} ({s.grade})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700">Type</label>
+                  <select
+                    value={kind}
+                    onChange={(e) => setKind(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                  >
+                    <option value="file">File</option>
+                    <option value="link">Link</option>
+                  </select>
+                </div>
+
+                {kind === 'link' ? (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700">URL</label>
+                    <input
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                      className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                      placeholder="https://..."
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700">File</label>
+                    <input
+                      type="file"
+                      onChange={(e) => setFile(e.target.files?.[0] || null)}
+                      className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
+                    />
+                  </div>
+                )}
               </div>
-            ))}
+
+              <div className="mt-4 flex flex-col md:flex-row gap-3">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="px-4 py-2.5 rounded-lg font-semibold text-white disabled:opacity-60"
+                  style={{ backgroundColor: 'var(--color-primary)' }}
+                >
+                  {submitting ? 'Uploading…' : 'Upload'}
+                </button>
+                <button
+                  type="button"
+                  onClick={resetForm}
+                  className="px-4 py-2.5 rounded-lg font-semibold bg-gray-100 text-gray-800 hover:bg-gray-200"
+                >
+                  Clear
+                </button>
+                <button
+                  type="button"
+                  onClick={load}
+                  className="px-4 py-2.5 rounded-lg font-semibold bg-gray-100 text-gray-800 hover:bg-gray-200 md:ml-auto"
+                >
+                  Refresh
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-black text-gray-900">My uploads</h2>
+                <div className="text-sm text-gray-600">Project: {projectKey}</div>
+              </div>
+
+              {loading ? (
+                <div className="py-8 text-gray-600">Loading…</div>
+              ) : myItems.length === 0 ? (
+                <div className="py-8 text-gray-600">No uploads yet.</div>
+              ) : (
+                <div className="mt-3 space-y-3">
+                  {myItems.map((it) => {
+                    const href = openUrl(it);
+                    const scopeLabel =
+                      it.scopeType === 'general'
+                        ? 'General'
+                        : it.scopeType === 'grade'
+                          ? `Class ${it.grade}`
+                          : 'Student';
+                    return (
+                      <div key={it._id} className="rounded-xl border border-gray-200 p-4">
+                        <div className="text-xs text-gray-500">
+                          {scopeLabel}
+                          {it.academicYear ? ` • ${it.academicYear}` : ''}
+                        </div>
+                        <div className="font-bold text-gray-900 mt-1">{it.title}</div>
+                        {it.description && (
+                          <div className="text-sm text-gray-700 mt-2 whitespace-pre-wrap">{it.description}</div>
+                        )}
+                        {href && (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block mt-3 px-4 py-2 rounded-lg font-semibold text-white"
+                            style={{ backgroundColor: 'var(--color-primary)' }}
+                          >
+                            Open
+                          </a>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -12,9 +12,13 @@ import Dashboard from './pages/Dashboard';
 import ProjectDetail from './pages/ProjectDetail';
 import Curriculum from './pages/Curriculum';
 import CurriculumManage from './pages/CurriculumManage';
-import MarkAttendance from './pages/MarkAttendance';
+import MySessions from './pages/MySessions';
+import VolunteerAvailability from './pages/VolunteerAvailability';
+import LeaderSchedule from './pages/LeaderSchedule';
 import VerifyAttendance from './pages/VerifyAttendance';
 import StudentLogin from './pages/StudentLogin';
+import VolunteerPerformance from './pages/VolunteerPerformance';
+import StudentPerformance from './pages/StudentPerformance';
 import StudentsData from './pages/StudentData';
 import AddStudent from './pages/AddStudents';
 import ApproveVolunteers from './pages/ApproveVolunteers';
@@ -89,8 +93,44 @@ const App = () => {
             <Route
               path="/mark-attendance"
               element={
-                <ProtectedRoute minRole="volunteer">
-                  <MarkAttendance />
+                <ProtectedRoute allowedRoles={["volunteer"]}>
+                  <MySessions />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/availability"
+              element={
+                <ProtectedRoute allowedRoles={["volunteer"]}>
+                  <VolunteerAvailability />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/volunteer/performance"
+              element={
+                <ProtectedRoute allowedRoles={["volunteer"]}>
+                  <VolunteerPerformance />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/student/performance"
+              element={
+                <ProtectedRoute allowedRoles={["student"]}>
+                  <StudentPerformance />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/leader/schedule"
+              element={
+                <ProtectedRoute minRole="exe">
+                  <LeaderSchedule />
                 </ProtectedRoute>
               }
             />

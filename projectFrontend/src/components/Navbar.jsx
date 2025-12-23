@@ -36,36 +36,34 @@ const ProjectNavbar = () => {
     // If no user, show only public links
     if (!user) return publicLinks;
 
-    const userRoleLevel = roleHierarchy[user.role] || 0;
-    const authenticatedLinks = [...publicLinks];
+    const userRole = String(user.role || '').toLowerCase();
 
-    // All authenticated users can access Resources
-    authenticatedLinks.push({ title: "Resources", href: "/resources" });
+    // Keep only tabs created for the workflow in this chat.
+    const links = [...publicLinks];
 
-    // Student and above can access Doubts & Curriculum
-    if (userRoleLevel >= roleHierarchy.student) {
-      authenticatedLinks.push({ title: "Doubts", href: "/doubts" });
-      authenticatedLinks.push({ title: "Curriculum", href: "/curriculum" });
+    // Resources are visible to all authenticated users
+    links.push({ title: "Resources", href: "/resources" });
+
+    if (userRole === 'student') {
+      links.push({ title: "Curriculum", href: "/curriculum" });
+      links.push({ title: "My Performance", href: "/student/performance" });
     }
 
-    // Volunteer and above can access Answer Doubts, Mark Attendance
-    if (userRoleLevel >= roleHierarchy.volunteer) {
-      authenticatedLinks.push({ title: "Answer Doubts", href: "/answer-doubts" });
-      authenticatedLinks.push({ title: "Mark Attendance", href: "/mark-attendance" });
+    // Teaching is volunteer-only
+    if (userRole === 'volunteer') {
+      links.push({ title: "Curriculum Manage", href: "/curriculum-manage" });
+      links.push({ title: "Availability", href: "/availability" });
+      links.push({ title: "My Classes", href: "/mark-attendance" });
+      links.push({ title: "My Performance", href: "/volunteer/performance" });
     }
 
-    // Exe and above can access Student Data, Verify Attendance
-    if (userRoleLevel >= roleHierarchy.exe) {
-      authenticatedLinks.push({ title: "Student Data", href: "/student-data" });
-      authenticatedLinks.push({ title: "Verify Attendance", href: "/verify-attendance" });
+    // Exe+ only manages scheduling
+    if (userRole === 'exe' || userRole === 'secy' || userRole === 'admin') {
+      links.push({ title: "Curriculum Manage", href: "/curriculum-manage" });
+      links.push({ title: "Schedule", href: "/leader/schedule" });
     }
 
-    // Secy and above can access Approve Volunteers
-    if (userRoleLevel >= roleHierarchy.secy) {
-      authenticatedLinks.push({ title: "Approve Volunteers", href: "/approve-volunteers" });
-    }
-
-    return authenticatedLinks;
+    return links;
   };
 
   const navLinks = getNavLinks();
@@ -86,10 +84,21 @@ const ProjectNavbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo and Title */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center shadow-md"
+              style={{
+                background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
+              }}
+            >
               <span className="text-white font-bold text-lg">PF</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span
+              className="text-xl font-bold bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  'linear-gradient(90deg, var(--color-primary), var(--color-secondary))',
+              }}
+            >
               ProjectFrontend
             </span>
           </Link>
@@ -100,7 +109,10 @@ const ProjectNavbar = () => {
               <Link
                 key={href}
                 to={href}
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+                className="text-gray-700 font-medium transition-colors duration-200"
+                style={{
+                  // on hover tailwind can't use CSS vars; keep default and rely on underline via group hover
+                }}
               >
                 {title}
               </Link>
@@ -108,7 +120,13 @@ const ProjectNavbar = () => {
 
             {user ? (
               <div className="relative group">
-                <button className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md hover:shadow-lg transition-all">
+                <button
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold shadow-md hover:shadow-lg transition-all"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
+                  }}
+                >
                   {user.name?.charAt(0).toUpperCase() || 'U'}
                 </button>
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
@@ -116,12 +134,6 @@ const ProjectNavbar = () => {
                     <p className="text-sm font-semibold text-gray-900">{user.name}</p>
                     <p className="text-xs text-gray-500 capitalize">{user.role}</p>
                   </div>
-                  <Link
-                    to="/dashboard"
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Dashboard
-                  </Link>
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
@@ -140,7 +152,10 @@ const ProjectNavbar = () => {
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-gradient-to-br from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
+                  className="text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
+                  }}
                 >
                   Register
                 </Link>
@@ -186,7 +201,13 @@ const ProjectNavbar = () => {
               <>
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
+                      style={{
+                        background:
+                          'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
+                      }}
+                    >
                       {user.name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div>
@@ -195,13 +216,6 @@ const ProjectNavbar = () => {
                     </div>
                   </div>
                 </div>
-                <Link
-                  to="/dashboard"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block bg-purple-600 hover:bg-purple-700 text-white text-center py-2 rounded-lg font-semibold"
-                >
-                  Dashboard
-                </Link>
                 <button
                   onClick={handleLogout}
                   className="block w-full text-center bg-red-50 text-red-600 py-2 rounded-lg font-semibold"

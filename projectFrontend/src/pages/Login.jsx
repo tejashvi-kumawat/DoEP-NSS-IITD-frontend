@@ -1,6 +1,6 @@
 // src/pages/Login.jsx
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
@@ -8,13 +8,23 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const navigate = useNavigate();
-  const { loginMember } = useAuth();
+  const { loginMember, isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated || !user) return;
+    const role = String(user.role || '').toLowerCase();
+    if (role === 'admin' || role === 'secy' || role === 'exe') {
+      navigate('/leader/schedule', { replace: true });
+    } else {
+      navigate('/availability', { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!kerberosid || !password) {
       setError("Please enter both Kerberos ID and password.");
       return;
@@ -24,8 +34,13 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await loginMember(kerberosid, password);
-      navigate("/dashboard");
+      const loggedIn = await loginMember(kerberosid, password);
+      const role = String(loggedIn?.role || '').toLowerCase();
+      if (role === 'admin' || role === 'secy' || role === 'exe') {
+        navigate('/leader/schedule');
+      } else {
+        navigate('/availability');
+      }
     } catch (err) {
       setError(err.message || "Login failed. Please check your credentials.");
     } finally {
@@ -104,6 +119,12 @@ const Login = () => {
             >
               Join NSS
             </a>
+          </p>
+          <p className="text-sm text-gray-600 mt-2">
+            Are you a student?{' '}
+            <Link to="/student-login" className="text-blue-600 hover:text-blue-700 font-medium">
+              Student Login
+            </Link>
           </p>
         </div>
       </div>

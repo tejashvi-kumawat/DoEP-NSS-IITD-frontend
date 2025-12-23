@@ -427,6 +427,163 @@ export const doubtsAPI = {
 };
 
 // =============================================================================
+// TEACHING / SCHEDULING API (DoEP task 1)
+// =============================================================================
+
+export const teachingAPI = {
+  // Volunteer availability
+  setAvailability: ({ projectKey, dateKey, teachableGrades = [], notes = '' }) => {
+    return apiClient.post('/teaching/availability', {
+      projectKey,
+      dateKey,
+      teachableGrades,
+      notes,
+    });
+  },
+
+  getMyAvailability: (projectKey, fromDateKey) => {
+    const qs = new URLSearchParams({ projectKey, fromDateKey }).toString();
+    return apiClient.get(`/teaching/availability/my?${qs}`);
+  },
+
+  deleteAvailability: (availabilityId) => {
+    return apiClient.delete(`/teaching/availability/${availabilityId}`);
+  },
+
+  // Leader views
+  getStudents: (projectKey, { dateKey, unassignedOnly } = {}) => {
+    const params = { projectKey };
+    if (dateKey) params.dateKey = dateKey;
+    if (typeof unassignedOnly === 'boolean') params.unassignedOnly = String(unassignedOnly);
+    const qs = new URLSearchParams(params).toString();
+    return apiClient.get(`/teaching/students?${qs}`);
+  },
+
+  getSchedule: (projectKey, dateKey) => {
+    const qs = new URLSearchParams({ projectKey, dateKey }).toString();
+    return apiClient.get(`/teaching/schedule?${qs}`);
+  },
+
+  getAvailability: (projectKey, dateKey) => {
+    const qs = new URLSearchParams({ projectKey, dateKey }).toString();
+    return apiClient.get(`/teaching/availability?${qs}`);
+  },
+
+  createSchedule: ({ projectKey, dateKey, startTime, endTime }) => {
+    return apiClient.post('/teaching/schedule', { projectKey, dateKey, startTime, endTime });
+  },
+
+  createSession: ({ projectKey, dateKey, volunteerId, startTime, endTime }) => {
+    return apiClient.post('/teaching/sessions', { projectKey, dateKey, volunteerId, startTime, endTime });
+  },
+
+  updateSession: (sessionId, patch) => {
+    return apiClient.patch(`/teaching/sessions/${sessionId}`, patch);
+  },
+
+  // Volunteer sessions
+  getMySessions: ({ projectKey, dateKey } = {}) => {
+    const params = {};
+    if (projectKey) params.projectKey = projectKey;
+    if (dateKey) params.dateKey = dateKey;
+    const qs = new URLSearchParams(params).toString();
+    return apiClient.get(qs ? `/teaching/sessions/my?${qs}` : '/teaching/sessions/my');
+  },
+
+  checkIn: (sessionId) => {
+    return apiClient.post(`/teaching/sessions/${sessionId}/check-in`);
+  },
+
+  checkOut: (sessionId) => {
+    return apiClient.post(`/teaching/sessions/${sessionId}/check-out`);
+  },
+
+  // Reports
+  submitSessionReport: (sessionId, { summary, perStudentNotes } = {}) => {
+    return apiClient.post(`/teaching/sessions/${sessionId}/report`, { summary, perStudentNotes });
+  },
+
+  getStudentReports: (studentId, { projectKey, limit } = {}) => {
+    const params = {};
+    if (projectKey) params.projectKey = projectKey;
+    if (limit) params.limit = String(limit);
+    const qs = new URLSearchParams(params).toString();
+    return apiClient.get(qs ? `/teaching/reports/student/${studentId}?${qs}` : `/teaching/reports/student/${studentId}`);
+  },
+
+  // Performance
+  getVolunteerPerformance: ({ projectKey, limit } = {}) => {
+    const params = {};
+    if (projectKey) params.projectKey = projectKey;
+    if (limit) params.limit = String(limit);
+    const qs = new URLSearchParams(params).toString();
+    return apiClient.get(qs ? `/teaching/performance/volunteer/me?${qs}` : '/teaching/performance/volunteer/me');
+  },
+
+  getStudentPerformance: ({ projectKey, limit } = {}) => {
+    const params = {};
+    if (projectKey) params.projectKey = projectKey;
+    if (limit) params.limit = String(limit);
+    const qs = new URLSearchParams(params).toString();
+    return apiClient.get(qs ? `/teaching/performance/student/me?${qs}` : '/teaching/performance/student/me');
+  },
+};
+
+// =============================================================================
+// CONTENT (CURRICULUM + RESOURCES)
+// =============================================================================
+
+export const contentAPI = {
+  listStudents: ({ projectKey } = {}) => {
+    const qs = new URLSearchParams({ projectKey: projectKey || '' }).toString();
+    return apiClient.get(`/content/students?${qs}`);
+  },
+
+  listItemsForViewer: ({ contentType, projectKey }) => {
+    const params = { contentType };
+    if (projectKey) params.projectKey = projectKey;
+    const qs = new URLSearchParams(params).toString();
+    return apiClient.get(`/content/items?${qs}`);
+  },
+
+  listMyItems: ({ contentType, projectKey }) => {
+    const qs = new URLSearchParams({ contentType, projectKey }).toString();
+    return apiClient.get(`/content/items/mine?${qs}`);
+  },
+
+  uploadItem: async ({
+    contentType,
+    projectKey,
+    scopeType,
+    grade,
+    studentId,
+    academicYear,
+    title,
+    description,
+    kind,
+    url,
+    file,
+  }) => {
+    const form = new FormData();
+    form.append('contentType', contentType);
+    form.append('projectKey', projectKey);
+    form.append('scopeType', scopeType);
+    if (grade !== null && grade !== undefined && grade !== '') form.append('grade', String(grade));
+    if (studentId) form.append('studentId', studentId);
+    if (academicYear) form.append('academicYear', academicYear);
+    form.append('title', title);
+    if (description) form.append('description', description);
+    form.append('kind', kind);
+    if (kind === 'link') form.append('url', url || '');
+    if (kind === 'file' && file) form.append('file', file);
+
+    return apiClient.post('/content/items', form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+};
+
+// =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
 
@@ -471,6 +628,8 @@ export default {
   projects: projectsAPI,
   projectConfig: projectConfigAPI,
   doubts: doubtsAPI,
+  teaching: teachingAPI,
+  content: contentAPI,
   checkAuth,
   handleAPIError,
 };
